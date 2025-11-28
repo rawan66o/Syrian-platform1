@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const ForgetPassword = () => {
   return (
-      <div className='flex items-center justify-center flex-col gap-3 w-1/2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+      <div className=' flex items-center justify-center flex-col gap-3 w-1/2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
         
         <h3 className='text-3xl font-bold'>هل نسيت كلمة المرور الخاصة بك؟</h3>
         <p className='text-gray-500 font-semibold'>

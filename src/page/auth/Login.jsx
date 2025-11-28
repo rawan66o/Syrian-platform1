@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const Login = () => {
   return (
-    <div className='flex items-center justify-center flex-col gap-3 my-24 w-1/2 mx-auto'>
+    <div className=' flex items-center justify-center flex-col gap-3 my-24 w-1/2 mx-auto'>
          <h3 className='text-3xl font-bold '>تسجيل دخول</h3>
          <p className='text-gray-500 font-semibold' >ليس لديك حساب على المنصة السورية؟           <Link to="/signup"><span className='text-babyBlue'>انشاء حساب</span></Link>
 </p>

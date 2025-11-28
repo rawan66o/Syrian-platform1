@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@theme{
+    --color-babyBlue:#6dcde5;
+    --color-darkBlue:#306B89;
+    --color-blackBlue: #04181C;
+      --font-cairo: "Cairo", sans-serif;
+
+}
+
+
+.radio-lbl{
+  position: relative;
+}
+
+.radio-lbl::before{
+  content: "";
+    width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px dotted var(--color-babyBlue);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+}
+
+.radio-inp[type="radio"]:checked + label::after{
+    content: "✔";
+  position: absolute;
+  right: 0%;           /* يمين */
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: white;
+  background-color: green;     /* أزرق */
+  font-weight: bold;
+
+}
+
+.radio-inp[type="radio"]{
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.bg-multi-gradient {
+  background: linear-gradient(
+    120deg,          /* الميلان */
+    rgba(140, 199, 240, 0.7) 0%,     /* أزرق شفاف */
+    rgba(146, 226, 202, 0.7) 25%,    /* أخضر شفاف */
+    rgba(140, 199, 240, 0.7) 50%,    /* أزرق شفاف */
+    rgba(146, 226, 202, 0.7) 75%,    /* أخضر شفاف */
+    rgba(140, 199, 240, 0.7) 100%    /* أزرق شفاف */
+  );
+}
