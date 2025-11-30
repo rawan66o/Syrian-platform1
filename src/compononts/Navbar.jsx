@@ -114,7 +114,7 @@ const Navbar = () => {
               }}
             >
               <Badge badgeContent={4} color="error">
-                <NotificationsIcon />
+                <NotificationsIcon fontSize='small' />
               </Badge>
             </IconButton>
             
@@ -125,7 +125,7 @@ const Navbar = () => {
                 '&:hover': { backgroundColor: '#eeeeee' }
               }}
             >
-              <LanguageIcon />
+              <LanguageIcon fontSize='small' />
             </IconButton>
           </Box>
 

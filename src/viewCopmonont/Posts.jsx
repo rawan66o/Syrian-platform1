@@ -1,17 +1,17 @@
 import '../styles/style2.css'
 import { ThemeProvider } from '@mui/material/styles';
 
-import Footer from '../componont/Footer';
-import Navbar from '../componont/Navbar';
-import LatestProjects from "../componont/LatestProjects";
+import Footer from '../compononts/Footer';
+import Navbar from '../compononts/Navbar';
+import LatestProjects from "../compononts/LatestProjects";
 import { volunteers, commentsData } from './Data'
 // IMPORTS MUI
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import appTheme from '../appTeme';
-import Comment from '../componont/Comment';
-import Volunteer from '../componont/Volunteer';
+import Comment from '../compononts/Comment';
+import Volunteer from '../compononts/Volunteer';
 import { useState } from 'react';
 
 

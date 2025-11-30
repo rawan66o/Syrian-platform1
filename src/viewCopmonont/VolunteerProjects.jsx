@@ -2,13 +2,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Container, Box, IconButton } from '@mui/material';
 import { useState } from 'react';
 
-import Navbar from "../componont/Navbar";
+import Navbar from "../compononts/Navbar";
 import appTheme from '../appTeme';
-import Footer from '../componont/Footer';
-import Header from '../componont/Header';
-import CardProject from '../componont/CardProject';
-import CategoriesProject from '../componont/CategoriesProject';
-import LatestProjects from '../componont/LatestProjects';
+import Footer from '../compononts/Footer';
+import Header from '../compononts/Header';
+import CardProject from '../compononts/CardProject';
+import CategoriesProject from '../compononts/CategoriesProject';
+import LatestProjects from '../compononts/LatestProjects';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -180,10 +180,10 @@ function VolunteerProjects() {
   return(
     <ThemeProvider theme={appTheme}>
       <Navbar />
-      <div>
+      <div style={{direction:'rtl'}}>
         <Header/>
         <Container maxWidth='xl' sx={{mt:4}}>
-          <div style={{
+          <div style={{ 
             display: 'flex',
             gap: '40px',
             paddingBottom:'200px',

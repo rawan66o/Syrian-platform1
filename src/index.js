@@ -15,8 +15,8 @@ root.render(
       <Routes>
         <Route element={<VolunteerProjects />}>
           <Route path='/' element={<App />} />
-          <Route path='velunteer projects' element={<VolunteerProjects />} />
-          <Route path='posts projects' element={<Posts />} />
+          <Route path='/velunteer projects' element={<VolunteerProjects />} />
+          <Route path='/posts projects' element={<Posts />} />
           <Route path='/fom' element={<ApplicationForMembership />} />
         </Route>
       </Routes>
