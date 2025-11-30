@@ -1,6 +1,5 @@
 import { Avatar, Typography, Box, Button, Collapse } from "@mui/material";
 import { useState } from 'react';
-import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 
 function ReplyItem({ reply }) {
   return (

@@ -1,10 +1,11 @@
-import { Box, Container, Grid, Typography, Link, Divider, Stack, IconButton } from '@mui/material'
-
+import { Box, Container, Grid, Typography, Link, Divider, Stack, IconButton, ThemeProvider } from '@mui/material'
+import appTeme from '../appTeme'
 const Footer = () => {
   return (
+    <ThemeProvider theme={appTeme} >
     <Box 
       sx={{ 
-        backgroundColor: '#1a237e', // primary.dark
+        backgroundColor: '#04181C', // primary.dark
         color: 'white',
         py: 6,
         direction: 'rtl'
@@ -14,20 +15,21 @@ const Footer = () => {
         {/* المحتوى الرئيسي */}
         <Grid container spacing={4} justifyContent="space-between">
           {/* العمود الأول - الشعار والوصف */}
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={6} lg={4}>
+            <Box sx={{width:'352px'}}>
             <Box 
               component="img"
               src="/images/logo/spLogo12.png"
               alt="شعار المنصة السورية"
               sx={{
-                width: '50%',
-                height: 96,
-                my: 2
+                width: '162px',
+                height: '62px',
               }}
             />
             <Typography sx={{ fontWeight: 500 }}>
               المنصة السورية التعليمية هي بوابة رقمية شاملة تهدف لتجميع بين التقنيات الحديثة والمحتوى المحلي لتسهيل الوصول الى المعرفة في اي وقت ومكان
             </Typography>
+            </Box>
           </Grid>
 
           {/* العمود الثاني - الرئيسية */}
@@ -41,7 +43,6 @@ const Footer = () => {
                 height: '3px',
                 background: 'linear-gradient(to left, #42a5f5, #1565c0)',
                 borderRadius: '9999px',
-                my: 1
               }}
             />
             <Stack spacing={1}>
@@ -73,7 +74,6 @@ const Footer = () => {
                 height: '3px',
                 background: 'linear-gradient(to left, #42a5f5, #1565c0)',
                 borderRadius: '9999px',
-                my: 1
               }}
             />
             <Stack spacing={1}>
@@ -178,6 +178,7 @@ const Footer = () => {
         </Box>
       </Container>
     </Box>
+    </ThemeProvider>
   )
 }
 

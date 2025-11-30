@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material';
 import appTheme from '../appTeme';
 import Navbar from '../componont/Navbar';
 import '../styles/style3.css'
