@@ -5,7 +5,7 @@ import CourseDetailsNavBar from "../components/course-details-components/course-
 const Layout = () => {
 
     return <div className="pages_styles">
-        {/* <NavBar /> */}
+        {/* <NavBar /> */}.
         <CourseDetailsNavBar />
         <Outlet />
     </div>

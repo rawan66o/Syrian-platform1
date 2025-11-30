@@ -1,9 +1,10 @@
+import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className='main_page'>
-      <h1>SYRIAN PLATFORM</h1>
+    <div className="App">
+ <h1>Welcome to the Homepage</h1>
     </div>
   );
 }
