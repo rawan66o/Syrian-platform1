@@ -12,6 +12,8 @@ import CourseMarks from './pages/courses/course-marks/course-marks';
 import CourseCertificateRequirements from './pages/courses/course-certificate-requirements/course-certificate-requirements';
 import CourseFinished from './pages/courses/course-finished/course-finished';
 import RateCourseAndTrainer from './pages/courses/rate-course-and-trainer/rate-course-and-trainer';
+import CourseLessons from './pages/courses/course-lesson/course-lesson';
+import Courses from './pages/courses/courses/courses';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +22,7 @@ root.render(
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<App />} />
+          <Route path='courses' element={<Courses />} />
           <Route path='courses/:courseId' element={<CourseDetails />} />
           <Route path='courses/:courseId/course-test' element={<CourseTest />} />
           <Route path='courses/:courseId/test-result' element={<TestResultsPage />} />
@@ -27,6 +30,7 @@ root.render(
           <Route path='courses/:courseId/certificate-requirements' element={<CourseCertificateRequirements />} />
           <Route path='courses/:courseId/course-finished' element={<CourseFinished />} />
           <Route path='courses/:courseId/rate-course-and-trainer' element={<RateCourseAndTrainer />} />
+          <Route path='courses/:courseId/course-lesson' element={<CourseLessons />} />
         </Route>
       </Routes>
     </BrowserRouter>
