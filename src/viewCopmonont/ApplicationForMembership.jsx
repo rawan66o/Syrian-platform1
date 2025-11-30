@@ -1,5 +1,5 @@
 import appTheme from '../appTeme';
-import Navbar from '../compononts/Navbar';
+import Navbar from '../components/volunteer-projects/Navbar';
 import '../styles/style3.css'
 import { ThemeProvider } from '@mui/material/styles';
 

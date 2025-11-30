@@ -2,13 +2,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Container, Box, IconButton } from '@mui/material';
 import { useState } from 'react';
 
-import Navbar from "../compononts/Navbar";
+import Navbar from "../components/volunteer-projects/Navbar";
 import appTheme from '../appTeme';
-import Footer from '../compononts/Footer';
-import Header from '../compononts/Header';
-import CardProject from '../compononts/CardProject';
-import CategoriesProject from '../compononts/CategoriesProject';
-import LatestProjects from '../compononts/LatestProjects';
+import Footer from '../components/volunteer-projects/Footer';
+import Header from '../components/volunteer-projects/Header';
+import CardProject from '../components/volunteer-projects/CardProject';
+import CategoriesProject from '../components/volunteer-projects/CategoriesProject';
+import LatestProjects from '../components/volunteer-projects/LatestProjects';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -189,6 +189,20 @@ function VolunteerProjects() {
             paddingBottom:'200px',
             flexDirection: {xs:'column', lg:'row'}
           }}>
+
+            {/* قسم التصنيفات */}
+            <div style={{
+              display:'flex',
+              flexDirection:'column',
+              gap:'32px',
+              width: '356px',
+              position: 'sticky',
+              top: '100px',
+              flexShrink: 0
+            }}>
+              <CategoriesProject />
+              <LatestProjects />
+            </div>
             
             {/* قسم الكاردات بتخطيط Masonry */}
             <div style={{ 
@@ -265,20 +279,6 @@ function VolunteerProjects() {
                   <KeyboardArrowRightOutlinedIcon color='#072127'/>
                 </IconButton>
               </div>
-            </div>
-
-            {/* قسم التصنيفات */}
-            <div style={{
-              display:'flex',
-              flexDirection:'column',
-              gap:'32px',
-              width: '356px',
-              position: 'sticky',
-              top: '100px',
-              flexShrink: 0
-            }}>
-              <CategoriesProject />
-              <LatestProjects />
             </div>
             
           </div>
