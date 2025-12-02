@@ -56,6 +56,7 @@ const Navbar = () => {
         color: 'black',
         boxShadow: 'none',
         borderBottom: '1px solid #e0e0e0',
+        padding:'5px 100px',
         direction: 'rtl'
       }}
     >
@@ -80,16 +81,14 @@ const Navbar = () => {
           {/* القائمة - تظهر فقط في الشاشات الكبيرة */}
           <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: 3 }}>
             {menuItems.map((item) => (
-              <Typography
+              <Typography variant='h6'
                 key={item}
                 sx={{
                   cursor: 'pointer',
-                  fontWeight: 500,
+                  color:'#70798B',
                   '&:hover': {
-                    color: 'primary.main',
+                    color: '#6f7a91ff',
                   },
-                  px: 1,
-                  py: 0.5
                 }}
               >
                 {item}
@@ -97,11 +96,49 @@ const Navbar = () => {
             ))}
           </Box>
         </Box>
-
+        <Box sx={{
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          width: 'fit-content'
+        }}>
+          <input 
+            placeholder='البحث' 
+            type='search'
+            style={{
+              borderRadius: '62px',  width: '271px', 
+              height: '44px', background: '#F7F7F7',
+              border: '0px solid #E0E0E0',   
+              padding: '0 50px 0 20px', 
+              fontSize: '16px',
+              outline: 'none',
+              direction: 'rtl', // للنص العربي
+              boxSizing: 'border-box' // مهم لتجنب مشاكل العرض
+            }}
+            onFocus={(e) => {
+              e.target.style.border = '0px'; // تأثير عند التركيز
+            }}
+            onBlur={(e) => {
+              e.target.style.border = '0px solid #E0E0E0';
+            }}
+          />
+          <img 
+            src='/icons/search_icon/search_normal.svg' 
+            alt='بحث' // وصف بديل مهم للوصول
+            style={{
+              width: '24px',
+              height: '24px',
+              position: 'absolute',
+              right: '15px', // مكان الأيقونة داخل الحقل
+              pointerEvents: 'none' // لجعل النقر يمر للحقل لا للأيقونة
+            }}
+          />
+        </Box>
         {/* الجزء الأيمن - الإشعارات والملف الشخصي */}
         <Box sx={{ 
           display: { xs: 'none', lg: 'flex' }, 
           alignItems: 'center', 
+          // justifyContent:'end',
           gap: 2 
         }}>
           {/* الإشعارات واللغة */}

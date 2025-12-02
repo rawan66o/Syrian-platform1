@@ -1,4 +1,4 @@
-import '../styles/LatestProjects.css'
+import '../../styles/LatestProjects.css'
 
 function Cardd({post,imag}) {
     return(

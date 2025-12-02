@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/MobileNav.css'
+import '../../styles/MobileNav.css'
 
 const MobileNav = ({ onClose }) => {
   const menuItems = ['الرئيسية', 'الكورسات', 'المنتدى', 'المشاريع', 'اتصل بنا']

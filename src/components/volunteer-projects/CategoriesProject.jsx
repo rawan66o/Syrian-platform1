@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import '../styles/CategoriesProject.css'; // سننشئ ملف CSS منفصل
+import '../../styles/CategoriesProject.css'; // سننشئ ملف CSS منفصل
 
 function CategoriesProject() {
   const categories = [

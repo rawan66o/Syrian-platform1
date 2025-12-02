@@ -1,7 +1,7 @@
-import '../styles/style2.css'
+import '../styles/Posts.css'
 import { ThemeProvider } from '@mui/material/styles';
 
-import Footer from '../components/volunteer-projects/Footer';
+import Footer from '../components/footer/footer'
 import Navbar from '../components/volunteer-projects/Navbar';
 import LatestProjects from "../components/volunteer-projects/LatestProjects";
 import { volunteers, commentsData } from './Data'

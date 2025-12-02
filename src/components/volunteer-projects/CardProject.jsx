@@ -1,4 +1,4 @@
-import '../styles/style1.css'
+import '../../styles/VolunteerProjects.css'
 import { Avatar, AvatarGroup, Button, Typography } from "@mui/material";
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';

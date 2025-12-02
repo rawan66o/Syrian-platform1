@@ -1,10 +1,9 @@
+import { useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { Container, Box, IconButton } from '@mui/material';
-import { useState } from 'react';
-
 import Navbar from "../components/volunteer-projects/Navbar";
 import appTheme from '../appTeme';
-import Footer from '../components/volunteer-projects/Footer';
+import Footer from '../components/footer/footer'
 import Header from '../components/volunteer-projects/Header';
 import CardProject from '../components/volunteer-projects/CardProject';
 import CategoriesProject from '../components/volunteer-projects/CategoriesProject';
