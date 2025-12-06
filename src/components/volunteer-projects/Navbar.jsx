@@ -189,7 +189,7 @@ const Navbar = () => {
                 height: 32
               }}
             />
-            <Typography sx={{ fontWeight: 500 }}>
+            <Typography sx={{ fontWeight: 500, background:'#ffff' }}>
               المدربة ريم فالح
             </Typography>
           </Box>

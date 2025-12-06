@@ -19,6 +19,7 @@
 
 .header {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -29,6 +30,17 @@
 .header h1 {
   color: #000000; /* Add color for the header title */
   font-size: 32px; /* Adjust size as needed */
+  text-align: center;
+}
+
+.header p {
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #708387;
 }
 
 .layout-Guide {
@@ -79,4 +91,24 @@
   border: 1px solid #D9E4E5;
   rotate: 180deg;
   overflow: hidden;
+}
+
+table {
+  gap: 30px;
+  width: 100%;
+  top: 307px;
+  left: 120px;
+}
+
+tr {
+  width: 300px;
+  height: 137px;
+  gap: 10px;
+  top: 307px;
+  left: 120px;
+  border: 1px solid #D9E4E5BF;
+}
+
+td {
+  border: 1px solid #D9E4E5BF;
 }
