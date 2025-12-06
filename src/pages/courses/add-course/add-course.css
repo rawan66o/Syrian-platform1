@@ -1,4 +1,25 @@
-.bottom_bar {
+.add_course_page {
+  position: static;
+}
+
+.add_course_page_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 32px;
+  width: 700px;
+  min-width: 700px;
+  margin: auto;
+  margin-bottom: 200px;
+}
+.add_course_bottom_bar_container {
+  position: static;
+  width: 100%;
+  z-index: 1000;
+  display: block;
+}
+.add_course_bottom_bar {
   position: relative;
   bottom: 0;
   width: 99.5vw;
@@ -13,7 +34,7 @@
   gap: 20px;
   background-color: #fff;
 }
-.next {
+.add_course_bottom_bar_next {
   width: 396px;
   height: 56px;
   border-radius: 100px;
@@ -28,7 +49,7 @@
   border: none;
   cursor: pointer;
 }
-.previous {
+.add_course_bottom_bar_previous {
   width: 146px;
   height: 56px;
   border-radius: 100px;

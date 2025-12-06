@@ -14,6 +14,12 @@ import CourseFinished from './pages/courses/course-finished/course-finished';
 import RateCourseAndTrainer from './pages/courses/rate-course-and-trainer/rate-course-and-trainer';
 import CourseLessons from './pages/courses/course-lesson/course-lesson';
 import Courses from './pages/courses/courses/courses';
+import AddCourse from './pages/courses/add-course/add-course';
+import AddPost from './pages/posts/add-post/add-post';
+import Register from './pages/auth/register/register';
+import Login from './pages/auth/login/login';
+import ForgotPassword from './pages/auth/forgotpassword/forgot-password';
+import NewPassword from './pages/auth/newpassword/new-password';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +28,10 @@ root.render(
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<App />} />
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          <Route path='forgot-password' element={<ForgotPassword />} />
+          <Route path='new-password' element={<NewPassword />} />
           <Route path='courses' element={<Courses />} />
           <Route path='courses/:courseId' element={<CourseDetails />} />
           <Route path='courses/:courseId/course-test' element={<CourseTest />} />
@@ -31,6 +41,8 @@ root.render(
           <Route path='courses/:courseId/course-finished' element={<CourseFinished />} />
           <Route path='courses/:courseId/rate-course-and-trainer' element={<RateCourseAndTrainer />} />
           <Route path='courses/:courseId/course-lesson' element={<CourseLessons />} />
+          <Route path='add-course' element={<AddCourse />} />
+          <Route path='add-post' element={<AddPost />} />
         </Route>
       </Routes>
     </BrowserRouter>
