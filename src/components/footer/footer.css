@@ -11,6 +11,7 @@
   flex-direction: column;
   justify-content: flex-start;
   gap: 40px;
+  bottom: 0;
 }
 .footer_content {
   display: flex;
