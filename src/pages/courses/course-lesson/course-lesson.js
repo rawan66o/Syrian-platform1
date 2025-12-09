@@ -4,6 +4,7 @@ import CirculStyleBig from "../../../components/course-path-components/circul-st
 import WasHelpfulFeedBack from "../../../components/course-path-components/was-helpful-feedback/was-helpful-feedback";
 import VideoLesson from "../../../components/course-lesson-components/video-lesson/video-lesson";
 import PdfLesson from "../../../components/course-lesson-components/pdf-lesson/pdf-lesson";
+import BottomBar from "../../../components/course-path-components/bottom-bar/bottom-bar";
 
 const CourseLessons = () => {
     const courseInfo = {
@@ -90,6 +91,7 @@ const CourseLessons = () => {
     return <div className="course_lessons_page">
         <ProgressBar course={courseInfo} />
         {lesson}
+        <BottomBar />
     </div>
 };
 export default CourseLessons;
