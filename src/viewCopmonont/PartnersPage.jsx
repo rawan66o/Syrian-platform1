@@ -60,26 +60,26 @@ function Partners() {
               {rows.map((row, rowIndex) => (
                 <tr key={rowIndex}>
                   {row.map((partner, colIndex) => (
-                      <td 
-                        key={colIndex} 
-                        align="center" 
-                        valign="middle"
-                        // onMouseEnter={(e) => {
-                        //     e.currentTarget.style.backgroundColor = '#e3f2fd';
-                        //     e.currentTarget.style.transform = 'translateY(-5px)';
-                        //     e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-                        // }}
-                        // onMouseLeave={(e) => {
-                        //     e.currentTarget.style.backgroundColor = '#f8f9fa';
-                        //     e.currentTarget.style.transform = 'translateY(0)';
-                        //     e.currentTarget.style.boxShadow = 'none';
-                        // }}
-                      >
-                        <img 
-                            src={partner} 
-                            alt={`شريك ${rowIndex * columnsCount + colIndex + 1}`}
-                        />
-                      </td>
+                    <td 
+                      key={colIndex} 
+                      align="center" 
+                      valign="middle"
+                      // onMouseEnter={(e) => {
+                      //     e.currentTarget.style.backgroundColor = '#e3f2fd';
+                      //     e.currentTarget.style.transform = 'translateY(-5px)';
+                      //     e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                      // }}
+                      // onMouseLeave={(e) => {
+                      //     e.currentTarget.style.backgroundColor = '#f8f9fa';
+                      //     e.currentTarget.style.transform = 'translateY(0)';
+                      //     e.currentTarget.style.boxShadow = 'none';
+                      // }}
+                    >
+                      <img 
+                        src={partner} 
+                        alt={`شريك ${rowIndex * columnsCount + colIndex + 1}`}
+                      />
+                    </td>
                   ))}
                   
                   {/* إضافة خلايا فارغة إذا كان الصف غير مكتمل */}
