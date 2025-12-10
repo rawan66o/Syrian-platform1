@@ -16,6 +16,7 @@
     "react-router": "^7.9.6",
     "react-router-dom": "^7.10.1",
     "react-scripts": "5.0.1",
+    "react-select": "^5.10.2",
     "react-simple-star-rating": "^5.1.7",
     "web-vitals": "^2.1.4"
   },

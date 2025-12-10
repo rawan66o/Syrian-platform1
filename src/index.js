@@ -4,7 +4,6 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; // تغيير من 'react-router' إلى 'react-router-dom'
 import App from './App';
-import Dashboard from './dashboard/pages/dashboard';
 import Layout from './layout/layout';
 import CourseDetails from './pages/courses/course/course-details';
 import CourseTest from './pages/courses/course-test/course-test';
@@ -20,6 +19,10 @@ import ApplicationForMembership from './viewCopmonont/ApplicationForMembership';
 import Guide from './viewCopmonont/Guide';
 import { StudentGuide, VolunteerGuide, CoachGuide } from './viewCopmonont/GuideData';
 import Partners from './viewCopmonont/PartnersPage';
+import Profile from './dashboard/pages/profile/profile';
+import ContentDashboard from './dashboard/pages/dashboard-home/dashbooard-home';
+import DashboardLayout from './dashboard/pages/dashboard-layout/dashboard-layout';
+import Certificates from './dashboard/pages/certificates/certificates';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -45,7 +48,15 @@ root.render(
         <Route path="/volunteer-projects" element={<VolunteerProjects />} />
         <Route path="/posts-projects" element={<Posts />} />
         <Route path="/form" element={<ApplicationForMembership />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        
+         <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<ContentDashboard />} />          
+          <Route path="profile" element={<Profile />} />      
+          <Route path="certificates" element={<Certificates />} />      
+          {/* <Route path="settings" element={<Settings />} />    
+          <Route path="analytics" element={<Analytics />} />   */}
+          {/* تضيف أي صفحة بدك */}
+        </Route>
         
       </Routes>
     </BrowserRouter>

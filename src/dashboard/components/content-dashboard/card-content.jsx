@@ -16,10 +16,10 @@ function Card({data}) {
       <div className="card-content-header">
         <img src={safeData.image || '/images/default-course.png'} alt={safeData.name}/>
         <div>
-            <h5 style={{margin: 0, color: '#072127'}}>{safeData.name || "اسم الدورة"}</h5>
-            <p style={{margin: '5px 0 0 0', color: '#666', fontSize: '14px'}}>
+            <h5 style={{margin: 0, color: '#072127',fontSize:'20px'}}>{safeData.name || "اسم الدورة"}</h5>
+            {/* <p style={{margin: '5px 0 0 0', color: '#666', fontSize: '14px'}}>
                 {safeData.status || "المحاضر"}
-            </p>
+            </p> */}
         </div>
       </div>
       <img src="/images/icons/dashboard/pointers.png" alt="خيارات" style={{cursor: 'pointer'}}/>  

@@ -1,0 +1,150 @@
+.layout-certificates{
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+   width: 100%;
+   gap: 32px;
+}
+
+.layout-certificates-title{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+}
+
+.layout-certificates button {
+   width: auto;
+   opacity: 1;
+   border-radius: 8px;
+   border: 0px;
+}
+
+.button-certificates {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+   border-radius: 8px;
+   width: 210px;
+   height: 52px;
+   font-weight: 700;
+   font-style: Bold;
+   font-size: 18px;
+   line-height: 100%;
+}
+
+.card-certificates {
+   display: flex;
+   flex-direction: column;
+   width: 463px;
+   height: auto;
+   gap: 30px;
+   opacity: 1;
+   border-radius: 12px;
+   border-width: 1px;
+   padding-top: 24px;
+   padding-right: 20px;
+   padding-bottom: 24px;
+   padding-left: 20px;
+   border: 1px solid #D9E4E5;
+}
+
+.card-border:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+}
+
+.card-flex-start {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+
+.card-flex-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-content-header img {
+    width: 85px;
+    height: 85px;
+    border-radius: 100px;
+    /* object-fit: cover; */
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+/* لمنع التداخل */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+}
+
+/* تحسينات للشريط */
+.progress-label {
+    color: #072127;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.continue-course {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 20px;
+    width: 203.5px;
+    height: 52px;
+    border-radius: 8px;
+    border-bottom: 1px solid #6DCDE5;
+    background: #6DCEE51A;
+}
+
+.continue-course h2 {
+    margin: 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+/* تحسين الأرقام */
+.stats-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #072127;
+    margin-bottom: 5px;
+}
+
+.stats-name {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
