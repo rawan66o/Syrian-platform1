@@ -1,5 +1,5 @@
 .bottom_bar {
-  position: relative;
+  position: absolute;
   bottom: 0;
   width: 99.5vw;
   right: 50%;

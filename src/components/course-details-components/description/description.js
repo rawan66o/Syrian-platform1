@@ -2,11 +2,11 @@ import './description.css';
 
 
 const Description = () => {
-    return <div className="description_container">
-        <div className="description_header">
+    return <div className="course_details_description_container">
+        <div className="course_details_description_header">
             الوصف
         </div>
-        <div className="body">
+        <div className="course_details_description_body">
             درس تصميم واجهات المستخدم (UI Design) هو رحلة متكاملة لتعلّم كيفية تحويل
             الأفكار إلى تصاميم جذابة وسهلة الاستخدام. يبدأ بشرح أساسيات التصميم،
             الألوان، الخطوط، وتناسق العناصر على الشاشة.تعرّف الطالب على مبادئ
@@ -18,8 +18,8 @@ const Description = () => {
             إلى ملفه الشخصي (Portfolio). يحصل المتدرّب علىتقييم وملاحظات لتحسين
             مستواه وتطوير مهاراته أكثر.
         </div>
-        <div className="button_container">
-            <button className="show_more_button">اظهار المزيد</button>
+        <div className="course_details_description_button_container">
+            <button className="course_details_description_show_more_button">اظهار المزيد</button>
         </div>
     </div>
 };

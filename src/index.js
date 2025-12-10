@@ -40,13 +40,18 @@ root.render(
     <BrowserRouter>
       <Routes>
 
+        {/* كل الصفحات داخل layout */}
         <Route element={<Layout />}>
+
           <Route index element={<App />} />
+
+          {/* Auth */}
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="new-password" element={<NewPassword />} />
 
+          {/* Courses */}
           <Route path="courses" element={<Courses />} />
           <Route path="courses/:courseId" element={<CourseDetails />} />
           <Route path="courses/:courseId/course-test" element={<CourseTest />} />
@@ -59,17 +64,20 @@ root.render(
 
           <Route path="add-course" element={<AddCourse />} />
           <Route path="add-post" element={<AddPost />} />
+
+          {/* Guides */}
+          <Route path="student-guide" element={<Guide data={StudentGuide} title="دليل الحياة الجامعية" />} />
+          <Route path="coach-guide" element={<Guide data={CoachGuide} title="دليل المدرب" />} />
+          <Route path="volunteer-guide" element={<Guide data={VolunteerGuide} title="دليل المتطوع" />} />
+
+          {/* Misc */}
+          <Route path="partners" element={<Partners />} />
+          <Route path="add-project" element={<AddProject />} />
+          <Route path="volunteer-projects" element={<VolunteerProjects />} />
+          <Route path="posts-projects" element={<Posts />} />
+          <Route path="form" element={<ApplicationForMembership />} />
+
         </Route>
-
-        <Route path="/student-guide" element={<Guide data={StudentGuide} title="دليل الحياة الجامعية" />} />
-        <Route path="/coach-guide" element={<Guide data={CoachGuide} title="دليل المدرب" />} />
-        <Route path="/volunteer-guide" element={<Guide data={VolunteerGuide} title="دليل المتطوع" />} />
-
-        <Route path="/partners" element={<Partners />} />
-        <Route path="/add-project" element={<AddProject />} />
-        <Route path="/volunteer-projects" element={<VolunteerProjects />} />
-        <Route path="/posts-projects" element={<Posts />} />
-        <Route path="/form" element={<ApplicationForMembership />} />
 
       </Routes>
     </BrowserRouter>
