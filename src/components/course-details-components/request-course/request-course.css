@@ -1,4 +1,4 @@
-.request_container {
+.course_details_request_container {
   width: 390px;
   height: 516px;
   position: absolute;
@@ -8,14 +8,14 @@
   background-color: #ffffff;
   box-shadow: 0px 0px 4px 0px #00000040;
 }
-.image {
+.course_details_request_image {
   width: 100%;
   height: 201px;
 }
-.features {
+.course_details_features {
   padding: 30px 34px 32px 33px;
 }
-.features h1 {
+.course_details_features h1 {
   font-weight: 700;
   font-size: 24px;
   line-height: 100%;
@@ -24,14 +24,14 @@
   color: #072127;
   margin-bottom: 28px;
 }
-.list {
+.course_details_request_list {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 24px;
   list-style: none;
 }
-.list_item {
+.course_details_request_list_item {
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
@@ -41,7 +41,7 @@
   position: relative;
   padding-right: 16px;
 }
-.list_item::before {
+.course_details_request_list_item::before {
   content: "";
   position: absolute;
   right: 0;
@@ -52,12 +52,12 @@
   height: 10px;
   border-radius: 50%;
 }
-.request {
+.course_details_request {
   width: 323px;
   height: 82px;
   margin: auto;
 }
-.request_button {
+.course_details_request_button {
   width: 100%;
   height: 52px;
   border-radius: 150.04px;
@@ -72,7 +72,7 @@
   margin-bottom: 16px;
   cursor: pointer;
 }
-.request p {
+.course_details_request p {
   width: 100%;
   margin: auto;
   font-weight: 500;
