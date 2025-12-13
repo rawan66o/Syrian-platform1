@@ -31,6 +31,8 @@ import Register from './pages/auth/register/register';
 import Login from './pages/auth/login/login';
 import ForgotPassword from './pages/auth/forgotpassword/forgot-password';
 import NewPassword from './pages/auth/newpassword/new-password';
+import MycoursesDashboard from './dashboard/pages/mycourses-dashboard/mycourses-dashboard';
+import MyProgectes from './dashboard/pages/my-volunteer-progect/my-volunteer-progect';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -69,6 +71,8 @@ root.render(
           <Route index element={<ContentDashboard />} />          
           <Route path="profile" element={<Profile />} />      
           <Route path="certificates" element={<Certificates />} />      
+          <Route path="my-courses" element={<MycoursesDashboard />} />      
+          <Route path="my-progects" element={<MyProgectes />} />      
           {/* <Route path="settings" element={<Settings />} />    
           <Route path="analytics" element={<Analytics />} />   */}
           {/* تضيف أي صفحة بدك */}

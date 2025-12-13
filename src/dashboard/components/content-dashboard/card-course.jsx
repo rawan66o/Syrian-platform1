@@ -3,11 +3,16 @@ function Card({data}) {
   const progress = safeData.progress || 0;
   
   const getProgressColor = () => {
+    if (progress === 100) return "#34C759";
     if (progress >= 80) return "#6DCDE5";
     if (progress >= 50) return "#6DCDE5";
     if (progress >= 25) return "#6DCDE5";
     return "#6DCDE5";
   };
+
+  function handleCourse() {
+    alert('go to course succsses')
+  }
   
   return(
    <div className="card-flex-column">
@@ -92,11 +97,20 @@ function Card({data}) {
     </div>
     
     {/* Continue Button */}
-    <div className="continue-course">
-      <h2>متابعة الدورة</h2>
-      <img src='/images/icons/dashboard/Vector.png' alt='متابعة' style={{cursor: 'pointer'}} />
-    </div>
-    
+    {safeData.progress !== 100 ?(
+      <div className="continue-course" onClick={handleCourse}>
+        <h2>متابعة الدورة</h2>
+        <img src='/images/icons/dashboard/Vector.png' alt='متابعة' style={{cursor: 'pointer'}} />
+      </div>) : (
+        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+          <div className="end-course" onClick={handleCourse}>
+            <h2>عرض الدورة</h2>
+            <img src='/images/icons/dashboard/Vector.png' alt='متابعة' style={{cursor: 'pointer'}} />
+          </div>
+          <div className="end">منهية</div>
+        </div>
+      )
+    }
    </div>
   )
 }

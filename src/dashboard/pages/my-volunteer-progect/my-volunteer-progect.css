@@ -1,6 +1,4 @@
-/* certificates.css */
-
-.layout-certificates {
+.layout-pro {
    direction: rtl;
    display: flex;
    flex-direction: column;
@@ -9,14 +7,14 @@
    /* gap: 32px; */
 }
 
-.layout-certificates-title {
+.layout-pro-title {
    display: flex;
    align-items: center;
    justify-content: space-between;
    width: 100%;
 }
 
-.layout-certificates-title h4 {
+.layout-pro-title h4 {
    font-weight: 700;
    font-size: 24px;
    line-height: 100%;
@@ -24,7 +22,7 @@
    margin: 0;
 }
 
-.layout-certificates-title-button {
+.layout-pro-title-button {
    display: flex;
    align-items: center;
    justify-content: center;
@@ -38,48 +36,17 @@
    transition: all 0.2s ease;
 }
 
-.layout-certificates-title-button:hover {
+.layout-pro-title-button:hover {
    opacity: 0.9;
    transform: translateY(-1px);
 }
 
-.layout-certificates-title-button:nth-child(2) {
+.layout-pro-title-button:nth-child(2) {
    /* background: #7C83891A; */
    color: #071722;
 }
 
-.button-certificates {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 10px;
-   border-radius: 8px;
-   width: 210px;
-   height: 52px;
-   font-weight: 700;
-   font-size: 16px;
-   line-height: 100%;
-   cursor: pointer;
-   transition: all 0.3s ease;
-   border: none;
-   font-family: inherit;
-}
-
-.button-certificates:hover {
-   transform: translateY(-2px);
-   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.button-certificates:first-child:hover {
-   background: #6DCDE5 !important;
-}
-
-.button-certificates:nth-child(2):hover {
-   background: #6C757D1A !important;
-   border: 0px solid #6C757D1A;
-}
-
-.card-certificates {
+.card-pro {
    display: flex;
    flex-direction: column;
    width: 100%;
@@ -94,7 +61,7 @@
    transition: all 0.3s ease;
 }
 
-.card-certificates:hover {
+.card-pro:hover {
    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
    border-color: 0px;
 }
@@ -120,10 +87,38 @@
    font-weight: 500;
 }
 
-.card-flex-center {
+.volunteers-section-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 6px;
+}
+
+.volunteers-section-card p {
+   font-weight: 500;
+   font-size: 18px;
+   line-height: 100%;
+   letter-spacing: 0%;
+   text-align: right;
+   color: #072127;
+}
+
+.volunteers-section-card h6 {
+   font-size: 18px;
+   color: #072127;
+   margin: 0 !important;
+}
+
+.card-flex {
    display: flex;
    align-items: center;
    gap: 10px;
+}
+
+.card-flex-center {
+   display: flex;
+   align-items: center;
+   /* gap: 10px; */
    width: 100%;
 }
 

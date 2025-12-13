@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-// eslint-disable-next-line
-import './App.css';
-=======
 import "./App.css";
 import CourseDetailsNavBar from "./components/course-details-components/course-details-navbar/course-details-navbar";
 import Footer from "./components/footer/footer";
@@ -13,16 +9,11 @@ import PlatformIntroduction from "./components/main-page-components/platform-int
 import VolunteerProjectsContainer from "./components/main-page-components/volunteer-projects-container";
 
 import WhyUs from "./components/main-page-components/why-us";
->>>>>>> 2cf96ccabc32d06af5182040fa61a8ec7225568e
 
 function App() {
 
 
   return (
-<<<<<<< HEAD
-    <div className="App">
- <h1>Welcome to the Homepage</h1>
-=======
     <div className="main_page">
       <div className="main_page_navbar">
         <CourseDetailsNavBar />
@@ -35,7 +26,6 @@ function App() {
       <MainPageSearch />
       <ForumContainer />
       <Footer />
->>>>>>> 2cf96ccabc32d06af5182040fa61a8ec7225568e
     </div>
   );
 }

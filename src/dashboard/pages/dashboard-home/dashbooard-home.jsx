@@ -1,5 +1,5 @@
 import mycourses from '../../mycoursesdata'
-import Card from '../../components/content-dashboard/card-content'
+import Card from '../../components/content-dashboard/card-course'
 import './dashboard-home.css'
 
 function ContentDashboard() {

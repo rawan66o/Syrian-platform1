@@ -1,11 +1,9 @@
-import './certificates.css'
+import './my-volunteer-progect.css'
 import { certificates } from '../../mycoursesdata';
 import { useState } from 'react';
-import Card from '../../components/content-dashboard/card-certificates';
+import Card from '../../components/content-dashboard/card-progects';
 
-
-
-function Certificates() {
+function MyProgectes() {
   // دالة للتحكم في الترتيب
   const [sortBy, setSortBy] = useState('newest');
   
@@ -17,11 +15,11 @@ function Certificates() {
     }
   });
   return (
-    <div className="layout-certificates">
-      <div className="layout-certificates-title">
-        <h4>الشهادات</h4>
-        <div style={{ display: 'flex', alignItems:'center', width:'247px', height:'45px',gap: '10px', background:'#7C83891A' }}>
-          <div className='layout-certificates-title-button'
+    <div className="layout-pro">
+      <div className="layout-pro-title">
+        <h4>المشاريع التطوعية </h4>
+        <div style={{ display: 'flex', alignItems:'center', width:'247px', height:'45px', background:'#7C83891A', paddingRight:'10px' }}>
+          <div className='layout-pro-title-button'
             onClick={() => setSortBy('newest')}
             style={{
               background: sortBy === 'newest' ? '#6DCDE5' : 'none',
@@ -30,7 +28,7 @@ function Certificates() {
           >
             من الاحدث
           </div>
-          <div className='layout-certificates-title-button'
+          <div className='layout-pro-title-button'
             onClick={() => setSortBy('oldest')}
             style={{
               background: sortBy === 'oldest' ? '#6DCDE5' : '',
@@ -48,7 +46,7 @@ function Certificates() {
         ))}
       </div>
     </div>
-  )
+  )   
 }
 
-export default Certificates;
+export default MyProgectes

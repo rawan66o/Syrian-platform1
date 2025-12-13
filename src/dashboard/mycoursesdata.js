@@ -33,8 +33,8 @@ const mycourses = [
         id: 4,
         name: "قواعد البيانات",
         image: "/images/5.jpg",
-        progress: 25,
-        numberoflectures: 5,
+        progress: 100,
+        numberoflectures: 15,
         lectures: 15,
         hours: 25,
         instructor: "محمد عمر"
