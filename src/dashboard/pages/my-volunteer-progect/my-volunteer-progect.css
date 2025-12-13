@@ -1,223 +1,280 @@
+/* CSS Styles */
 .layout-pro {
-   direction: rtl;
-   display: flex;
-   flex-direction: column;
-   align-items: start;
-   width: 100%;
-   /* gap: 32px; */
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  gap: 26px;
 }
 
 .layout-pro-title {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .layout-pro-title h4 {
-   font-weight: 700;
-   font-size: 24px;
-   line-height: 100%;
-   color: #072127;
-   margin: 0;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 100%;
+  color: #072127;
+  margin: 0;
+}
+
+/* Sorting buttons container */
+.sorting-container {
+  display: flex;
+  align-items: center;
+  width: 247px;
+  height: 45px;
+  background: #7C83891A;
+  padding: 0 10px;
+  border-radius: 8px;
+  gap: 8px;
 }
 
 .layout-pro-title-button {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 107.5px;
-   height: 33px;
-   border-radius: 8px;
-   border: 0px;
-   font-weight: 500;
-   font-size: 14px;
-   cursor: pointer;
-   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 33px;
+  border-radius: 8px;
+  border: 0;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
 }
 
 .layout-pro-title-button:hover {
-   opacity: 0.9;
-   transform: translateY(-1px);
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
-.layout-pro-title-button:nth-child(2) {
-   /* background: #7C83891A; */
-   color: #071722;
+.layout-pro-title-button.active {
+  background: #6DCDE5;
+  color: white;
+}
+
+.layout-pro-title-button:not(.active) {
+  background: transparent;
+  color: #071722;
 }
 
 .card-pro {
-   display: flex;
-   flex-direction: column;
-   width: 100%;
-   max-width: 463px;
-   height: auto;
-   min-height: 250px;
-   gap: 25px;
-   border-radius: 12px;
-   padding: 24px 20px;
-   border: 1px solid #D9E4E5;
-   background: white;
-   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 463px;
+  height: auto;
+  min-height: 250px;
+  gap: 25px;
+  border-radius: 12px;
+  padding: 24px 20px;
+  border: 1px solid #D9E4E5;
+  background: white;
+  transition: all 0.3s ease;
 }
 
 .card-pro:hover {
-   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-   border-color: 0px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: transparent;
 }
 
 .card-content-header {
-   display: flex;
-   align-items: center;
-   gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .card-content-header img {
-   width: 85px;
-   height: 85px;
-   border-radius: 50%;
-   object-fit: cover;
-   border: 3px solid #f0f0f0;
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f0f0f0;
 }
 
 .card-content-header h5 {
-   margin: 0;
-   color: #072127;
-   font-size: 20px;
-   font-weight: 500;
+  margin: 0;
+  color: #072127;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.card-flex-center {
+  display: flex;
+  align-items: center;
+  /* width: 100%; */
+  justify-content: space-between;
 }
 
 .volunteers-section-card {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 6px;
+  gap: 10px;
+  
 }
 
 .volunteers-section-card p {
-   font-weight: 500;
-   font-size: 18px;
-   line-height: 100%;
-   letter-spacing: 0%;
-   text-align: right;
-   color: #072127;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+  color: #072127;
+  margin: 0;
 }
 
 .volunteers-section-card h6 {
-   font-size: 18px;
-   color: #072127;
-   margin: 0 !important;
+  font-size: 18px;
+  color: #072127;
+  margin: 0;
 }
 
 .card-flex {
-   display: flex;
-   align-items: center;
-   gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.card-flex-center {
-   display: flex;
-   align-items: center;
-   /* gap: 10px; */
-   width: 100%;
-}
 
 .card-flex h5 {
-   margin: 0;
-   color: #071722;
-   font-size: 16px;
-   font-weight: 500;
+  margin: 0;
+  color: #071722;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .card-flex-row {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .courses-grid {
-   display: grid;
-   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-   gap: 24px;
-   /* width: 100%; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 24px;
+  width: 100%;
 }
 
-/* تحسينات للأزرار داخل الكارد */
-.card-flex-row .button-certificates img {
-   width: 7px;
-   height: 11px;
+.card-flex-row .button-pro img {
+  width: 7px;
+  height: 11px;
 }
 
-.card-flex-row .button-certificates:first-child img {
-   filter: brightness(0) invert(1);
+.card-flex-row .button-pro:first-child img {
+  filter: brightness(0) invert(1);
 }
 
-/* تصميم متجاوب */
+/* Continue course button */
+.continue-course {
+   /* display: flex;
+   align-items: center;
+   justify-content: space-around;
+   gap: 10px;
+   padding: 20px; */
+   width: 203.5px;
+   height: 52px;
+   border-radius: 8px;
+   border: 0px;
+   border-bottom: 1px solid #6DCDE5;
+   background: #6DCEE51A;
+}
+
+.continue-course h2 {
+   margin: 0;
+   font-size: 16px;
+   color: #072127;
+}
+
+.continue-course:hover {
+  opacity: 0.8;
+}
+
+/* Responsive Design */
 @media (max-width: 1200px) {
-   .courses-grid {
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-   }
+  .courses-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
-   .layout-certificates-title {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-   }
-   
-   .courses-grid {
-      grid-template-columns: 1fr;
-   }
-   
-   .card-flex-row {
-      flex-direction: column;
-   }
-   
-   .button-certificates {
-      width: 100%;
-   }
-   
-   .card-certificates {
-      max-width: 100%;
-   }
+  .layout-pro-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .sorting-container {
+    width: 100%;
+    max-width: 247px;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-pro {
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
-   .card-content-header {
-      flex-direction: column;
-      text-align: center;
-      gap: 10px;
-   }
-   
-   .card-content-header img {
-      width: 70px;
-      height: 70px;
-   }
-   
-   .card-content-header h5 {
-      font-size: 18px;
-   }
-   
-   .layout-certificates {
-      gap: 20px;
-   }
-   
-   .card-certificates {
-      padding: 20px 15px;
-      gap: 20px;
-   }
+  .card-content-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .card-content-header img {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .card-content-header h5 {
+    font-size: 18px;
+  }
+  
+  .card-flex-center {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .volunteers-section-card {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .continue-course h2 {
+    font-size: 16px;
+  }
 }
 
-/* تأثيرات لمسية للجوال */
+/* Mobile touch effects */
 @media (hover: none) {
-   .button-certificates:hover,
-   .card-certificates:hover {
-      transform: none;
-   }
-   
-   .button-certificates:active {
-      opacity: 0.8;
-   }
+  .layout-pro-title-button:hover {
+    transform: none;
+  }
+  
+  .layout-pro-title-button:active {
+    opacity: 0.8;
+  }
+  
+  .card-pro:hover {
+    transform: none;
+  }
+  
+  .continue-course:active {
+    opacity: 0.7;
+  }
 }

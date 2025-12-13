@@ -3,7 +3,7 @@ import Select from 'react-select';
 import countriesWithFlages from '../../countriesWithFlages';
 import { useState } from 'react';
 
-function Profile(){
+function Profile({status = 'volunteer'}){
   // const [genderFocused, setGenderFocused] = useState(false);
   const [stageFocused, setStageFocused] = useState(false);
    const countryOptions = countriesWithFlages.map(country => ({
@@ -125,10 +125,21 @@ function Profile(){
            </div>
             
             <div className="flex-col-start">
-               <label><img src="/images/icons/dashboard/course-icon/course-icon.png" alt="" /> وصف الطالب</label>
-               <textarea placeholder='اكتب وصفاً عن نفسك...'/>
+              <label><img src="/images/icons/dashboard/course-icon/course-icon.png" alt="" /> وصف الطالب</label>
+              <textarea placeholder='اكتب وصفاً عن نفسك...'/>
             </div>   
-         </div>
+          {/* SECTION HOURS TO VOLUNTEER */}
+
+          {status === 'volunteer' ? (
+          <div className="flex-col-start">
+             <h4>معلومات التطوع </h4>
+             <p>تتضمن هذه الإعدادات معلومات التطوع  الاساسية والمهمة</p>
+             <textarea placeholder='اكتب وصفاً عن نفسك...' />
+           </div>
+          ):''}
+          </div>
+
+         
          
          {/* FORM MORE INFORMATION SECTION */}
          <h4>معلومات اضافية</h4>

@@ -69,7 +69,7 @@ root.render(
         
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<ContentDashboard />} />          
-          <Route path="profile" element={<Profile />} />      
+          <Route path="profile" element={<Profile status='volunteer' />} />      
           <Route path="certificates" element={<Certificates />} />      
           <Route path="my-courses" element={<MycoursesDashboard />} />      
           <Route path="my-progects" element={<MyProgectes />} />      
