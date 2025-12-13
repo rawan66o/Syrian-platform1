@@ -20,7 +20,7 @@ function Certificates() {
     <div className="layout-certificates">
       <div className="layout-certificates-title">
         <h4>الشهادات</h4>
-        <div style={{ display: 'flex', alignItems:'center', width:'247px', height:'45px',gap: '10px', background:'#7C83891A' }}>
+        <div className='sorting-container'>
           <div className='layout-certificates-title-button'
             onClick={() => setSortBy('newest')}
             style={{

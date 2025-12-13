@@ -18,7 +18,7 @@ function Card({ data }) {
       </div>
       
       {/* DATE SECTION */}
-      <div className='card-flex-center'>
+      <div className='card-flex'>
         <img src='/images/icons/dashboard/calendar.svg' alt='تاريخ'/>
         <h5>{safeData.date || "تاريخ غير محدد"}</h5>
       </div>
