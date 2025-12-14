@@ -1,6 +1,7 @@
-.card-project {
+.volunteer-card-project {
   display: flex;
   flex-direction: column;
+  align-items: start;
   width: 390px;
   height: auto;
   border: 1px solid #D9E4E5;
@@ -11,30 +12,33 @@
   /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
 }
 
-.card-project:hover {
+.volunteer-card-project:hover {
   /* transform: translateY(-4px); */
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-.image-card-project {
+.image-volunteer-card-project {
   width: 100%;
   height: 225px;
   border-radius: 24px 24px 0 0;
   object-fit: cover;
 }
 
-.card-content {
+.volunteer-card-content {
   display: flex;
   flex-direction: column;
-  gap: 27px;
-  padding: 24px 20px;
+  /* align-items: start; */
+  gap: 32px;
+  padding: 0px 20px;
 }
 
-.card-header {
+.volunteer-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  width: 100%;
+  padding: 20px;
 }
 
 .status-badge {
@@ -87,8 +91,8 @@
   margin: 0;
 }
 
-.card-body {
-    direction: rtl;
+.volunteer-card-body {
+  direction: rtl;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -102,21 +106,24 @@
   letter-spacing: 0% !important;
   color: #072127 !important;
   margin: 0 !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
+  text-align: right;
 }
 
 .project-detail {
   font-size: 16px !important;
+  font-weight: 500 !important;
   line-height: 160% !important;
   letter-spacing: 0% !important;
   color: #666 !important;
   margin: 0 !important;
+  text-align: right;
 }
 
-.card-footer {
+.volunteer-card-footer {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   gap: 10px;
 }
 
@@ -125,7 +132,7 @@
   align-items: center;
   justify-content: space-around;
   gap: 6px;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .volunteers-section h4 {
@@ -158,13 +165,13 @@
 
 /* تحسينات للشاشات الصغيرة */
 @media (max-width: 480px) {
-  .card-project {
+  .volunteer-card-project {
     width: 100%;
     max-width: 390px;
     margin: 0 auto;
   }
   
-  .card-header {
+  .volunteer-card-header {
     flex-direction: column;
     gap: 12px;
     align-items: flex-start;

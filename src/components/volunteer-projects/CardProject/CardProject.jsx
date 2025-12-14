@@ -1,31 +1,33 @@
-import '../../styles/VolunteerProjects.css'
+import './CardProject.css'
 import { Avatar, AvatarGroup, Button, Typography } from "@mui/material";
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 
 function CardProject({ title, number, ditail, full }) {
   return (
-    <div className='card-project'>
+    <div className='volunteer-card-project'>
       <img 
-        className='image-card-project' 
+        className='image-volunteer-card-project' 
         alt='مشروع'
         src="/images/5.jpg"
       />
       
-      <div className="card-content">
         {/* الحالة والتاريخ */}
-        <div className="card-header">
-          <button disabled className={`status-badge ${full ? 'full' : 'not-full'} `}>
-            <div className='status-badge-text'>{full ? "ممتلئ" : "لم يكمتل العدد"}</div>
-          </button>
+        <div className="volunteer-card-header">
+          {/* Time */}
           <div className="date-info">
             <CalendarMonthOutlinedIcon sx={{ fontSize: '20px' }} />
             <Typography variant='h6'>2025 / 8 / 18</Typography>
           </div>
+          {/* status */}
+          <button disabled className={`status-badge ${full ? 'full' : 'not-full'} `}>
+            <div className='status-badge-text'>{full ? "ممتلئ" : "لم يكمتل العدد"}</div>
+          </button>
         </div>
 
+      <div className="volunteer-card-content">
         {/* العنوان والتفاصيل */}
-        <div className="card-body">
+        <div className="volunteer-card-body">
           <Typography className="project-title" variant='h1'>
             {title}
           </Typography>
@@ -35,7 +37,7 @@ function CardProject({ title, number, ditail, full }) {
         </div>
 
         {/* المتطوعين والزر */}
-        <div className="card-footer">
+        <div className="volunteer-card-footer">
           <div className="volunteers-section">
             <AvatarGroup total={number}>
               <Avatar alt="متطوع 1" src='/images/logo/1.jpg' />
