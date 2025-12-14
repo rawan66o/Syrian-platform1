@@ -63,8 +63,8 @@ root.render(
         <Route path="/volunteer-guide" element={<Guide data={VolunteerGuide} title="دليل المتطوع" />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/add-project" element={<AddProject />} />
-        <Route path="/volunteer-projects" element={<VolunteerProjects />} />
-        <Route path="/posts-projects" element={<Posts />} />
+        <Route path="/projects" element={<VolunteerProjects />} />
+        <Route path="/project/:id" element={<Posts />} />
         <Route path="/form" element={<ApplicationForMembership />} />
         
         <Route path="/dashboard" element={<DashboardLayout />}>

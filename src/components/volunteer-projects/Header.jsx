@@ -2,6 +2,11 @@ import { Box, Container, Typography } from "@mui/material";
 
 function Header() {
   const menuItems=['الرئيسية','اخبار','مقالات','قصص نجاح','مقالات']
+
+  function handleGo(params) {
+    // navigator('/form')
+  }
+  
   return(
     <>
     <div style={{direction:'rtl', height:'209px',
@@ -11,7 +16,7 @@ function Header() {
       <Box sx={{display:'flex', height:'100px',
         alignItems:'center',justifyContent:'space-between',paddingRight:'400px'}}>
         <Typography variant="h2" sx={{fontSize:'34px',lineHeight:'100%'}}>المشاريع التطوعية</Typography>
-        <button color="#6DCDE5" style={{width:'219px', height:'52px', 
+        <button color="#6DCDE5" onClick={handleGo} style={{width:'219px', height:'52px', display:'flex', alignItems:'center',justifyContent:'center',
           border:'0px', borderRadius:'150px',color:'#ffff', background:'#6DCDE5'}}><img src="/images/icons/add-square.png" alt="" />فتح موضوع</button>
       </Box>
     </Container>

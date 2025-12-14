@@ -180,11 +180,10 @@ function VolunteerProjects() {
       <Navbar />
       <div style={{direction:'rtl'}}>
         <Header/>
-        <Container maxWidth='xl' sx={{mt:4}}>
+        <Container maxWidth='lg' sx={{mt:4}}>
           <div style={{ 
             display: 'flex',
             gap: '40px',
-            paddingBottom:'200px',
             flexDirection: {xs:'column', lg:'row'}
           }}>
 
@@ -195,7 +194,6 @@ function VolunteerProjects() {
               gap:'32px',
               width: '356px',
               position: 'sticky',
-              top: '100px',
               flexShrink: 0
             }}>
               <CategoriesProject />
