@@ -85,12 +85,14 @@
   gap: 24px;
 }
 .courses_container_header_title_and_order h1 {
+  height: 100%;
   font-weight: 700;
   font-size: 24px;
   line-height: 25px;
   letter-spacing: 0px;
   text-align: right;
   color: #072127;
+  margin-bottom: 0;
 }
 .courses_search_input_container {
   position: relative;
