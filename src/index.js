@@ -12,7 +12,7 @@ import CourseMarks from './pages/courses/course-marks/course-marks';
 import CourseCertificateRequirements from './pages/courses/course-certificate-requirements/course-certificate-requirements';
 import CourseFinished from './pages/courses/course-finished/course-finished';
 import RateCourseAndTrainer from './pages/courses/rate-course-and-trainer/rate-course-and-trainer';
-import VolunteerProjects from './viewCopmonont/VolunteerProjects';
+import VolunteerProjects from './viewCopmonont/volunteer-projects/volunteer-projects';
 import Posts from './viewCopmonont/Posts';
 import AddProject from './viewCopmonont/AddProgect';
 import ApplicationForMembership from './viewCopmonont/ApplicationForMembership';

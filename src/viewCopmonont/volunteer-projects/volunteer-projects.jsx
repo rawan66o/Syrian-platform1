@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { Container, Box, IconButton } from '@mui/material';
-import Navbar from "../components/volunteer-projects/Navbar";
-import appTheme from '../appTeme';
-import Footer from '../components/footer/footer'
-import Header from '../components/volunteer-projects/Header';
-import CardProject from '../components/volunteer-projects/CardProject';
-import CategoriesProject from '../components/volunteer-projects/CategoriesProject';
-import LatestProjects from '../components/volunteer-projects/LatestProjects';
+import Navbar from "../../components/volunteer-projects/Navbar";
+import appTheme from '../../appTeme';
+import Footer from '../../components/footer/footer'
+import Header from '../../components/volunteer-projects/Header';
+import CardProject from '../../components/volunteer-projects/CardProject/CardProject';
+import CategoriesProject from '../../components/volunteer-projects/CategoriesProject';
+import LatestProjects from '../../components/volunteer-projects/LatestProjects';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -165,7 +165,6 @@ function VolunteerProjects() {
         cursor: 'pointer',
         fontWeight: 600,
         fontSize: '14px',
-        fontFamily: 'Tajawal, sans-serif',
         transition: 'all 0.3s ease',
         '&:hover': {
           backgroundColor: activeStep === index ? '#6DCDE5' : '#F5F5F5',
@@ -209,20 +208,25 @@ function VolunteerProjects() {
               maxWidth: '812px'
             }}>
               <div style={{
-                display: 'grid',
-                alignItems: 'start',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '24px',
-                gridAutoFlow:'dense',
+                columnCount:2,
+                columnGap:'32px',
+                breakInside:'avoid'
               }}>
                 {projects.map((project, index) => (
+                  <div style={{
+                    display: 'inline-block',
+                    width: '100%',
+                    marginBottom: '32px',
+                    breakInside: 'avoid',
+                  }}>
                   <CardProject 
                     key={index}
                     title={project.title}
                     ditail={project.ditail}
                     number={project.number}
                     full={project.full}
-                  />
+                    />
+                  </div>
                 ))}
               </div>
 
