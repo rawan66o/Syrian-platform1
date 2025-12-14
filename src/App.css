@@ -2,4 +2,16 @@
   color: #072127;
   margin: auto;
   width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+.main_page h1 {
+  width: 100%;
+  text-align: center;
+}
+.body {
+  height: 100px;
+}
+.main_page_navbar {
+  padding: 0 100px;
 }

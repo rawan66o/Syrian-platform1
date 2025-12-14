@@ -37,15 +37,15 @@ function CardProject({ title, number, ditail, full }) {
         {/* المتطوعين والزر */}
         <div className="card-footer">
           <div className="volunteers-section">
-            <Typography className="volunteers-text">
+            <AvatarGroup total={number}>
+              <Avatar alt="متطوع 1" src='/images/logo/1.jpg' />
+              <Avatar alt="متطوع 2" src='/images/logo/2.jpg' />
+              <Avatar alt="متطوع 3" src='/images/logo/3.jpg' />
+            </AvatarGroup>
+            <h4 className="volunteers-text">
               {number}
                متطوع حالي بالمشروع
-            </Typography>
-            <AvatarGroup total={number}>
-              <Avatar alt="متطوع 1" src='images/logo/1.jpg' />
-              <Avatar alt="متطوع 2" src='images/logo/2.jpg' />
-              <Avatar alt="متطوع 3" src='images/logo/3.jpg' />
-            </AvatarGroup>
+            </h4>
           </div>
           
           <Button 

@@ -3,10 +3,23 @@ import Select from 'react-select';
 import countriesWithFlages from '../../countriesWithFlages';
 import { useState } from 'react';
 
-function Profile(){
-  // const [genderFocused, setGenderFocused] = useState(false);
+function Profile({status = 'volunteer'}){
+  // eslint-disable-next-line 
+  const[ formData,setFormData] = useState({
+    fullName : '',
+    email:'',
+    date:'',
+    phone:'',
+    prifex:'',
+    detail:'',
+    time:'',
+    sex:'',
+    accommodation:'',
+    academicStage:'',
+    cv:''
+  })
   const [stageFocused, setStageFocused] = useState(false);
-   const countryOptions = countriesWithFlages.map(country => ({
+  const countryOptions = countriesWithFlages.map(country => ({
     value: country.code,
     label: (
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -47,38 +60,39 @@ function Profile(){
             <div className='flex-row'>
                 <div className="flex-col-start">
                  <label><img src="/images/icons/dashboard/user.png" alt="" /> الاسم الكامل</label>
-                  <input type='text' placeholder="مثال: محمد صافي" /> 
+                  <input type='text' placeholder="مثال: محمد صافي" 
+                    value={formData.fullName}
+                  /> 
                </div>
                <div className="flex-col-start">
                  <label><img src="/images/icons/dashboard/gmail.png" alt="" /> البريد الالكتروني</label>
-                 <input type='email' placeholder='example@email.com'/> 
+                 <input type='email' placeholder='example@email.com'
+                  value={formData.email}
+                 /> 
                </div>
             </div>
            
            <div className='flex-row'>
             <div className="flex-col-start">
                <label><img src='/images/icons/dashboard/calendar.svg' alt="" /> تاريخ الميلاد</label>
-               <input type='date' placeholder='2025 / 05 / 02'/>
+               <input type='date' placeholder='2025 / 05 / 02'
+                value={formData.date}
+               />
             </div>
                <div className="flex-col-start">
                   <label><img src="/images/icons/dashboard/call.svg" alt="" /> رقم الهاتف</label>
                   <div style={{display:'flex', alignItems:'center', width: '100%'}}>
                      {/* إدخال الرقم */}
-                     <input
-                       style={{
-                         flex: 1,
-                         borderLeft:'0px', 
-                         borderRadius:'0px 8px 8px 0px',
-                         height: '48px'
-                       }}
-                       type="tel"
+                     <input type="tel"
                        placeholder="5XX XXX XXX"
+                       value={formData.phone}
                      />
                      {/* اختيار رمز الدولة مع العلم */}
                      <div style={{ width: '100px', marginLeft: '10px' }}>
                        <Select
                          options={countryOptions}
                          placeholder=""
+                         value={formData.prifex}
                          formatOptionLabel={({ label }) => label}
                          styles={{
                            control: (base,stageFocused) => ({
@@ -125,11 +139,22 @@ function Profile(){
            </div>
             
             <div className="flex-col-start">
-               <label><img src="/images/icons/dashboard/course-icon/course-icon.png" alt="" /> وصف الطالب</label>
-               <textarea placeholder='اكتب وصفاً عن نفسك...'/>
-            </div>   
-         </div>
-         
+              <label><img src="/images/icons/dashboard/course-icon/course-icon.png" alt="" /> وصف الطالب</label>
+              <textarea placeholder='اكتب وصفاً عن نفسك...'
+                value={formData.detail}
+              />
+            </div>  
+             
+          {/* SECTION HOURS TO VOLUNTEER */}
+          {status === 'volunteer' ? (
+          <div className="flex-col-start">
+             <h4>معلومات التطوع </h4>
+             <p>تتضمن هذه الإعدادات معلومات التطوع  الاساسية والمهمة</p>
+             <textarea placeholder='اكتب وصفاً عن نفسك...' value={formData.time} />
+           </div>
+          ):''}
+          </div>
+          
          {/* FORM MORE INFORMATION SECTION */}
          <h4>معلومات اضافية</h4>
          <div className="layout-form">
@@ -143,6 +168,7 @@ function Profile(){
                   cursor: 'pointer',
                   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='${stageFocused ? '%23000000' : '%23666'}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
                 }}
+                value={formData.sex}
               >
                   <option value="">اختر الجنس</option>
                   <option value="male">ذكر</option>
@@ -155,6 +181,7 @@ function Profile(){
               <Select
                 options={simpleCountryOptions}
                 placeholder="اختر الدولة"
+                value={formData.accommodation}
                 formatOptionLabel={({ label }) => label}
                 styles={{
                   control: (base ,state) => ({
@@ -204,6 +231,7 @@ function Profile(){
                   cursor: 'pointer',
                   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='${stageFocused ? '%23000000' : '%23666'}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
                 }}
+                value={formData.academicStage}
               >
                 <option value="">اختر المرحلة</option>
                 <option value="highschool">بكلوريا</option>
@@ -224,6 +252,7 @@ function Profile(){
                   type="file" 
                   accept=".pdf,.doc,.docx" 
                   style={{display: 'none'}}
+                  value={formData.cv}
                  />
                </div>
             </div> 
@@ -234,8 +263,8 @@ function Profile(){
          <p>يؤسفنا ان نراك تغادر!</p>  
          <p>يرجى الملاحظة: حذف حسابك وبياناتك الشخصية دائم ولا يمكن التراجع عنه. لن تتمكن منصة ادراك من استعادة حسابك أو البيانات التي تم حذفها.</p>  
          <p>قد تفقد أيضًا الوصول إلى الشهادات الموثّقة وبيانات اعتماد البرنامج الأخرى مثل شهادات التخصصات. إذا كنت ترغب بعمل نسخة من السجلات الخاصة بك قبل متابعة الحذف ، قم باتّباع الإرشادات الخاصة بـ 
-           <a href="" className="certificate-link">طباعة او</a>
-           <a href="" className="certificate-link">تنزيل شهادة</a>
+           <a href="/ptint" className="certificate-link">طباعة او</a>
+           <a href="/download" className="certificate-link">تنزيل شهادة</a>
            </p>         
          <button className='delete'>
            حذف الحساب

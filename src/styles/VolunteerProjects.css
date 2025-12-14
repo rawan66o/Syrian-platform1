@@ -123,14 +123,15 @@
 .volunteers-section {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: space-around;
+  gap: 6px;
   width: 100%;
 }
 
-.volunteers-text {
-  font-size: 14px;
-  color: #072127;
+.volunteers-section h4 {
+  font-weight: 500;
+  font-size: 13px;
+  color: #70798B;
   margin: 0 !important;
 }
 
