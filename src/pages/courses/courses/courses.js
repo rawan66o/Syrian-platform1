@@ -249,7 +249,7 @@ const Courses = () => {
         }),
         control: (base) => ({
             ...base,
-            width: "fit-content",
+            width: "137px",
             height: "40px",
             border: "1px solid #d9e4e5",
             fontWeight: "500",
