@@ -13,9 +13,9 @@ import CourseCertificateRequirements from './pages/courses/course-certificate-re
 import CourseFinished from './pages/courses/course-finished/course-finished';
 import RateCourseAndTrainer from './pages/courses/rate-course-and-trainer/rate-course-and-trainer';
 import VolunteerProjects from './viewCopmonont/volunteer-projects/volunteer-projects';
-import Posts from './viewCopmonont/Posts';
-import AddProject from './viewCopmonont/AddProgect';
-import ApplicationForMembership from './viewCopmonont/ApplicationForMembership';
+import Posts from './viewCopmonont/posts/Posts';
+import AddProject from './viewCopmonont/forms/AddProgect';
+import ApplicationForMembership from './viewCopmonont/forms/ApplicationForMembership';
 import Guide from './viewCopmonont/Guide';
 import { StudentGuide, VolunteerGuide, CoachGuide } from './viewCopmonont/GuideData';
 import Partners from './viewCopmonont/PartnersPage';
@@ -64,7 +64,7 @@ root.render(
         <Route path="/partners" element={<Partners />} />
         <Route path="/add-project" element={<AddProject />} />
         <Route path="/projects" element={<VolunteerProjects />} />
-        <Route path="/project/:id" element={<Posts />} />
+        <Route path="/projects/:id" element={<Posts />} />
         <Route path="/form" element={<ApplicationForMembership />} />
         
         <Route path="/dashboard" element={<DashboardLayout />}>

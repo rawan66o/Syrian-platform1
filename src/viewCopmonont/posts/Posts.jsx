@@ -1,18 +1,18 @@
-import '../styles/Posts.css'
+import './Posts.css'
+import { useState } from 'react';
+import appTheme from '../../appTeme';
 import { ThemeProvider } from '@mui/material/styles';
 
-import Footer from '../components/footer/footer'
-import Navbar from '../components/volunteer-projects/Navbar';
-import LatestProjects from "../components/volunteer-projects/LatestProjects";
-import { volunteers, commentsData } from './Data'
+import { volunteers, commentsData } from '../Data'
+import Footer from '../../components/footer/footer'
+import Navbar from '../../components/volunteer-projects/Navbar';
+import Comment from '../../components/volunteer-projects/Comment';
+import Volunteer from '../../components/volunteer-projects/Volunteer';
+import LatestProjects from "../../components/volunteer-projects/LatestProjects";
 // IMPORTS MUI
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import appTheme from '../appTeme';
-import Comment from '../components/volunteer-projects/Comment';
-import Volunteer from '../components/volunteer-projects/Volunteer';
-import { useState } from 'react';
 
 
 const progect = `لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .
@@ -56,26 +56,26 @@ function Posts({full}) {
               borderBottom: '1px solid #D9E4E5',paddingBottom:'24px'
             }}>
               <div className="post-header">
-                <button disabled className={`status-badge ${full ? 'full' : 'not-full'} `}>
+                <div disabled className={`status-badge ${full ? 'full' : 'not-full'} `}>
                   <div className='status-badge-text'>{full ? "ممتلئ" : "لم يكمتل العدد"}</div>
-                </button>
-                <Button variant='outlined' color='#D9E4E5' size='small' sx={{color:'#0A1826'}}>مشاركة 
+                </div>
+                <button className='button-shere'>مشاركة 
                   <img src='/images/icons/shere.png' alt='' style={{width:'13px', height:'16px'}} />
-                  </Button>
+                  </button>
               </div>
               <button style={{ width:'372px', height:'52px',fontSize:'18px' }}>طلب الدخول كمتطوع</button>
             </div>
             
-            <img src='images/5.jpg' alt='' style={{width:'100%', height:'441.57px'}} />
+            <img src='/images/5.jpg' alt='' style={{width:'100%', height:'441.57px'}} />
             {/* START TIME SECTION &&  Implementing entity */}
             <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
               {/* START TIME SECTION */}
               <div className='card-time'>
-                <Typography variant='body1' color='#708387' >موعد البدأ</Typography>
+                <p>موعد البدأ</p>
                 <div style={{display:'flex', justifyContent:'space-between'}}>
                   <Typography variant='h6' >الاحد</Typography>
                    <div className="date-info">
-                    <CalendarMonthOutlinedIcon sx={{ fontSize: '20px' }} />
+                    <img src='/images/icons/dashboard/calendar.svg' sx={{ fontSize: '20px' }} />
                     <Typography variant='h6'>2025 / 8 / 18</Typography>
                     </div> 
                 </div>       
@@ -84,9 +84,9 @@ function Posts({full}) {
               <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'12px'}}>
                 <Typography variant='h2' fontSize='16px' >الجهة المنفذة:</Typography>
                 <div style={{display:'flex', justifyContent:'space-around',alignItems:'center',gap:'12px'}}>
-                 <img src='images/icons/icon2.png' alt='' 
+                 <img src='/images/icons/icon2.png' alt='' 
                    style={{width:'147px',height:'28px'}} />
-                 <img src='images/icons/icon.png' alt='' 
+                 <img src='/images/icons/icon.png' alt='' 
                    style={{width:'56px',height:'42px'}} />
                 </div>
               </div>
@@ -117,22 +117,19 @@ function Posts({full}) {
               </Grid>
               {!showAll && hiddenCount > 0 && (
                 <Box sx={{ textAlign: 'center', mt: 3 }}>
-                  <Button 
-                  variant='outlined' 
-                  size='medium' color='#D9E4E5' 
-                  sx={{color:'#072127',background:'#F2F2F280'}}
+                  <button  
+                  className='button-hidden'
                   onClick={() => setShowAll(true)}
-                  >عرض الكل</Button>
+                  >عرض الكل</button>
                 </Box>
               )}
               {showAll && (
                 <Box sx={{ textAlign: 'center', mt: 3 }}>
-                  <Button 
-                    variant="outlined" 
+                  <button  className='button-hidden'
                     onClick={() => setShowAll(false)}
                   >
                     إخفاء المتطوعين الإضافيين
-                  </Button>
+                  </button>
                 </Box>
               )}
             </div> 

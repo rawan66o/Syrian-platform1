@@ -1,11 +1,13 @@
 import { Box, Container, Typography } from "@mui/material";
+import { useNavigate } from "react-router";
 
 function Header() {
   const menuItems=['الرئيسية','اخبار','مقالات','قصص نجاح','مقالات']
+  const navigate = useNavigate(); // استدعاء الهوك
 
-  function handleGo(params) {
-    // navigator('/form')
-  }
+  const handleGo = () => {
+    navigate('/add-project'); // التنقل إلى المسار المطلوب
+  };
   
   return(
     <>
@@ -17,7 +19,7 @@ function Header() {
         alignItems:'center',justifyContent:'space-between',paddingRight:'400px'}}>
         <Typography variant="h2" sx={{fontSize:'34px',lineHeight:'100%'}}>المشاريع التطوعية</Typography>
         <button color="#6DCDE5" onClick={handleGo} style={{width:'219px', height:'52px', display:'flex', alignItems:'center',justifyContent:'center',
-          border:'0px', borderRadius:'150px',color:'#ffff', background:'#6DCDE5'}}><img src="/images/icons/add-square.png" alt="" />فتح موضوع</button>
+          border:'0px', borderRadius:'150px',color:'#ffff', background:'#6DCDE5'}}>اضافة  مشروع<img src="/images/icons/add-square.png" alt="" /></button>
       </Box>
     </Container>
     <Box sx={{background:'#FFFFFF80',height:'57px',

@@ -1,6 +1,7 @@
 import './profile.css';
-import Select from 'react-select';
 import countriesWithFlages from '../../countriesWithFlages';
+import Select from 'react-select';
+import { components } from 'react-select';
 import { useState } from 'react';
 
 function Profile({status = 'volunteer'}){
@@ -20,21 +21,29 @@ function Profile({status = 'volunteer'}){
   })
   const [stageFocused, setStageFocused] = useState(false);
   const countryOptions = countriesWithFlages.map(country => ({
-    value: country.code,
-    label: (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <img 
-          src={country.flag} 
-          alt={country.name}
-          style={{ width: '20px', height: '15px', borderRadius: '2px' }}
-        />
-        <span>{country.name} (+{country.prefix})</span>
-      </div>
-    ),
+    value: country.code, // أو country.prefix حسب ما تريد تخزينه
+    label: `+${country.prefix}`, // للبحث والترشيح
     name: country.name,
     prefix: country.prefix,
     flag: country.flag
   }));
+
+  const syriaOption = {
+    value: 'SY', // أو '963' حسب تنسيقك
+    label: (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', direction: 'rtl' }}>
+        <span>+963</span>
+        <img 
+          src="/images/icons/syria.png" // تأكد من وجود صورة العلم
+          alt="سوريا"
+          style={{ width: '20px', height: '15px', borderRadius: '2px' }}
+        />
+      </div>
+    ),
+    name: 'سوريا',
+    prefix: '963',
+    flag: '/images/icons/syria.png'
+  };
 
   const simpleCountryOptions = countriesWithFlages.map(country => ({
     value: country.code,
@@ -82,58 +91,165 @@ function Profile({status = 'volunteer'}){
                <div className="flex-col-start">
                   <label><img src="/images/icons/dashboard/call.svg" alt="" /> رقم الهاتف</label>
                   <div style={{display:'flex', alignItems:'center', width: '100%'}}>
-                     {/* إدخال الرقم */}
-                     <input type="tel"
-                       placeholder="5XX XXX XXX"
-                       value={formData.phone}
-                     />
-                     {/* اختيار رمز الدولة مع العلم */}
-                     <div style={{ width: '100px', marginLeft: '10px' }}>
-                       <Select
-                         options={countryOptions}
-                         placeholder=""
-                         value={formData.prifex}
-                         formatOptionLabel={({ label }) => label}
-                         styles={{
-                           control: (base,stageFocused) => ({
-                             ...base,
-                             height: '48px',
-                             borderRadius: '8px 0 0 8px',
-                             border: stageFocused.isFocused ? '1px solid #D9E4E5': '1px solid #D9E4E5',
-                             borderRight: 'none',
-                             textAlign: 'right',
-                             outline:'none',
-                             '&:hover':{
-                             border: stageFocused.isFocused? '1px solid #D9E4E5': '1px solid #D9E4E5',
-                              outline:'none'
-                             },
-                             "&::placeholder":{
-                                fontSize:'10px',
-                                fontWeight: 600
-                              },
-                           }),
-                           menu: (base) => ({
-                             ...base,
-                             textAlign: 'right'
-                           }),
-                           indicatorSeparator: (base, state) => ({
+                    {/* إدخال الرقم */}
+                    <input type="tel"
+                      placeholder="5XX XXX XXX"
+                      value={formData.phone}
+                    />
+                    {/* اختيار رمز الدولة مع العلم */}
+                    <div style={{ width: '100px', marginLeft: '10px' }}>
+                      <Select
+                        options={countryOptions}
+                        placeholder=""
+                        defaultValue={countryOptions.find(option => option.prefix === '963')}
+                        value={formData.prifex}
+                        // تعديل formatOptionLabel ليعرض العلم على اليسار
+                        formatOptionLabel={({ label, prefix, flag }) => (
+                          <div style={{ 
+                            display: 'flex', 
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            // direction: 'ltr'
+                          }}>
+                            <img 
+                              src={flag} 
+                              alt=""
+                              style={{ 
+                                width: '20px', 
+                                height: '15px', 
+                                borderRadius: '2px',
+                                marginRight: '8px' // مسافة بين العلم ورمز الدولة
+                              }}
+                            />
+                            <span>+{prefix}</span>
+                          </div>
+                        )}
+                        styles={{
+                          control: (base, state) => ({
                             ...base,
-                            backgroundColor: state.isFocused ? '#D9DBE5' : '#D9E4E5',
-                            marginTop: '12px',
-                            marginBottom: '12px',
-                            width: '1px',
-                            height:'22px',
-                            transition: 'background-color 0.2s ease'
+                            width: '200px',
+                            height: '56px',
+                            borderRadius: '8px 0 0 8px',
+                            border: state.isFocused ? '1px solid #70838766' : '1px solid #70838766',
+                            borderRight: 'none',
+                            textAlign: 'right',
+                            outline: 'none',
+                            display: 'flex',
+                            flexDirection: 'row', // ترتيب أفقي
+                            alignItems: 'center',
+                            paddingLeft: '12px', // مسافة من اليسار للعلم
+                            '&:hover': {
+                              border: state.isFocused ? '1px solid #70838766' : '1px solid #70838766',
+                              borderRight: 'none',
+                              outline: 'none'
+                            }
+                          }),
+                          input: (base) => ({
+                            ...base,
+                            visibility: 'hidden',
+                            width: '0',
+                            padding: '0'
+                          }),
+                          valueContainer: (base) => ({
+                            ...base,
+                            display: 'flex',
+                            flexDirection: 'row-reverse', 
+                            alignItems: 'center',
+                            padding: '0',
+                            flex: 1,
+                            overflow: 'hidden',
+                            justifyContent: 'flex-end'
+                          }),
+                          singleValue: (base) => ({
+                            ...base,
+                            margin: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            // direction: 'ltr'
+                          }),
+                          indicatorsContainer: (base) => ({
+                            ...base,
+                            display: 'flex',
+                            alignItems: 'center',
+                            order: -1, // وضع المؤشرات في البداية (يسار)
+                            marginRight: '8px'
                           }),
                           dropdownIndicator: (base, state) => ({
                             ...base,
                             color: state.isFocused ? '#000000' : '#666666',
-                            padding: '12px',
-                            marginBottom:'10px'
+                            padding: '0 8px',
+                            order: 2 // السهم بعد العلم مباشرة
+                          }),
+                          indicatorSeparator: (base, state) => ({
+                            ...base,
+                            backgroundColor: state.isFocused ? '#D9DBE5' : '#D9E4E5',
+                            width: '1px',
+                            height: '24px',
+                            margin: '0 8px',
+                            alignSelf: 'center',
+                            order: 1 // الخط بعد السهم
+                          }),
+                          menu: (base) => ({
+                            ...base,
+                            textAlign: 'right'
                           })
-                         }}
-                       />
-                     </div>
+                        }}
+                        components={{
+                          // مكون مخصص لعرض العلم داخل مربع الاختيار
+                          SingleValue: ({ children, ...props }) => {
+                            return (
+                              <components.SingleValue {...props}>
+                                <div style={{ 
+                                  display: 'flex', 
+                                  alignItems: 'center',
+                                }}>
+                                  {/* العلم يظهر أولاً على اليسار */}
+                                  {props.data.flag && (
+                                    <img 
+                                      src={props.data.flag} 
+                                      alt=""
+                                      style={{ 
+                                        width: '20px', 
+                                        height: '15px', 
+                                        borderRadius: '2px',
+                                        marginRight: '8px'
+                                      }}
+                                    />
+                                  )}
+                                  {/* رمز الدولة */}
+                                  <span>+{props.data.prefix}</span>
+                                </div>
+                              </components.SingleValue>
+                            );
+                          },
+                          // مكون مخصص لعناصر القائمة
+                          Option: ({ children, ...props }) => {
+                            return (
+                              <components.Option {...props}>
+                                <div style={{ 
+                                  display: 'flex', 
+                                  alignItems: 'center',
+                                }}>
+                                  {props.data.flag && (
+                                    <img 
+                                      src={props.data.flag} 
+                                      alt=""
+                                      style={{ 
+                                        width: '20px', 
+                                        height: '15px', 
+                                        borderRadius: '2px',
+                                        marginRight: '8px'
+                                      }}
+                                    />
+                                  )}
+                                  <span>+{props.data.prefix} - {props.data.name}</span>
+                                </div>
+                              </components.Option>
+                            );
+                          }
+                        }}
+                      />
+                    </div>
                   </div>
                </div>
            </div>
@@ -180,6 +296,7 @@ function Profile({status = 'volunteer'}){
               <label><img src="/images/icons/dashboard/gmail.png" alt="" /> بلد الاقامة</label>
               <Select
                 options={simpleCountryOptions}
+                defaultValue={countryOptions.find(option => option.name === 'سوريا')}
                 placeholder="اختر الدولة"
                 value={formData.accommodation}
                 formatOptionLabel={({ label }) => label}

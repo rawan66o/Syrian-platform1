@@ -1,9 +1,15 @@
 import './CardProject.css'
+import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarGroup, Button, Typography } from "@mui/material";
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 
-function CardProject({ title, number, ditail, full }) {
+function CardProject({ projectId, project }) {
+  const navigate = useNavigate();
+  
+  function handleClick() {
+    navigate(`/projects/${projectId}`);
+  }
   return (
     <div className='volunteer-card-project'>
       <img 
@@ -20,8 +26,8 @@ function CardProject({ title, number, ditail, full }) {
             <Typography variant='h6'>2025 / 8 / 18</Typography>
           </div>
           {/* status */}
-          <button disabled className={`status-badge ${full ? 'full' : 'not-full'} `}>
-            <div className='status-badge-text'>{full ? "ممتلئ" : "لم يكمتل العدد"}</div>
+          <button disabled className={`status-badge ${project.full ? 'full' : 'not-full'} `}>
+            <div className='status-badge-text'>{project.full ? "ممتلئ" : "لم يكمتل العدد"}</div>
           </button>
         </div>
 
@@ -29,23 +35,23 @@ function CardProject({ title, number, ditail, full }) {
         {/* العنوان والتفاصيل */}
         <div className="volunteer-card-body">
           <Typography className="project-title" variant='h1'>
-            {title}
+            {project.title}
           </Typography>
           <Typography className="project-detail" variant='h6'>
-            {ditail}
+            {project.ditail}
           </Typography>
         </div>
 
         {/* المتطوعين والزر */}
         <div className="volunteer-card-footer">
           <div className="volunteers-section">
-            <AvatarGroup total={number}>
+            <AvatarGroup total={project.number}>
               <Avatar alt="متطوع 1" src='/images/logo/1.jpg' />
               <Avatar alt="متطوع 2" src='/images/logo/2.jpg' />
               <Avatar alt="متطوع 3" src='/images/logo/3.jpg' />
             </AvatarGroup>
             <h4 className="volunteers-text">
-              {number}
+              {project.number}
                متطوع حالي بالمشروع
             </h4>
           </div>
@@ -53,6 +59,7 @@ function CardProject({ title, number, ditail, full }) {
           <Button 
             variant='contained' 
             className="project-button"
+            onClick={handleClick}
           >
             <ArrowBackIosNewOutlinedIcon sx={{ fontSize: 'small' }} />
             عرض المشروع

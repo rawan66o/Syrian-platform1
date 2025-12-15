@@ -1,16 +1,20 @@
 import { useState } from 'react';
+
+// MUI IMPORTS
+import appTheme from '../../appTeme';
 import { ThemeProvider } from '@mui/material/styles';
 import { Container, Box, IconButton } from '@mui/material';
+import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
+import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
+// COMPONENTS && DATA IMPORTS
 import Navbar from "../../components/volunteer-projects/Navbar";
-import appTheme from '../../appTeme';
 import Footer from '../../components/footer/footer'
 import Header from '../../components/volunteer-projects/Header';
 import CardProject from '../../components/volunteer-projects/CardProject/CardProject';
 import CategoriesProject from '../../components/volunteer-projects/CategoriesProject';
 import LatestProjects from '../../components/volunteer-projects/LatestProjects';
-import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
-import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 function VolunteerProjects() {
   const [activeStep, setActiveStep] = useState(0);
@@ -180,7 +184,7 @@ function VolunteerProjects() {
       <Navbar />
       <div style={{direction:'rtl'}}>
         <Header/>
-        <Container maxWidth='lg' sx={{mt:4}}>
+        <Container maxWidth='lg' sx={{ mt:4 }}>
           <div style={{ 
             display: 'flex',
             gap: '40px',
@@ -219,10 +223,8 @@ function VolunteerProjects() {
                   }}>
                   <CardProject 
                     key={index}
-                    title={project.title}
-                    ditail={project.ditail}
-                    number={project.number}
-                    full={project.full}
+                    project={project}
+                    projectId={index}
                     />
                   </div>
                 ))}
@@ -237,7 +239,8 @@ function VolunteerProjects() {
                 mt: 4,
                 p: 3,
                 flexWrap: 'wrap',
-                padding:'40px'
+                padding:'40px',
+                direction:'ltr'
               }}>
                 
                 {/* زر السابق */}
