@@ -60,7 +60,8 @@ function ApplicationForMembership (){
                   flex: 1,
                   height: '56px',
                   border: '1px solid #70838766',
-                  borderRadius: '8px 0 0 8px', // زاوية دائرية على اليسار فقط
+                  borderLeft:'none',
+                  borderRadius: '0px 8px 8px 0px', // زاوية دائرية على اليسار فقط
                   padding: '0 16px',
                   fontSize: '16px'
                 }}
@@ -78,8 +79,8 @@ function ApplicationForMembership (){
                   gap: '10px',
                   padding: '0 16px',
                   border: '1px solid #70838766',
-                  borderLeft: 'none',
-                  borderRadius: '0 8px 8px 0',
+                  borderRight: 'none',
+                  borderRadius: '8px 0 0 8px',
                   backgroundColor: 'white',
                   cursor: 'pointer'
                 }}
@@ -100,7 +101,7 @@ function ApplicationForMembership (){
                   <img
                     src={selectedCountry.flag}
                     alt={selectedCountry.name}
-                    style={{ width: '20px', height: '15px', borderRadius: '2px' }}
+                    style={{ width: '20px', height: '15px', borderRadius: '3px' }}
                   />
                 </div>
               </button>
@@ -110,18 +111,18 @@ function ApplicationForMembership (){
                 <div style={{
                   position: 'absolute',
                   top: '60px', // أسفل الزر مباشرة
-                  right: '0',
+                  right: '430px',
                   width: '220px',
                   maxHeight: '300px',
                   overflowY: 'auto',
-                  backgroundColor: 'white',
-                  border: '1px solid #D9E4E5',
+                  backgroundColor: '#D9E4E5',
+                  border: '1px solid #f0f0f0',
                   borderRadius: '8px',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                   zIndex: 1000 // للتأكد من ظهورها فوق العناصر الأخرى
                 }}>
                   {/* البحث (اختياري) */}
-                  <input
+                  {/* <input
                     type="text"
                     placeholder="ابحث عن دولة..."
                     style={{
@@ -129,9 +130,10 @@ function ApplicationForMembership (){
                       padding: '12px',
                       border: 'none',
                       borderBottom: '1px solid #f0f0f0',
+                      backgroundColor: '#D9E4E5',
                       boxSizing: 'border-box'
                     }}
-                  />
+                  /> */}
 
                   {/* قائمة الدول */}
                   {countriesWithFlages.map((country) => (
@@ -150,26 +152,28 @@ function ApplicationForMembership (){
                         width: '100%',
                         display: 'flex',
                         alignItems: 'center',
+                        justifyContent:'space-between' ,
                         gap: '12px',
                         padding: '12px',
                         border: 'none',
-                        borderBottom: '1px solid #f0f0f0',
-                        backgroundColor: selectedCountry.prefix === country.prefix ? '#F0F9FF' : 'white', // تمييز المختار
+                        borderBottom: '1px solid #D9E4E5',
+                        borderRadius:'0px',
+                        backgroundColor: selectedCountry.prefix === country.prefix ? '#6DCDE5' : '#D9E4E5', // تمييز المختار
                         cursor: 'pointer',
                         textAlign: 'right'
                       }}
                     >
+                      {/* اسم الدولة ورمزها */}
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-between', gap:'10px'}}>
+                        <span style={{ fontSize: '14px', color: 'black' }}>+{country.prefix}</span>
+                        <span style={{ fontWeight: 500,color:'black' }}>{country.name}</span>
+                      </div>
                       {/* علم الدولة في القائمة */}
                       <img
                         src={country.flag}
                         alt={country.name}
-                        style={{ width: '20px', height: '15px', borderRadius: '2px' }}
+                        style={{ width: '20px', height: '15px', borderRadius: '3px' }}
                       />
-                      {/* اسم الدولة ورمزها */}
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                        <span style={{ fontWeight: 500 }}>{country.name}</span>
-                        <span style={{ fontSize: '14px', color: '#666' }}>+{country.prefix}</span>
-                      </div>
                     </button>
                   ))}
                 </div>
