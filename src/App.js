@@ -12,10 +12,10 @@ import WhyUs from "./components/main-page-components/why-us";
 function App() {
   return (
     <div className="App">
-     
-
       <div className="main_page">
+
         <div className="main_page_navbar">
+          {/* فعّلها إذا بدك navbar */}
           {/* <CourseDetailsNavBar /> */}
         </div>
 
@@ -27,6 +27,7 @@ function App() {
         <MainPageSearch />
         <ForumContainer />
         <Footer />
+
       </div>
     </div>
   );

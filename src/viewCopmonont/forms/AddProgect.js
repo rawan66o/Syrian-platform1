@@ -1,6 +1,6 @@
-import appTheme from '../appTeme';
-import Navbar from '../components/volunteer-projects/Navbar';
-import '../styles/Form.css'
+import appTheme from '../../appTeme';
+import Navbar from '../../components/volunteer-projects/Navbar';
+import './Form.css'
 import { ThemeProvider } from '@mui/material/styles';
 
 function AddProject() {
