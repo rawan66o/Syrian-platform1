@@ -10,9 +10,8 @@ import Comment from '../../components/volunteer-projects/Comment';
 import Volunteer from '../../components/volunteer-projects/Volunteer';
 import LatestProjects from "../../components/volunteer-projects/LatestProjects";
 // IMPORTS MUI
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 
 
 const progect = `لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .
@@ -75,7 +74,7 @@ function Posts({full}) {
                 <div style={{display:'flex', justifyContent:'space-between'}}>
                   <Typography variant='h6' >الاحد</Typography>
                    <div className="date-info">
-                    <img src='/images/icons/dashboard/calendar.svg' sx={{ fontSize: '20px' }} />
+                    <img src='/images/icons/dashboard/calendar.svg' alt='' sx={{ fontSize: '20px' }} />
                     <Typography variant='h6'>2025 / 8 / 18</Typography>
                     </div> 
                 </div>       
