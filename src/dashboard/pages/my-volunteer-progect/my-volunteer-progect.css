@@ -68,6 +68,15 @@
   color: #071722;
 }
 
+/* pro Grid - IMPORTANT FIX */
+.pro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px; /* المسافة بين جميع العناصر */
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* Card Styles */
 .card-pro {
   display: flex;
@@ -166,15 +175,6 @@
   width: 18px;
   height: 18px;
   object-fit: contain;
-}
-
-/* pro Grid - IMPORTANT FIX */
-.pro-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 24px; /* المسافة بين جميع العناصر */
-  width: 100%;
-  box-sizing: border-box;
 }
 
 /* Continue course button */

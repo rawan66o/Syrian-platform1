@@ -193,7 +193,7 @@ function Profile({ status = 'volunteer' }) {
                 <div style={{
                   position: 'absolute',
                   top: '55px',
-                  right: '300px',
+                  right: '240px',
                   width: '220px',
                   maxHeight: '300px',
                   overflowY: 'auto',
