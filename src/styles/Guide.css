@@ -79,7 +79,7 @@
 }
 
 .dividing_line {
-  height: 1px;
+  height: 2px;
   background: linear-gradient(to right, #FFFFFF 0%, #6dcde5 100%);
   margin-top: 10px;
   transition: width 0.3s ease;

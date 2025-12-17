@@ -54,9 +54,9 @@ const Navbar = () => {
       sx={{ 
         backgroundColor: 'white',
         color: 'black',
-        boxShadow: 'none',
-        borderBottom: '1px solid #e0e0e0',
-        padding:'5px 100px',
+        boxShadow: '0px 0px 1px rbga(0,0,0,0.4) ',
+        border: '1px solid #d6d6d6ff',
+        padding:'5px 50px',
         direction: 'rtl'
       }}
     >

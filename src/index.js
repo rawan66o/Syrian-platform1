@@ -32,6 +32,10 @@ import ApplicationForMembership from './viewCopmonont/ApplicationForMembership';
 import Guide from './viewCopmonont/Guide';
 import { StudentGuide, VolunteerGuide, CoachGuide } from './viewCopmonont/GuideData';
 import Partners from './viewCopmonont/PartnersPage';
+import Profile from './dashboard/pages/profile/profile';
+import ContentDashboard from './dashboard/pages/dashboard-home/dashbooard-home';
+import DashboardLayout from './dashboard/pages/dashboard-layout/dashboard-layout';
+import Certificates from './dashboard/pages/certificates/certificates';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -78,6 +82,26 @@ root.render(
           <Route path="form" element={<ApplicationForMembership />} />
 
         </Route>
+
+        
+        <Route path="/student-guide" element={<Guide data={StudentGuide} title="دليل الحياة الجامعية" />} />
+        <Route path="/coach-guide" element={<Guide data={CoachGuide} title="دليل المدرب" />} />
+        <Route path="/volunteer-guide" element={<Guide data={VolunteerGuide} title="دليل المتطوع" />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/add-project" element={<AddProject />} />
+        <Route path="/volunteer-projects" element={<VolunteerProjects />} />
+        <Route path="/posts-projects" element={<Posts />} />
+        <Route path="/form" element={<ApplicationForMembership />} />
+        
+         <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<ContentDashboard />} />          
+          <Route path="profile" element={<Profile />} />      
+          <Route path="certificates" element={<Certificates />} />      
+          {/* <Route path="settings" element={<Settings />} />    
+          <Route path="analytics" element={<Analytics />} />   */}
+          {/* تضيف أي صفحة بدك */}
+        </Route>
+        
 
       </Routes>
     </BrowserRouter>

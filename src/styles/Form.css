@@ -1,5 +1,5 @@
-input {
-  width: 660;
+.form-request input {
+  width: 660px;
   height: 56;
   opacity: 1;
   border-width: 1px;
@@ -20,14 +20,13 @@ input {
   font-weight: 400;
   font-style: Regular;
   font-size: 12px;
-  leading-trim: NONE;
   line-height: 100%;
   letter-spacing: 0%;
   text-align: right;
   outline: none;
 }
 
-textarea{
+.form-request textarea{
   width: 660px;
   height: 126px;
   opacity: 1;
@@ -38,10 +37,15 @@ textarea{
   border-style: solid;
   border-color: #70838766;
   resize: none;
+  border-width: 1px;
+  padding-top: 12px;
+  padding-right: 20px;
+  padding-bottom: 12px;
+  padding-left: 20px;
 }
 
-textarea::placeholder,
-input::placeholder{
+.form-request textarea::placeholder,
+.form-request input::placeholder{
   width: 228.59px;
   height: 17px;
   opacity: 1;
@@ -50,23 +54,22 @@ input::placeholder{
   font-weight: 500;
   font-style: Medium;
   font-size: 14px;
-  leading-trim: NONE;
   line-height: 100%;
   letter-spacing: 0%;
   text-align: right;
 }
 
-input:hover,
-input:focus,
-input:active,
-textarea:hover,
-textarea:focus,
-textarea:active {
+.form-request input:hover,
+.form-request input:focus,
+.form-request input:active,
+.form-request textarea:hover,
+.form-request textarea:focus,
+.form-request textarea:active {
   border: 1px solid #70838780; /* الحفاظ على الخط السفلي فقط */
   outline: none;
 }
 
-label{
+.form-request label{
   width: 660;
   height: 19;
   opacity: 1;
@@ -75,13 +78,12 @@ label{
   font-weight: 500;
   font-style: Medium;
   font-size: 16px;
-  leading-trim: NONE;
   line-height: 100%;
   letter-spacing: 0%;
   text-align: right;
 }
 
-button{
+.form-request button{
   height: 56px;
   opacity: 1;
   border-radius: 100px;
@@ -89,7 +91,6 @@ button{
   font-weight: 700;
   font-style: Bold;
   font-size: 20px;
-  leading-trim: NONE;
   line-height: 150%;
   letter-spacing: -2%;
   text-align: center;
