@@ -36,7 +36,7 @@ const VolunteerProjectsContainer = () => {
             <h1>اكتشف افضل واشمل المشاريع التطوعية</h1>
         </div>
         <div className="volunteer_projects_cards">
-            {volunteerProjects.map(project => <div className="volunteer_projects_card">
+            {volunteerProjects.map((project, index) => <div key={index} className="volunteer_projects_card">
                 <img src={project.img} alt="" />
                 <div className="volunteer_projects_card_details">
                     <div className="volunteers_card_date_h1">

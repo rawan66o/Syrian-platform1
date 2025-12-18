@@ -18,9 +18,9 @@ const CourseDetailsNavBar = () => {
                     <NavLink className="course_nav_link">Contact</NavLink>
                 </div>
             </div>
-            <div className="search_container">
-                <input className="nav_search_input" type="search" placeholder="Research" />
-                <img className="nav_search_icon" src="/icons/search_icon/search_normal.svg" alt="" />
+            <div className="course_details_navbar_search_container">
+                <input className="course_details_nav_search_input" type="search" placeholder="Research" />
+                <img className="course_details_nav_search_icon" src="/icons/search_icon/search_normal.svg" alt="" />
             </div>
             <div className="signup_notifications_language_container">
                 <div className="notifications_language_container">
