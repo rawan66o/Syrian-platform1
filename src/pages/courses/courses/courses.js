@@ -9,6 +9,7 @@ const Courses = () => {
     const coursesPerPage = 9;
     const lastCourse = currentPage * coursesPerPage;
     const firstCourse = lastCourse - coursesPerPage;
+
     let pages = [];
 
     const courses = [
@@ -228,10 +229,459 @@ const Courses = () => {
             students: 17000,
             rating: 4.7
         },
+        {
+            id: 28,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 29,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 30,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 31,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 32,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 33,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 34,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 35,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 36,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 37,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 38,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 39,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 40,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 41,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 42,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 43,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 44,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 45,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 46,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 47,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 48,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 49,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 50,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 51,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 52,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 53,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 54,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 55,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 56,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 57,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 58,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 59,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 60,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 61,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 62,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 63,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 64,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 65,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 66,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 67,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 68,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 69,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 70,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 71,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 72,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.2",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 73,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 74,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 75,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 76,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 77,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 78,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 79,
+            imgSrc: "/images/course_card_images/1.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 80,
+            imgSrc: "/images/course_card_images/2.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
+        {
+            id: 81,
+            imgSrc: "/images/course_card_images/3.svg",
+            time: "28 ساعة",
+            title: "كورس تصميم  Ui UX للتطبيقات و المواقع الالكترونية.3",
+            students: 17000,
+            rating: 4.7
+        },
     ];
-    for (let i = 1; i <= Math.ceil(courses.length / coursesPerPage); i++) {
-        pages.push(i);
+    const totalPages = Math.ceil(courses.length / coursesPerPage);
+
+    pages.push(1);
+    if (currentPage - 2 > 1) {
+        pages.push(<img className="courses_page_stepper_style" src="/icons/dotdotdot/Page.svg" alt="" />);
     }
+    if (currentPage - 1 > 1) {
+        pages.push(currentPage - 1);
+    }
+    if (currentPage > 1 && currentPage < totalPages) {
+        pages.push(currentPage);
+    }
+    if (currentPage + 1 < totalPages) {
+        pages.push(currentPage + 1);
+    }
+    if (currentPage + 2 < totalPages) {
+        pages.push(<img className="courses_page_stepper_style" src="/icons/dotdotdot/Page.svg" alt="" />)
+    }
+    pages.push(totalPages);
+
     const categories = [
         { id: 1, category: "كل الكورسات", code: "all_courses" },
         { id: 2, category: "اللغات", code: "langs" },
@@ -286,9 +736,6 @@ const Courses = () => {
     }
 
 
-    useEffect(() => {
-        console.log(currentPage);
-    }, [currentPage]);
     return <div className="courses_page">
         <div className="courses_page_container">
             <div className="courses_sidebar_container">
@@ -309,7 +756,6 @@ const Courses = () => {
                     <div className="courses_container_header_title_and_order">
                         <h1>جميع الكورسات</h1>
                         <Select
-                            className="order_courses_select"
                             placeholder="ترتيب حسب"
                             options={
                                 [
@@ -332,7 +778,7 @@ const Courses = () => {
                 </div>
                 <div className="courses_cards">
                     {courses.slice(firstCourse, lastCourse).map((course, index) => <CourseCard
-                        key={index}
+                        key={course.id}
                         imgSrc={course.imgSrc}
                         time={course.time}
                         title={course.title}
@@ -347,8 +793,12 @@ const Courses = () => {
                     <div className="courses_pages_pagination_nums" dir="ltr">
                         {pages.map((page, index) => <p
                             key={index}
-                            className={`courses_pages_pagination_nums_p ${currentPage === page ? "courses_page_chosen" : ""}`}
-                            onClick={() => { setcurrentPage(page) }}
+                            className={`${Number(page) ? "courses_pages_pagination_nums_p" : ""} ${(currentPage === page && Number(page)) ? "courses_page_chosen" : ""}`}
+                            onClick={() => {
+                                if (Number(page)) {
+                                    setcurrentPage(page);
+                                }
+                            }}
                         >
                             {page}
                         </p>)}
