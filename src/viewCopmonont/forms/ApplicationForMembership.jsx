@@ -6,6 +6,8 @@ import appTheme from '../../appTeme';
 import countriesWithFlages from '../../dashboard/countriesWithFlages';
 
 function ApplicationForMembership() {
+
+  // ====== STATES ======
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -13,18 +15,23 @@ function ApplicationForMembership() {
     possibilities: ''
   });
 
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(false); // لتوسيع حقل اختيار الدولة
+  const [selectedCountry, setSelectedCountry] = useState({
+    prefix: '963',
+    name: 'سوريا',
+    flag: '/images/icons/syria.png'
+  });
 
-  // ======= FUNCTIONS =======
+  // ====== FUNCTIONS ======
   const handleFieldChange = (fieldName) => (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [fieldName]: e.target.value
-    }));
+    setFormData(prev => ({ ...prev, [fieldName]: e.target.value }));
   };
 
-  const handleExpand = () => {
-    setExpand(prev => !prev);
+  const handleExpand = () => setExpand(prev => !prev);
+
+  const handleCountrySelect = (country) => {
+    setSelectedCountry(country);
+    setExpand(false);
   };
 
   return (
@@ -38,7 +45,8 @@ function ApplicationForMembership() {
           </h6>
 
           <div className="form-request">
-            {/* الاسم */}
+
+            {/* الاسم الكامل */}
             <label>الاسم الكامل</label>
             <div className="input-texthelp">
               من فضلك يجب أن يكون الاسم معبراً ولا يتجاوز 30 حرف.
@@ -50,66 +58,64 @@ function ApplicationForMembership() {
               onChange={handleFieldChange('fullName')}
             />
 
-            {/* الهاتف */}
+            {/* رقم الهاتف مع اختيار الدولة */}
             <label>رقم الهاتف</label>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%',
-                border: '1px solid #70838766',
-                borderRadius: '8px'
-              }}
-            >
-              <input
-                type="tel"
-                placeholder="5XX XXX XXX"
-                value={formData.phone}
-                onChange={handleFieldChange('phone')}
-                style={{ border: '0px', flex: 1 }}
-              />
-
+            <div className="phone-container" style={{ display: 'flex', gap: '10px' }}>
               <div
                 onClick={handleExpand}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '10px',
-                  padding: '10px',
-                  cursor: 'pointer'
+                  gap: '8px',
+                  padding: '0 12px',
+                  border: '1px solid #70838766',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  backgroundColor: 'white'
                 }}
               >
-                <div style={{ width: '1px', height: '24px', backgroundColor: '#70838766' }} />
-
-                <img src="/images/icons/ChevronRight.png" alt="" />
-
-                <img
-                  src="/images/icons/syria.png"
-                  alt="سوريا"
-                  style={{ width: '20px', height: '15px', borderRadius: '2px' }}
-                />
+                <img src={selectedCountry.flag} alt={selectedCountry.name} style={{ width: '20px', height: '15px', borderRadius: '3px' }} />
+                <span>+{selectedCountry.prefix}</span>
               </div>
+
+              <input
+                type="tel"
+                placeholder="5XX XXX XXX"
+                value={formData.phone}
+                onChange={handleFieldChange('phone')}
+                style={{
+                  flex: 1,
+                  border: '1px solid #70838766',
+                  borderRadius: '8px',
+                  padding: '0 12px'
+                }}
+              />
             </div>
 
-            {/* قائمة الدول */}
+            {/* قائمة الدول المنسدلة */}
             {expand && (
-              <div style={{ marginTop: '10px', border: '1px solid #eee', borderRadius: '8px' }}>
+              <div style={{
+                marginTop: '8px',
+                border: '1px solid #eee',
+                borderRadius: '8px',
+                maxHeight: '200px',
+                overflowY: 'auto',
+                backgroundColor: '#D9E4E5'
+              }}>
                 {countriesWithFlages.map((country) => (
                   <div
                     key={country.prefix}
+                    onClick={() => handleCountrySelect(country)}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '10px',
-                      padding: '8px',
-                      cursor: 'pointer'
+                      padding: '8px 12px',
+                      cursor: 'pointer',
+                      backgroundColor: selectedCountry.prefix === country.prefix ? '#6DCDE5' : 'transparent'
                     }}
                   >
-                    <img
-                      src={country.flag}
-                      alt={country.name}
-                      style={{ width: '20px', height: '15px', borderRadius: '2px' }}
-                    />
+                    <img src={country.flag} alt={country.name} style={{ width: '20px', height: '15px', borderRadius: '2px' }} />
                     <span>+{country.prefix}</span>
                     <span>{country.name}</span>
                   </div>
@@ -136,23 +142,23 @@ function ApplicationForMembership() {
         </div>
       </div>
 
-      <div className="button-request">
-        <button
-          style={{
-            width: '146px',
-            border: '1px solid #D9E4E5',
-            fontWeight: 500,
-            background: '#fff',
-            color: '#072127'
-          }}
-        >
+      {/* أزرار الإرسال */}
+      <div className="button-request" style={{ display: 'flex', gap: '16px', marginTop: '24px' }}>
+        <button style={{
+          width: '146px',
+          border: '1px solid #D9E4E5',
+          fontWeight: 500,
+          background: '#fff',
+          color: '#072127'
+        }}>
           السابق
         </button>
 
-        <button style={{ width: '396px' }}>
+        <button style={{ width: '396px', backgroundColor: '#6DCDE5', color: 'white', fontWeight: 500, border: 'none', borderRadius: '8px' }}>
           طلب الدخول كمتطوع
         </button>
       </div>
+
     </ThemeProvider>
   );
 }

@@ -42,7 +42,7 @@ function Certificates() {
         </div>
       </div>
       
-      <div className='courses-grid'>
+      <div className='certificates-grid'>
         {sortedCertificates.map((certificate) => (
           <Card key={certificate.id} data={certificate} />
         ))}
