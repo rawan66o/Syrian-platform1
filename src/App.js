@@ -15,8 +15,7 @@ function App() {
       <div className="main_page">
 
         <div className="main_page_navbar">
-          {/* فعّلها إذا بدك navbar */}
-          {/* <CourseDetailsNavBar /> */}
+          <CourseDetailsNavBar />
         </div>
 
         <PlatformIntroduction />

@@ -59,10 +59,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
+      <Routes>  
+        <Route index element={<App />} />
         {/* ================== Website Layout ================== */}
         <Route element={<Layout />}>
-          <Route index element={<App />} />
+        
 
           {/* Auth */}
           <Route path="login" element={<Login />} />
