@@ -5,6 +5,7 @@ import { DatePicker } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import appTheme from '../../appTeme';
 import Navbar from '../../components/volunteer-projects/Navbar';
+import { format } from 'date-fns';
 
 function AddProject() {
   // ====== STATES SECTION ========
@@ -137,35 +138,26 @@ function AddProject() {
             
             {/* موعد البدء */}
             <label>تحديد موعد بدأ المشروع</label>
-            <div className="date-wrapper">
-              <DatePicker
+            <div style={{ position: 'relative', width: '100%' }}>
+              <DatePicker 
                 selected={formData.startDate}
                 onChange={(date) => setFormData(prev => ({ ...prev, startDate: date }))}
-                dateFormat="yyyy/MM/dd"
-                placeholderText="2025 / 05 / 02"
-                locale="ar"
-                // className="custom-datepicker"
+                dateFormat="dd/MM/yyyy"
+                popperPlacement="bottom-end"
                 customInput={
-                  <div style={{ position: 'relative', width: '100%' }}>
-                    <input value={formData.startDate} style={{ color: formData.startDate ? '#072127' : '#708387' }}/>
-                  {!formData.startDate && (
-                    <div>
-                      <img 
-                        src='/images/icons/dashboard/calendar.svg' 
-                        alt='تقويم'
-                        style={{
-                          position: 'absolute',
-                        left: '610px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        width: '20px',
-                        height: '20px',
-                        pointerEvents: 'none'
-                      }}
-                    />
-                    <p>22 ايار / 2025</p>
-                  </div>
-                  )}
+                  <div className='date-input-container'>
+                    <input readOnly />
+                    <div className='date-display'>
+                      <div className='date-real-input'>
+                        <img src='/icons/chalender/calendar.svg' alt='' />
+                        <div className='date-text' style={{color: formData ? '#072127':'#708387' }}>
+                          {formData.startDate ? 
+                            format(formData.startDate,'dd/MM/yyyy'): '22/05/2025'
+                          }
+                        </div>
+                      </div>
+                      <img src='/images/icons/ChevronRight.png' alt='' />
+                    </div>
                   </div>
                 }
               />

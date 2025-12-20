@@ -170,6 +170,57 @@
   letter-spacing: -2%;
   text-align: center;
 }
+
+.date-input-container {
+  position: relative;
+  width: 100%;
+  height: 56px;
+  border: 0px solid #70838766;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.date-real-input {
+  /* position: absolute; */
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+  border: 0px;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.date-display {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.date-text {
+  flex: 1;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.date-arrow img {
+  width: 12px;
+  height: 11px;
+  transform: rotate(90deg);
+}
  
 /* تحسين حاوية رفع الصور */
 .input-image {
