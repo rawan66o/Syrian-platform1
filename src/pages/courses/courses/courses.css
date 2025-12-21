@@ -203,3 +203,12 @@
   font-size: 13px;
   color: #ffffff;
 }
+.courses_page_stepper_style {
+  background-color: none;
+  justify-self: center;
+  align-self: center;
+}
+.courses_page_stepper_style:hover {
+  background-color: none;
+  background: none;
+}
