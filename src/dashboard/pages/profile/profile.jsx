@@ -1,6 +1,9 @@
 import './profile.css';
-import countriesWithFlages from '../../countriesWithFlages';
 import { useState } from 'react';
+import { DatePicker } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from 'date-fns';
+import countriesWithFlages from '../../countriesWithFlages';
 
 function Profile({ status = 'volunteer' }) {
   const [formData, setFormData] = useState({
@@ -92,12 +95,30 @@ function Profile({ status = 'volunteer' }) {
         <div className='flex-row'>
           <div className="flex-col-start">
             <label><img src='/images/icons/dashboard/calendar.svg' alt="" /> تاريخ الميلاد</label>
-            <input
-              type='date'
-              placeholder='2025 / 05 / 02'
-              value={formData.date}
-              onChange={handleFieldChange('date')}
-            />
+            <div style={{ position: 'relative', width: '100%' }}>
+              <DatePicker 
+                selected={formData.startDate}
+                onChange={(date) => setFormData(prev => ({ ...prev, startDate: date }))}
+                dateFormat="dd/MM/yyyy"
+                popperPlacement="bottom-end"
+                customInput={
+                  <div className='date-input-container'>
+                    <input readOnly />
+                    <div className='date-display'>
+                      <div className='date-real-input'>
+                        <img src='/icons/chalender/calendar.svg' alt='' />
+                        <div className='date-text' style={{color: formData ? '#072127':'#708387' }}>
+                          {formData.startDate ? 
+                            format(formData.startDate,'dd/MM/yyyy'): '22/05/2025'
+                          }
+                        </div>
+                      </div>
+                      <img src='/images/icons/ChevronRight.png' alt='' />
+                    </div>
+                  </div>
+                }
+              />
+            </div>
           </div>
           <div className="flex-col-start">
             <label><img src="/images/icons/dashboard/call.svg" alt="" /> رقم الهاتف</label>

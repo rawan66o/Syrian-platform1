@@ -75,9 +75,11 @@ function ApplicationForMembership() {
                   border: '1px solid #70838766',
                   borderLeft: 'none',
                   borderRadius: '0px 8px 8px 0px',
+                  textAlign:'right',
                   padding: '0 16px',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
+                
               />
 
              {!isDropdownOpen ? (<button
