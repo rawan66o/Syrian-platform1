@@ -1,6 +1,5 @@
 import '../styles/Guide.css'
 import Footer from "../components/footer/footer"
-import Navbar from "../components/volunteer-projects/Navbar"
 import { useEffect, useState } from 'react';
 
 function Partners() {
@@ -47,9 +46,7 @@ function Partners() {
     }, []);
 
    return(
-    <div>
-      <Navbar/>
-      
+    <div>      
       <div className='header'>
          <h1>شركاء المنصة</h1>
          <p>( 1440 شريك)</p>

@@ -1,6 +1,5 @@
 import '../styles/Guide.css'
 import Footer from "../components/footer/footer";
-import Navbar from "../components/volunteer-projects/Navbar";
 
 function Guide({data,title}) {
    function FormattedText({ text, className = "" }) {
@@ -35,14 +34,12 @@ function Guide({data,title}) {
   return <p className={`justified-paragraph ${className}`}>{text}</p>;
 }
 
-   return(
+  return(
     <div>
-      <Navbar/>
-      <div>
-       <div className="header">
+      <div className="header">
         <h1>{title}</h1>
-       </div>
-       <div className='layout-Guide'>
+      </div>
+      <div className='layout-Guide'>
         {data.map((d) => 
            <div key={d.id} className='layout2-Guide'>
              <div className="title-wrapper">
@@ -53,11 +50,10 @@ function Guide({data,title}) {
              <div className='dividing' /> 
            </div>
         )}
-       </div>
       </div>
       <Footer/>
     </div>
-   )   
+  )   
 }
 
 export default Guide

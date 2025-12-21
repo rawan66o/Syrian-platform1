@@ -5,13 +5,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Container, Box, IconButton } from '@mui/material';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 // THEME
 import appTheme from '../../appTeme'; // ✅ تأكد أن اسم الملف theme.js
 
 // COMPONENTS
-import Navbar from "../../components/volunteer-projects/Navbar";
 import Footer from '../../components/footer/footer';
 import Header from '../../components/volunteer-projects/Header';
 import CardProject from '../../components/volunteer-projects/CardProject/CardProject';
@@ -78,8 +76,6 @@ function VolunteerProjects() {
 
   return (
     <ThemeProvider theme={appTheme}>
-      <Navbar />
-
       <div style={{ direction: 'rtl' }}>
         <Header />
 

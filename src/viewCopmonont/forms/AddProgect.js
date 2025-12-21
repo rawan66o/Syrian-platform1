@@ -4,7 +4,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import { DatePicker } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import appTheme from '../../appTeme';
-import Navbar from '../../components/volunteer-projects/Navbar';
 import { format } from 'date-fns';
 
 function AddProject() {
@@ -111,7 +110,6 @@ function AddProject() {
 
   return (
     <ThemeProvider theme={appTheme}>
-      <Navbar />
       <div className='app-a'>
         <div className='request'>
           <h6 style={{fontSize:'24px', lineHeight:'100%', color:'#232323'}}>

@@ -5,7 +5,6 @@ import { ThemeProvider } from '@mui/material/styles';
 
 import { volunteers, commentsData } from '../Data'
 import Footer from '../../components/footer/footer'
-import Navbar from '../../components/volunteer-projects/Navbar';
 import Comment from '../../components/volunteer-projects/Comment';
 import Volunteer from '../../components/volunteer-projects/Volunteer';
 import LatestProjects from "../../components/volunteer-projects/LatestProjects";
@@ -41,7 +40,6 @@ function Posts({full}) {
 
   return(
     <ThemeProvider theme={appTheme}>
-      <Navbar/>
       <Container maxWidth="lg">
         <div className='layout-l'>
           <div className='layout-post'>

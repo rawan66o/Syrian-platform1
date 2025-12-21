@@ -1,13 +1,13 @@
 import './Form.css';
 import { useState } from 'react';
-import Navbar from '../../components/volunteer-projects/Navbar';
 import { ThemeProvider } from '@mui/material/styles';
 import appTheme from '../../appTeme';
 import countriesWithFlages from '../../dashboard/countriesWithFlages';
 
 function ApplicationForMembership() {
-
   // ====== STATES ======
+  const [isDropdownOpen,setIsDropdownOpen]= useState(false);
+
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -15,7 +15,6 @@ function ApplicationForMembership() {
     possibilities: ''
   });
 
-  const [expand, setExpand] = useState(false); // لتوسيع حقل اختيار الدولة
   const [selectedCountry, setSelectedCountry] = useState({
     prefix: '963',
     name: 'سوريا',
@@ -27,16 +26,13 @@ function ApplicationForMembership() {
     setFormData(prev => ({ ...prev, [fieldName]: e.target.value }));
   };
 
-  const handleExpand = () => setExpand(prev => !prev);
 
   const handleCountrySelect = (country) => {
     setSelectedCountry(country);
-    setExpand(false);
   };
 
   return (
     <ThemeProvider theme={appTheme}>
-      <Navbar />
 
       <div className="app-a">
         <div className="request">
@@ -60,24 +56,8 @@ function ApplicationForMembership() {
 
             {/* رقم الهاتف مع اختيار الدولة */}
             <label>رقم الهاتف</label>
-            <div className="phone-container" style={{ display: 'flex', gap: '10px' }}>
-              <div
-                onClick={handleExpand}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '0 12px',
-                  border: '1px solid #70838766',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  backgroundColor: 'white'
-                }}
-              >
-                <img src={selectedCountry.flag} alt={selectedCountry.name} style={{ width: '20px', height: '15px', borderRadius: '3px' }} />
-                <span>+{selectedCountry.prefix}</span>
-              </div>
-
+            <div className="phone-container" style={{ display: 'flex', width:'660px' }}>
+             
               <input
                 type="tel"
                 placeholder="5XX XXX XXX"
@@ -85,14 +65,13 @@ function ApplicationForMembership() {
                 onChange={handleFieldChange('phone')}
                 style={{
                   flex: 1,
+                  borderRadius: '0px 8px 8px 0px',
                   border: '1px solid #70838766',
                   borderLeft: 'none',
-                  borderRadius: '0px 8px 8px 0px',
                   textAlign:'right',
-                  padding: '0 16px',
+                  padding: '0 12px',
                   fontSize: '16px',
                 }}
-                
               />
 
              {!isDropdownOpen ? (<button
@@ -105,10 +84,10 @@ function ApplicationForMembership() {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   gap: '10px',
-                  padding: '0 16px',
+                  padding: '0 12px',
+                  borderRadius: '8px 0 0 8px',
                   border: '1px solid #70838766',
                   borderRight: 'none',
-                  borderRadius: '8px 0 0 8px',
                   backgroundColor: 'white',
                   cursor: 'pointer'
                 }}
@@ -139,7 +118,7 @@ function ApplicationForMembership() {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   gap: '10px',
-                  padding: '0 16px',
+                  padding: '0 12px',
                   border: '1px solid #70838766',
                   borderRight: 'none',
                   borderRadius: '8px 0 0 8px',
@@ -184,7 +163,10 @@ function ApplicationForMembership() {
                     <button
                       key={country.prefix}
                       type="button"
-                      onClick={() => handleCountrySelect(country)}
+                      onClick={() => {
+                        handleCountrySelect(country)
+                        setIsDropdownOpen(!isDropdownOpen)
+                      }}
                       style={{
                         width: '100%',
                         display: 'flex',
