@@ -120,13 +120,14 @@ root.render(
             element={<Guide data={VolunteerGuide} title="دليل المتطوع" />}
           />
 
-          {/* Other Pages */}
-          <Route path="partners" element={<Partners />} />
-          <Route path="add-project" element={<AddProject />} />
-          <Route path="volunteer-projects" element={<VolunteerProjects />} />
-          <Route path="posts-projects" element={<Posts />} />
-          <Route path="form" element={<ApplicationForMembership />} />
         </Route>
+
+        {/* Other Pages */}
+        <Route path="partners" element={<Partners />} />
+        <Route path="add-project" element={<AddProject />} />
+        <Route path="volunteer-projects" element={<VolunteerProjects />} />
+        <Route path="posts-projects" element={<Posts />} />
+        <Route path="form" element={<ApplicationForMembership />} />
 
         {/* ================== Dashboard ================== */}
         <Route path="/dashboard" element={<DashboardLayout />}>
