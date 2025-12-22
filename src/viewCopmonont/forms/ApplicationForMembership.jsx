@@ -57,7 +57,6 @@ function ApplicationForMembership() {
             {/* رقم الهاتف مع اختيار الدولة */}
             <label>رقم الهاتف</label>
             <div className="phone-container" style={{ display: 'flex', width:'660px' }}>
-             
               <input
                 type="tel"
                 placeholder="5XX XXX XXX"
