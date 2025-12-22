@@ -1,9 +1,7 @@
 import './Form.css';
 import { useState } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
 import { DatePicker } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import appTheme from '../../appTeme';
 import { format } from 'date-fns';
 
 function AddProject() {
@@ -109,7 +107,7 @@ function AddProject() {
   };
 
   return (
-    <ThemeProvider theme={appTheme}>
+    <div style={{padding:'10px'}}>
       <div className='app-a'>
         <div className='request'>
           <h6 style={{fontSize:'24px', lineHeight:'100%', color:'#232323'}}>
@@ -330,7 +328,7 @@ function AddProject() {
           نشر المشروع
         </button>
       </div>
-    </ThemeProvider>
+    </div>
   );
 }
 

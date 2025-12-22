@@ -4,11 +4,28 @@ import { Avatar, AvatarGroup, Button, Typography } from "@mui/material";
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 
-function CardProject({ projectId, project }) {
+function CardProject({  project }) {
   const navigate = useNavigate();
+
+  if (!project) {
+    return (
+      <div className='volunteer-card-project'>
+        <Typography variant="h6" color="error">
+          ⚠️ بيانات المشروع غير متوفرة
+        </Typography>
+      </div>
+    );
+  }
+
+  // const {
+  //   title = 'لا يوجد عنوان',
+  //   ditail = 'لا يوجد تفاصيل',
+  //   number = 0,
+  //   full = false
+  // } = project;
   
   function handleClick() {
-    navigate(`/projects/${projectId}`);
+    navigate(`/volunteer-projects/${ project.id || 1 }`);
   }
   return (
     <div className='volunteer-card-project'>
@@ -38,7 +55,7 @@ function CardProject({ projectId, project }) {
             {project.title}
           </Typography>
           <Typography className="project-detail" variant='h6'>
-            {project.ditail}
+            {project.detail}
           </Typography>
         </div>
 

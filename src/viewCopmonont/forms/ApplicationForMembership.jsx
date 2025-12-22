@@ -1,7 +1,5 @@
 import './Form.css';
 import { useState } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import appTheme from '../../appTeme';
 import countriesWithFlages from '../../dashboard/countriesWithFlages';
 
 function ApplicationForMembership() {
@@ -32,8 +30,7 @@ function ApplicationForMembership() {
   };
 
   return (
-    <ThemeProvider theme={appTheme}>
-
+    <div style={{padding:'10px'}}>
       <div className="app-a">
         <div className="request">
           <h6 style={{ fontSize: '24px', lineHeight: '100%', color: '#232323' }}>
@@ -233,7 +230,7 @@ function ApplicationForMembership() {
         </button>
       </div>
 
-    </ThemeProvider>
+    </div>
   );
 }
 
