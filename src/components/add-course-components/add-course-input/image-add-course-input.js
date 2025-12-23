@@ -2,7 +2,7 @@ import "./add-course-input.css";
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
-const ImageAddCourseInput = ({ label, validation }) => {
+const ImageAddCourseInput = ({ label, validation, field, state, dispatch, step, setFileToStepThree }) => {
     const [file, setFile] = useState(null);
     const [filePreview, setFilePreview] = useState(null);
     const inputId = uuid();
@@ -31,7 +31,17 @@ const ImageAddCourseInput = ({ label, validation }) => {
         }
 
         setFile(e.target.files[0]);
-        setFilePreview(URL.createObjectURL(e.target.files[0]))
+        setFilePreview(URL.createObjectURL(e.target.files[0]));
+        switch (step) {
+            case "1":
+                dispatch({ type: "SET_VALUE", field, value: e.target.files[0] });
+                return;
+            case "3":
+                setFileToStepThree(e.target.files[0]);
+                return;
+            default:
+                return;
+        }
     };
 
 

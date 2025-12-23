@@ -29,15 +29,29 @@ const lessonNameMap = {
 };
 
 
-const AddCourseLevelContainer = ({ levelNum, }) => {
+const AddCourseLevelContainer = ({ levelNum, unitId, state, dispatch }) => {
     const [lessons, setLessons] = useState([]);
 
+    const unit = state.units.find(unit => unit.id === unitId);
+
     const addLessonHandler = (type) => {
+        const id = crypto.randomUUID();
+
         const Name = type === "test" ? lessons.filter(lesson => lesson.type === "test").length :
             lessons.filter(lesson => lesson.type === "lesson").length;
-        const newLesson = { id: Date.now(), lessonNum: lessonNameMap[Name], type: type };
+
+        const newLesson = { id: id, lessonNum: lessonNameMap[Name], type: type };
         setLessons([...lessons, newLesson]);
+
+        if (type === "lesson") {
+            dispatch({ type: "ADD_UNIT_LESSON", unitId: unit.id, lessonId: id });
+        } else {
+            dispatch({ type: "ADD_UNIT_TEST", unitId: unit.id, testId: id });
+        }
     };
+
+
+    console.log(unit);
 
     return <div className="add_course_level_container_full">
         <div className="add_course_level_container">
@@ -47,21 +61,51 @@ const AddCourseLevelContainer = ({ levelNum, }) => {
                 label="اسم الوحدة"
                 validation="من فضلك يجب أن يكون الاسم معبرا ولا يتجاوز 30 حرف ."
                 placeholder="اسم الوحدة"
+                unitId={unit.id}
+                value={unit.unitName}
+                field="unitName"
+                state={state}
+                dispatch={dispatch}
+                step="2_1"
             />
             <TextAreaAddCourseInput
                 type="textarea"
                 label="وصف الوحدة"
                 placeholder="وصف الدورة كامل ومعبر"
+                unitId={unit.id}
+                value={unit.unitDescription}
+                field="unitDescription"
+                state={state}
+                dispatch={dispatch}
+                step="2_1"
             />
         </div>
         {lessons.map(lesson =>
         (lesson.type === "lesson" ?
-            <AddCourseAddLessonContainer key={lesson.id} lessonNum={lesson.lessonNum} /> :
-            <AddCourseAddTestContainer key={lesson.id} testNum={lesson.lessonNum} />)
+            <AddCourseAddLessonContainer key={lesson.id}
+                lessonNum={lesson.lessonNum}
+                unitId={unit.id}
+                lessonId={lesson.id}
+                state={state}
+                dispatch={dispatch}
+            /> :
+            <AddCourseAddTestContainer key={lesson.id}
+                testNum={lesson.lessonNum}
+                unitId={unit.id}
+                testId={lesson.id}
+                state={state}
+                dispatch={dispatch}
+            />)
         )}
         <div className="add_course_add_level_lesson_test_buttons">
-            <button className="add_course_add_lesson_button" onClick={() => addLessonHandler("lesson")}>اضافة درس</button>
-            <button className="add_course_add_test_button" onClick={() => addLessonHandler("test")}>اضافة اختبار</button>
+            <button className="add_course_add_lesson_button"
+                onClick={() => addLessonHandler("lesson")}>
+                اضافة درس
+            </button>
+            <button className="add_course_add_test_button"
+                onClick={() => addLessonHandler("test")}>
+                اضافة اختبار
+            </button>
         </div>
     </div>
 };
