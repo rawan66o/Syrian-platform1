@@ -3,6 +3,7 @@ import ImageAddCourseInput from "../add-course-input/image-add-course-input";
 import NormalAddCourseInput from "../add-course-input/normal-add-course-input";
 import SelectAddCourseInput from "../add-course-input/select-add-course-input";
 import TextAreaAddCourseInput from "../add-course-input/text-area-add-course-input";
+import { useEffect, useReducer } from "react";
 
 
 
@@ -20,6 +21,63 @@ const AddCourseStepOne = () => {
         { value: "graphic_designb", label: "غرافيك دزاين", },
     ];
 
+    const initialState = {
+        values: {
+            courseName: "",
+            courseDescription: "",
+            courseImage: null,
+            courseCategory: ""
+        },
+        errors: {
+            courseName: false,
+            courseDescription: false,
+            courseImage: false,
+        },
+        loading: false,
+        serverError: null,
+    };
+
+    const reducerFunction = (state, action) => {
+        switch (action.type) {
+            case "SET_VALUE":
+                return {
+                    ...state, values: {
+                        ...state.values,
+                        [action.field]: action.value
+                    }
+                };
+            case "SET_ERROR":
+                return {
+                    ...state, errors: {
+                        ...state.errors,
+                        [action.field]: true
+                    }
+                };
+            case "RESET_ERROR":
+                return {
+                    ...state, errors: {
+                        ...state.errors,
+                        [action.field]: false
+                    }
+                };
+            case "SET_SERVER_ERROR":
+                return { ...state, serverError: true };
+            case "RESET_SERVER_ERROR":
+                return { ...state, serverError: false };
+            case "SET_LOADING":
+                return { ...state, loading: true };
+            case "RESET_LOADING":
+                return { ...state, loading: false };
+            default:
+                return state;
+        }
+    };
+
+    const [state, dispatch] = useReducer(reducerFunction, initialState);
+
+    useEffect(() => {
+        console.log(state);
+    }, [state]);
 
     return <div className="add_course_step_one_container">
         <NormalAddCourseInput
@@ -27,22 +85,40 @@ const AddCourseStepOne = () => {
             label="اسم الدورة"
             validation=" من فضلك يجب أن يكون الاسم معبرا ولا يتجاوز 30 حرف ."
             placeholder="دورة لغة انكليزية"
+            value={state.values.courseName}
+            field="courseName"
+            state={state}
+            dispatch={dispatch}
+            step="1"
         />
         <TextAreaAddCourseInput
             type="textarea"
             label="وصف الدورة"
             placeholder="وصف الدورة كامل ومعبر"
+            value={state.values.courseDescription}
+            field="courseDescription"
+            state={state}
+            dispatch={dispatch}
+            step="1"
         />
         <ImageAddCourseInput
             type="image"
             label="صورة غلاف الدورة"
             validation=" من فضلك يجب أن تكون الصورة معبرة ومناسبة مع الاسم ."
+            field="courseImage"
+            state={state}
+            dispatch={dispatch}
+            step="1"
         />
         <SelectAddCourseInput
             type="select"
             label="تصنيف الكورس"
             placeholder="تصنيف الكورس"
             options={categories}
+            field="courseCategory"
+            state={state}
+            dispatch={dispatch}
+            step="1"
         />
     </div>
 };

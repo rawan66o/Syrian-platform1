@@ -16,16 +16,22 @@ const answerNameMap = {
     9: "الاجابة العاشرة 10",
 };
 
+const options = [
+    { value: "multiple", label: "اختيار من متعدد" },
+    { value: "text", label: "إجابة نصية" },
+];
 
-const AddCourseAddTestQuestionContainer = ({ id, deleteQuestion }) => {
+const AddCourseAddTestQuestionContainer = ({ id, deleteQuestion, unitId, testId, questionId, state, dispatch }) => {
     const [choices, setChoices] = useState([]);
     const [type, setType] = useState({ value: "text", label: "اجابة نصية" });
     const [questionRequired, setQuestionRequired] = useState(true);
     const [chosenChoice, setChosenChoice] = useState(null);
 
     const addAnswerHandler = () => {
-        const newChoice = { id: Date.now(), answerName: answerNameMap[choices.length] };
+        const id = crypto.randomUUID();
+        const newChoice = { id: id, answerName: answerNameMap[choices.length] };
         setChoices([...choices, newChoice]);
+        dispatch({ type: "ADD_UNIT_TEST_QUESTION_ANSWER", unitId, testId, questionId, optionId: id });
     }
 
     const selectTypeStyles = {
@@ -65,20 +71,33 @@ const AddCourseAddTestQuestionContainer = ({ id, deleteQuestion }) => {
         })
     };
 
+    const unit = state.units.find(unit => unit.id === unitId);
+    const test = unit.tests.find(test => test.id === testId);
+    const question = test.questions.find(question => question.id === questionId);
+
+
+    const selectTypeFromReducer = options.find(option => option.label === question.type);
+
+    const titleChangeHandler = (e) => {
+        dispatch({ type: "SET_UNIT_TEST_QUESTION_FIELD", unitId, testId, questionId, field: "title", value: e.target.value });
+    };
 
     return <div className="add_course_question_container">
         <div className="add_course_question_header">
-            <input type="text" className="add_course_question_input" placeholder="اكتب السؤال هنا" />
+            <input type="text"
+                className="add_course_question_input"
+                placeholder="اكتب السؤال هنا"
+                value={question.title}
+                onChange={titleChangeHandler}
+            />
             <Select
                 placeholder="نوع السؤال"
-                options={[
-                    { value: "multiple", label: "اختيار من متعدد" },
-                    { value: "text", label: "إجابة نصية" },
-                ]}
+                options={options}
                 styles={selectTypeStyles}
-                value={type || ""}
+                value={selectTypeFromReducer || ""}
                 onChange={(chosen) => {
                     setType(chosen);
+                    dispatch({ type: "SET_UNIT_TEST_QUESTION_FIELD", unitId, testId, questionId, field: "type", value: chosen.label });
                 }}
             />
         </div>
@@ -86,12 +105,24 @@ const AddCourseAddTestQuestionContainer = ({ id, deleteQuestion }) => {
             <div className="add_course_choices_container">
                 {choices.map(choice => <div key={choice.id} className="add_course_choice_container">
                     <div className="add_course_answer_style_and_input">
-                        <div className={`add_cousre_answer_style  ${chosenChoice === choice.id ? "add_course_choice_chosen" : ""}`} onClick={() => { setChosenChoice(choice.id) }} />
-                        <input type="text" className="add_cousre_answer_input" autoFocus defaultValue={choice.answerName} />
+                        <div className={`add_cousre_answer_style  ${chosenChoice === choice.id ? "add_course_choice_chosen" : ""}`} onClick={() => {
+                            setChosenChoice(choice.id);
+                            dispatch({ type: "SET_UNIT_TEST_QUESTION_ANSWER_CHOSEN", unitId, testId, questionId, optionId: choice.id });
+                        }} />
+                        <input type="text"
+                            className="add_cousre_answer_input"
+                            autoFocus
+                            defaultValue={choice.answerName}
+                            value={question.options.find(option => option.id === choice.id).text || choice.answerName}
+                            onChange={(e) => {
+                                dispatch({ type: "SET_UNIT_TEST_QUESTION_ANSWER_TEXT", unitId, testId, questionId, optionId: choice.id, text: e.target.value });
+                            }}
+                        />
                     </div>
                     <button className="add_course_input_cancel" onClick={() => {
                         const newChoices = choices.filter(newchoice => newchoice.id !== choice.id);
                         setChoices(newChoices);
+                        dispatch({ type: "REMOVE_UNIT_TEST_QUESTION_ANSWER", unitId, testId, questionId, optionId: choice.id });
                     }}>
                         <img src="/icons/exit_icon/add.svg" alt="" />
                     </button>
@@ -102,12 +133,26 @@ const AddCourseAddTestQuestionContainer = ({ id, deleteQuestion }) => {
                 </div>
             </div>}
         {type.value === "text" &&
-            <TextAreaAddCourseInput label="نص الاجابة" placeholder="نص الاجابة" />}
+            <TextAreaAddCourseInput
+                label="نص الاجابة"
+                placeholder="نص الاجابة"
+                unitId={unit.id}
+                testId={test.id}
+                questionId={question.id}
+                value={question.text}
+                field="text"
+                state={state}
+                dispatch={dispatch}
+                step="2_2_2"
+            />}
         <div className="add_course_question_divider" />
         <div className="add_course_required_delete_container">
             <div className="add_course_set_required_container">
                 <p>مطلوب</p>
-                <div className={`add_course_set_required ${!questionRequired ? "add_course_reset_required" : ""}`} onClick={() => { setQuestionRequired(prev => !prev) }}>
+                <div className={`add_course_set_required ${!questionRequired ? "add_course_reset_required" : ""}`} onClick={() => {
+                    dispatch({ type: "SET_UNIT_TEST_QUESTION_FIELD", unitId, testId, questionId, field: "required", value: !questionRequired });
+                    setQuestionRequired(prev => !prev)
+                }}>
                     <div className={`add_course_set_required_btn ${!questionRequired ? "add_course_reset_required_btn" : ""}`} />
                 </div>
             </div>

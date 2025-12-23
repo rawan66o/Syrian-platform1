@@ -1,5 +1,6 @@
 import "./add-course-step-three.css";
 import ImageAddCourseInput from "../add-course-input/image-add-course-input";
+import { useEffect, useState } from "react";
 
 const AddCourseStepThree = () => {
     const tests = [
@@ -8,8 +9,18 @@ const AddCourseStepThree = () => {
         { id: 3, name: "الاختبار الثالث", questionsNum: 10 }
     ];
 
+    const [certificateFile, setCertificateFile] = useState(null);
+
+    useEffect(() => {
+        console.log(certificateFile);
+    }, [certificateFile]);
+
     return <div className="add_course_tests_preview">
-        <ImageAddCourseInput label="رفع شهادة الكورس" />
+        <ImageAddCourseInput
+            label="رفع شهادة الكورس"
+            setFileToStepThree={setCertificateFile}
+            step="3"
+        />
         <h1>معاينة الاختبارات</h1>
         <div className="add_course_tests_preview_container">
             {tests.map(test => <div key={test.id} className="add_course_test_preview_container">

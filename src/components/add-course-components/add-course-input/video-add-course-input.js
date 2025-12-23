@@ -2,7 +2,7 @@ import "./add-course-input.css";
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import ReactPlayer from "react-player";
-const VideoAddCourseInput = ({ label, validation }) => {
+const VideoAddCourseInput = ({ label, validation, unitId, lessonId, value, field, state, dispatch, step }) => {
     const [file, setFile] = useState(null);
     const [filePreview, setFilePreview] = useState(null);
     const inputId = uuid();
@@ -31,7 +31,14 @@ const VideoAddCourseInput = ({ label, validation }) => {
         }
 
         setFile(e.target.files[0]);
-        setFilePreview(URL.createObjectURL(e.target.files[0]))
+        setFilePreview(URL.createObjectURL(e.target.files[0]));
+        switch (step) {
+            case "2_2_1":
+                dispatch({ type: "SET_UNIT_LESSON_FIELD", unitId, lessonId, field, value: e.target.files[0] });
+                return;
+            default:
+                return;
+        }
     };
     return <div className="add_course_input_container">
         <div className="add_course_label_and_validation">
@@ -49,7 +56,7 @@ const VideoAddCourseInput = ({ label, validation }) => {
                 width="100%"
                 height="100%"
                 src={filePreview}
-                preload={true}
+                preload="auto"
                 controls
             />
         </div>}
