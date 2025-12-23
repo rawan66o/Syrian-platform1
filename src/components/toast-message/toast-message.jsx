@@ -1,41 +1,46 @@
-function MessageModal({ open, message }) {
+import './toast-message.css';
+
+function MessageModal({ open, message, type = "success", onClose }) {
+    const styles = {
+        success: {
+            background: "linear-gradient(135deg, #4CAF50, #2E7D32)",
+            icon: "✓",
+            iconColor: "#4CAF50"
+        },
+        error: {
+            background: "linear-gradient(135deg, #F44336, #C62828)",
+            icon: "✗",
+            iconColor: "#F44336"
+        },
+        warning: {
+            background: "linear-gradient(135deg, #FF9800, #F57C00)",
+            icon: "⚠",
+            iconColor: "#FF9800"
+        },
+        info: {
+            background: "linear-gradient(135deg, #2196F3, #1565C0)",
+            icon: "ℹ",
+            iconColor: "#2196F3"
+        }
+    };
+
+    const currentStyle = styles[type] || styles.success; 
     return (
-        <div style={{
-            position: 'fixed',
-            top: '20px',
-            left: '50%',
-            transform: `translateX(-50%) ${open ? 'translateY(0)' : 'translateY(-100px)'}`,
-            background: 'linear-gradient(135deg, #4CAF50, #2E7D32)',
-            color: 'white',
-            padding: '15px 25px',
-            borderRadius: '10px',
-            boxShadow: '0 5px 20px rgba(76, 175, 80, 0.3)',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '15px',
-            transition: 'transform 0.4s ease',
-            minWidth: '300px'
-        }}>
-            <div style={{
-                background: 'white',
-                width: '30px',
-                height: '30px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#4CAF50',
-                fontSize: '18px',
-                fontWeight: 'bold'
-            }}>
-                ✓
+        <div className='toast-container' 
+            style={{transform: `translateX(-50%) ${open ? "translateY(0)" : "translateY(-100px)"}`,
+                background: currentStyle.background,}}>
+            <div className='toast-text' style={{color: currentStyle.iconColor}}>
+                {currentStyle.icon}
             </div>
-            <div>
+            <div style={{flex: 1}}>
                 <strong>{message}</strong>
-                <p style={{ margin: '5px 0 0', fontSize: '14px', opacity: 0.9 }}>
-                    يمكنك الآن تسجيل الدخول
+                <p style={{ margin: "5px 0 0", fontSize: "14px", opacity: 0.9 }}>
+                    {type === "success" && "تمت العملية بنجاح"}
+                    {type === "error" && "حدث خطأ، حاول مرة أخرى"}
+                    {type === "warning" && "تنبيه مهم"}
+                    {type === "info" && "معلومة"}
                 </p>
+                
             </div>
         </div>
     );

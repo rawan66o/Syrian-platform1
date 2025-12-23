@@ -2,11 +2,14 @@ import classes from '../auth.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useReducer, useState } from 'react';
 import authReducer, { initialAuthState } from '../../../Reducers/auth-reducer';
+import { useToast } from '../../../context/ToastContext';
 
 const Register = () => {
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    const [state, dispatch] = useReducer(authReducer, initialAuthState); // ✅ صححت: dispatch
+    const { showHideToast } = useToast();   
+
+    const [state, dispatch] = useReducer(authReducer, initialAuthState); 
 
     // ======= STATES ========    
     const [formData, setFormData] = useState({
@@ -21,7 +24,6 @@ const Register = () => {
     
     // ======= FUNCTIONS ========
     const handleFieldChange = (fieldName) => (e) => {
-        // ✅ أزلت dispatch من هنا - ليس مكانه الصحيح
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         setFormData(prev => ({
             ...prev,
@@ -73,36 +75,40 @@ const Register = () => {
         
         setErrors(newErrors);
         
-        // إذا لا توجد أخطاء، تابع
         const hasErrors = Object.values(newErrors).some(error => error !== '');
         if (!hasErrors) {
             console.log('بيانات صالحة:', formData);
             
-            // ✅ هنا مكان dispatch الصحيح
-            dispatch({ type: 'REGISTER_REQUEST' }); // نبدأ العملية
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            console.log('عدد المستخدمين:', users.length);
+            console.log('المستخدم الأول:', users[0]);
+            const emailExists = users.some(user => user.email.toLowerCase() === formData.email.toLowerCase().trim());
             
-            // إنشاء كائن المستخدم الكامل
+            if (emailExists) {
+                dispatch({ type: 'REGISTER_FAILURE', payload: 'البريد الإلكتروني مستخدم بالفعل' });
+                return;
+            }
+            
+            dispatch({ type: 'REGISTER_REQUEST' }); 
+
             const userToAdd = {
-                id: Date.now(), // معرف فريد
+                id: Date.now(), 
                 fullName: formData.fullName,
+                password: formData.password,
                 email: formData.email,
                 createdAt: new Date().toISOString(),
                 isActive: true,
                 role: 'user'
-                // ⚠️ لا نرسل الباسوورد للـ reducer!
             };
             
-            // محاكاة تأخير الشبكة (للتجربة)
-            setTimeout(() => {
-                dispatch({
-                    type: 'REGISTER_SUCCESS',
-                    payload: userToAdd  // ✅ نرسل البيانات
-                });
-            }, 1000);
-            navigate('/');
-            // في التطبيق الحقيقي:
+            dispatch({ type: 'REGISTER_SUCCESS', payload: userToAdd });
             // await fetch('/api/register', { ... });
         }
+        showHideToast(`🎉 مرحباً ${formData.fullName}! تم إنشاء حسابك`, "success");
+
+        setFormData({ fullName: '', email: '', password: '', isChecked: false });
+
+        navigate('/');
     };
     
     return (
@@ -117,15 +123,7 @@ const Register = () => {
                 {/* ✅ عرض حالة التحميل والخطأ */}
                 {state.isLoading && <p className={classes.header_p}>جاري التسجيل...</p>}
                 {state.error && <p style={{color: 'red'}}>{state.error}</p>}
-                
-                {/* ✅ تصحيح: state.currentUser بدلاً من state.auth */}
-                {/* {state.currentUser && (
-                    <div style={{background: '#e8f5e9', padding: '10px', marginTop: '10px'}}>
-                        <p>✅ تم تسجيل الدخول بنجاح!</p>
-                        <p>مرحباً <strong>{state.currentUser.fullName}</strong></p>
-                        <p>البريد: {state.currentUser.email}</p>
-                    </div>
-                )} */}
+
             </div>
             <div className={classes.auth_body}>
                 <div className={classes.o_auth_container}>
@@ -211,28 +209,13 @@ const Register = () => {
                         
                         {/* زر الإرسال */}
                         <div className={classes.button_wrapper}>
-                            <button 
-                                className={classes.submit_button} 
-                                type='submit'
-                                disabled={state.isLoading} // ✅ نعطله أثناء التحميل
-                            >
+                            <button className={classes.submit_button} 
+                                type='submit' disabled={state.isLoading} >
                                 {state.isLoading ? 'جاري التسجيل...' : 'انشاء الحساب'}
                             </button>
                         </div>
                     </form>
-                    
-                    {/* ✅ عرض بيانات للمطور (للتجربة فقط) */}
-                    <div style={{ 
-                        marginTop: '20px', 
-                        padding: '15px', 
-                        background: '#f5f5f5',
-                        fontSize: '14px'
-                    }}>
-                        <h4>معلومات التطبيق (للتطوير):</h4>
-                        <p>عدد المستخدمين المسجلين: <strong>{state.users.length}</strong></p>
-                        <p>المستخدم الحالي: {state.currentUser ? state.currentUser.fullName : 'لا يوجد'}</p>
-                        <p>حالة التحميل: {state.isLoading ? 'نعم' : 'لا'}</p>
-                    </div>
+                
                 </div>
             </div>
         </div>

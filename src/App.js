@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./App.css";
 // import CourseDetailsNavBar from "./components/course-details-components/course-details-navbar/course-details-navbar";
 import Footer from "./components/footer/footer";
@@ -9,29 +10,33 @@ import PlatformIntroduction from "./components/main-page-components/platform-int
 import VolunteerProjectsContainer from "./components/main-page-components/volunteer-projects-container";
 import WhyUs from "./components/main-page-components/why-us";
 import Navbar from "./components/volunteer-projects/Navbar";
-import { ToastProvider } from "./context/ToastContext";
+import { useToast } from "./context/ToastContext";
 
 function App() {
+  const { showHideToast } = useToast();
+
+  useEffect(() => {
+    showHideToast("مرحباً بك في المنصة السورية!");
+  }, [showHideToast]);
+
   return (
     <div className="App">
-      <ToastProvider>
-        <div className="main_page">
-    
-          <div className="main_page_navbar">
-            <Navbar />
-          </div>
-    
-          <PlatformIntroduction />
-          <CoursesRecommended />
-          <WhyUs />
-          <VolunteerProjectsContainer />
-          <PlatformComments />
-          <MainPageSearch />
-          <ForumContainer />
-          <Footer />
-    
+      <div className="main_page">
+
+        <div className="main_page_navbar">
+          <Navbar />
         </div>
-      </ToastProvider>
+        
+        <PlatformIntroduction />
+        <CoursesRecommended />
+        <WhyUs />
+        <VolunteerProjectsContainer />
+        <PlatformComments />
+        <MainPageSearch />
+        <ForumContainer />
+        <Footer />
+  
+      </div>
     </div>
   );
 }

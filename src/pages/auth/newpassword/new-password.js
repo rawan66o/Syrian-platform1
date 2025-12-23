@@ -1,7 +1,32 @@
+import { useNavigate } from 'react-router';
+import { useToast } from '../../../context/ToastContext';
+import authReducer, { initialAuthState } from '../../../Reducers/auth-reducer';
 import classes from '../auth.module.css';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 const NewPassword = () => {
+    const { showHideToast } = useToast(); 
+    const [state, dispatch] = useReducer(authReducer, initialAuthState);
+
+    const [firstPassword, setFirstPassword] = useState('');
+    const [secondPassword, setSecondPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    const navigate = useNavigate();
+
+    function handleChangePassword(e) {
+        e.preventDefault();
+        if (firstPassword.length < 6 || secondPassword.length < 6) {
+            showHideToast("يجب أن تكون كلمة المرور 6 أحرف على الأقل", "error");
+        }
+        else if (firstPassword !== secondPassword) {
+            showHideToast("كلمتا المرور غير متطابقتان", "error");
+        } else {
+            dispatch({ type: 'RESET_PASSWORD_SUCCESS', payload: { email: state.email, newPassword: firstPassword } });
+            showHideToast("تم تغيير كلمة المرور بنجاح", "success");
+            navigate('/');
+        }
+    }
+
     return <div className={classes.auth_container}>
         <div className={classes.header}>
             <h1>انشاء كلمة مرور جديدة</h1>
@@ -18,7 +43,8 @@ const NewPassword = () => {
                                     <p className={classes.validation_p}>6 أحرف على الأقل من فضلك يجب أن تحتوي على رموز أيضًا</p>
                                 </div>
                                 <div className={classes.input_with_icon}>
-                                    <input className={classes.form_input} type='text' placeholder='ادخل كلمة المرور' />
+                                    <input className={classes.form_input} type='password' placeholder='ادخل كلمة المرور'
+                                     value={firstPassword} onChange={(e) => setFirstPassword(e.target.value)} />
                                     <img className={classes.show_and_hide_icon} src={`${showPassword ? '/icons/on_click_hide_password/eye-slash.svg' : '/icons/on_click_show_password/show.png'}`}
                                         alt=''
                                         onClick={() => { setShowPassword(prev => !prev) }}
@@ -33,7 +59,8 @@ const NewPassword = () => {
                                     <p className={classes.validation_p}>6 أحرف على الأقل من فضلك يجب أن تحتوي على رموز أيضًا</p>
                                 </div>
                                 <div className={classes.input_with_icon}>
-                                    <input className={classes.form_input} type='text' placeholder='ادخل كلمة المرور' />
+                                    <input className={classes.form_input} type='password' placeholder='ادخل كلمة المرور'
+                                     value={secondPassword} onChange={(e) => setSecondPassword(e.target.value)} />
                                     <img className={classes.show_and_hide_icon} src={`${showPassword ? '/icons/on_click_hide_password/eye-slash.svg' : '/icons/on_click_show_password/show.png'}`}
                                         alt=''
                                         onClick={() => { setShowPassword(prev => !prev) }}
@@ -43,7 +70,7 @@ const NewPassword = () => {
                         </div>
                     </div>
                     <div className={classes.button_wrapper}>
-                        <button className={classes.submit_button}>انشاء كلمة مرور جديدة</button>
+                        <button className={classes.submit_button} type='submit' onClick={handleChangePassword} >انشاء كلمة مرور جديدة</button>
                         <button className={classes.cancel_button}>الغاء</button>
                     </div>
                 </form>
