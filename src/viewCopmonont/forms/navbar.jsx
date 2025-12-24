@@ -18,7 +18,8 @@ import {
   Notifications as NotificationsIcon,
   Language as LanguageIcon
 } from '@mui/icons-material'
-import MobileNav from './MobileNav'
+import MobileNav from '../../components/volunteer-projects/MobileNav'
+import { Link } from 'react-router'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
@@ -33,8 +34,6 @@ const Navbar = () => {
   const handleMenuClose = () => {
     setAnchorEl(null)
   }
-
-  const menuItems = ['الصفحة الرئيسية', 'الكورسات', 'المنتدى', 'المشاريع', 'اتصل بنا']
 
   const renderMenu = (
     <Menu
@@ -56,6 +55,7 @@ const Navbar = () => {
         height:'80px',
         color: 'black',
         boxShadow: '0px 0px 1px rbga(0,0,0,0.4) ',
+        // border: '1px solid #d6d6d6ff',
         direction: 'rtl',
         padding:'5px 100px',
       }}
@@ -81,60 +81,20 @@ const Navbar = () => {
           
           {/* القائمة - تظهر فقط في الشاشات الكبيرة */}
           <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: 3 }}>
-            {menuItems.map((item) => (
-              <Typography variant='h6'
-                key={item}
-                sx={{
-                  cursor: 'pointer',
-                  color:'#70798B',
-                  '&:hover': {
-                    color: '#6f7a91ff',
-                  },
-                }}
-              >
-                {item}
-              </Typography>
-            ))}
+            <Typography variant='h6'
+              sx={{
+                cursor: 'pointer',
+                color:'#072127',
+                '&:hover': {
+                  color: '#6f7a91ff',
+                },
+              }}
+            >
+                <Link to="/" style={{ textDecoration: 'none', color: '#072127' }}>الصفحة الرئيسية</Link> 
+                </Typography>
           </Box>
         </Box>
-        <Box sx={{
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          width: 'fit-content'
-        }}>
-          <input 
-            placeholder='البحث' 
-            type='search'
-            style={{
-              borderRadius: '62px',  width: '271px', 
-              height: '44px', background: '#F7F7F7',
-              border: '0px solid #E0E0E0',   
-              padding: '0 50px 0 20px', 
-              fontSize: '16px',
-              outline: 'none',
-              direction: 'rtl', // للنص العربي
-              boxSizing: 'border-box' // مهم لتجنب مشاكل العرض
-            }}
-            onFocus={(e) => {
-              e.target.style.border = '0px'; // تأثير عند التركيز
-            }}
-            onBlur={(e) => {
-              e.target.style.border = '0px solid #E0E0E0';
-            }}
-          />
-          <img 
-            src='/icons/search_icon/search_normal.svg' 
-            alt='بحث' // وصف بديل مهم للوصول
-            style={{
-              width: '24px',
-              height: '24px',
-              position: 'absolute',
-              right: '15px', // مكان الأيقونة داخل الحقل
-              pointerEvents: 'none' // لجعل النقر يمر للحقل لا للأيقونة
-            }}
-          />
-        </Box>
+        
         {/* الجزء الأيمن - الإشعارات والملف الشخصي */}
         <Box sx={{ 
           display: { xs: 'none', lg: 'flex' }, 

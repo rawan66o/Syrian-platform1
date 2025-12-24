@@ -1,7 +1,6 @@
 import './CardProject.css'
 import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarGroup, Button, Typography } from "@mui/material";
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 
 function CardProject({  project }) {
@@ -17,13 +16,7 @@ function CardProject({  project }) {
     );
   }
 
-  // const {
-  //   title = 'لا يوجد عنوان',
-  //   ditail = 'لا يوجد تفاصيل',
-  //   number = 0,
-  //   full = false
-  // } = project;
-  
+
   function handleClick() {
     navigate(`/volunteer-projects/${ project.id || 1 }`);
   }
@@ -39,8 +32,8 @@ function CardProject({  project }) {
         <div className="volunteer-card-header">
           {/* Time */}
           <div className="date-info">
-            <CalendarMonthOutlinedIcon sx={{ fontSize: '20px' }} />
-            <Typography variant='h6'>2025 / 8 / 18</Typography>
+            <img src='/icons/chalender/calendar.svg' alt='' />
+            <Typography variant='h6'>{project.startDate}</Typography>
           </div>
           {/* status */}
           <button disabled className={`status-badge ${project.full ? 'full' : 'not-full'} `}>
@@ -55,20 +48,20 @@ function CardProject({  project }) {
             {project.title}
           </Typography>
           <Typography className="project-detail" variant='h6'>
-            {project.detail}
+            {project.shortDescription}
           </Typography>
         </div>
 
         {/* المتطوعين والزر */}
         <div className="volunteer-card-footer">
           <div className="volunteers-section">
-            <AvatarGroup total={project.number}>
+            <AvatarGroup total={project.volunteers}>
               <Avatar alt="متطوع 1" src='/images/logo/1.jpg' />
               <Avatar alt="متطوع 2" src='/images/logo/2.jpg' />
               <Avatar alt="متطوع 3" src='/images/logo/3.jpg' />
             </AvatarGroup>
             <h4 className="volunteers-text">
-              {project.number}
+              {project.volunteers}
                متطوع حالي بالمشروع
             </h4>
           </div>

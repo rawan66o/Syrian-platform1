@@ -1,6 +1,7 @@
 import './Form.css';
 import { useState } from 'react';
 import countriesWithFlages from '../../dashboard/countriesWithFlages';
+import Navbar from './navbar';
 
 function ApplicationForMembership() {
   // ====== STATES ======
@@ -30,7 +31,8 @@ function ApplicationForMembership() {
   };
 
   return (
-    <div style={{padding:'10px'}}>
+    <div>
+      <Navbar />
       <div className="app-a">
         <div className="request">
           <h6 style={{ fontSize: '24px', lineHeight: '100%', color: '#232323' }}>

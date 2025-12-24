@@ -100,7 +100,7 @@
   width: 100%;
   height: 19px;
   opacity: 1;
-  color: #072127;
+  color: #000000;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
@@ -258,13 +258,19 @@
   background: #6DCDE533;
 }
 
+.input-image image{
+  width: 67px;
+  height: 67px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* معاينة الصورة داخل الزر */
 .input-image-button img[src*="base64"],
 .input-image-button img[src*="blob"] {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
 /* تصغير نص المساعدة عند وجود صورة */
