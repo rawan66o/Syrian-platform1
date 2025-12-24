@@ -7,7 +7,11 @@ const Layout = () => {
 
     return <div className="pages_styles">
         {/* <NavBar /> */}
+
         <Navbar />
+
+        {/* <CourseDetailsNavBar /> */}
+
         <Outlet />
     </div>
 }

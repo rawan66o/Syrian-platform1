@@ -1,7 +1,7 @@
 import "./add-course-input.css";
 import Select from "react-select";
 
-const SelectAddCourseInput = ({ label, placeholder, options }) => {
+const SelectAddCourseInput = ({ label, placeholder, options, field, state, dispatch, step }) => {
 
 
     const selectInputStyles =
@@ -56,12 +56,26 @@ const SelectAddCourseInput = ({ label, placeholder, options }) => {
         }),
     };
 
+    const value = options.find(option => option.label === state.values[field]);
+
+    const handleSelectChange = (selectedOption) => {
+        switch (step) {
+            case "1":
+                dispatch({ type: "SET_VALUE", field, value: selectedOption.label });
+                return;
+            default:
+                return;
+        }
+    };
+
     return <div className="add_course_input_container">
         <label className="add_course_label">{label}</label>
         <Select
             placeholder={placeholder}
             options={options}
             styles={selectInputStyles}
+            value={value}
+            onChange={handleSelectChange}
             isClearable
         />
     </div>

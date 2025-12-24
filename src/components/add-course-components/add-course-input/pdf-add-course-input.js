@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
 
-const PdfAddCourseInput = ({ label, validation }) => {
+const PdfAddCourseInput = ({ label, validation, unitId, lessonId, value, field, state, dispatch, step }) => {
     const [file, setFile] = useState(null);
     const [filePreview, setFilePreview] = useState(null);
     const inputId = uuid();
@@ -32,7 +32,14 @@ const PdfAddCourseInput = ({ label, validation }) => {
         }
 
         setFile(e.target.files[0]);
-        setFilePreview(URL.createObjectURL(e.target.files[0]))
+        setFilePreview(URL.createObjectURL(e.target.files[0]));
+        switch (step) {
+            case "2_2_1":
+                dispatch({ type: "SET_UNIT_LESSON_FIELD", unitId, lessonId, field, value: e.target.files[0] });
+                return;
+            default:
+                return;
+        }
     };
     return <div className="add_course_input_container">
         <div className="add_course_label_and_validation">
