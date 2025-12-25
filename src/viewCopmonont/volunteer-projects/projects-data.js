@@ -1,13 +1,12 @@
 import { format, formatDate } from 'date-fns';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from 'react';
 
 // Function to create date in the correct format
 const createDateWithoutTime = (daysAgo) => {
   const date = new Date();
   date.setDate(date.getDate() - daysAgo);
-  date.setHours(0, 0, 0, 0); 
-  formatDate(date, 'yyyy/MM/dd');
-  return date;
+  date.setHours(0, 0, 0, 0);
+  return format(date, 'yyyy/MM/dd'); 
 };
 
 const description = `لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .
@@ -21,187 +20,349 @@ const description = `لقد قمنا بتحسين المحتوى الذي ينا
 
 لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .`
 
-const projects = [
+const baseProjects = [
   {
-    id: uuidv4(),
+    id: 1,
     title: "مشروع تطوير الموقع التعليمي",
-    volunteers: 12,
-    startDate: createDateWithoutTime(30), // قبل 30 يوم
-    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية ,منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية.منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
     fullDescription: description,
     organizationImage: "/images/organizations/1.jpg",
     projectImages: [
       "/images/projects/1-1.jpg",
       "/images/projects/1-2.jpg"
     ],
-    createdAt: createDateWithoutTime(60).toISOString(), // قبل 60 يوم
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    full: true,
+    isFull: false, // أضفنا هذا الحقل
     coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
   },
   {
-    id: uuidv4(),
-    title: "تطبيق متابعة التبرعات",
-    volunteers: 8,
-    startDate: createDateWithoutTime(25), // قبل 25 يوم
-    shortDescription: "نظم متكامل لإدارة سجلات المرضى والمواعيد والمخزون الطبي",
+    id: 2,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
     fullDescription: description,
-    coverImage: "/images/projects/2.jpg",
-    organizationImage: "/images/organizations/2.jpg",
+    organizationImage: "/images/organizations/1.jpg",
     projectImages: [
-      "/images/projects/2-1.jpg",
-      "/images/projects/2-2.jpg"
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
     ],
-    createdAt: createDateWithoutTime(55).toISOString(),
-    status: "active",
-    category: "اجتماعي",
-    full: false
-  },
-  {
-    id: uuidv4(),
-    title: "منصة التطوع الإلكتروني",
-    volunteers: 20,
-    startDate: createDateWithoutTime(20), // قبل 20 يوم
-    shortDescription: "تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة",
-    fullDescription: description,
-    coverImage: "/images/projects/3.jpg",
-    organizationImage: "/images/organizations/3.jpg",
-    projectImages: [
-      "/images/projects/3-1.jpg",
-      "/images/projects/3-2.jpg"
-    ],
-    createdAt: createDateWithoutTime(50).toISOString(),
-    status: "active",
-    category: "تطوع",
-    full: true
-  },
-  {
-    id: uuidv4(),
-    title: "نظام إدارة المستشفيات",
-    volunteers: 6,
-    startDate: createDateWithoutTime(15), // قبل 15 يوم
-    shortDescription: "منصة لربط المتطوعين مع المؤسسات الخيرية وتنظيم الأنشطة التطوعية",
-    fullDescription: description,
-    coverImage: "/images/projects/4.jpg",
-    organizationImage: "/images/organizations/4.jpg",
-    projectImages: [
-      "/images/projects/4-1.jpg",
-      "/images/projects/4-2.jpg"
-    ],
-    createdAt: createDateWithoutTime(45).toISOString(),
-    status: "active",
-    category: "صحة",
-    full: true
-  },
-  {
-    id: uuidv4(),
-    title: "مشروع التشجير البلدي",
-    volunteers: 15,
-    startDate: createDateWithoutTime(10), // قبل 10 يوم
-    shortDescription: "مبادرة لتشجير الأحياء السكنية وزيادة المساحات الخضراء في المدينة",
-    fullDescription: description,
-    coverImage: "/images/projects/5.jpg",
-    organizationImage: "/images/organizations/5.jpg",
-    projectImages: [
-      "/images/projects/5-1.jpg",
-      "/images/projects/5-2.jpg"
-    ],
-    createdAt: createDateWithoutTime(40).toISOString(),
-    status: "active",
-    category: "بيئة",
-    full: false
-  },
-  {
-    id: uuidv4(),
-    title: "تطوير مكتبة رقمية",
-    volunteers: 10,
-    startDate: createDateWithoutTime(5), // قبل 5 أيام
-    shortDescription: "تحويل المكتبة التقليدية إلى مكتبة رقمية مع إمكانية الاستعارة الإلكترونية .تحويل المكتبة التقليدية إلى مكتبة رقمية مع إمكانية الاستعارة الإلكترونية",
-    fullDescription: description,
-    coverImage: "/images/projects/6.jpg",
-    organizationImage: "/images/organizations/6.jpg",
-    projectImages: [
-      "/images/projects/6-1.jpg",
-      "/images/projects/6-2.jpg"
-    ],
-    createdAt: createDateWithoutTime(35).toISOString(),
-    status: "active",
-    category: "ثقافة",
-    full: false
-  },
-  {
-    id: uuidv4(),
-    title: "برنامج تدريب الشباب",
-    volunteers: 25,
-    startDate: createDateWithoutTime(0), // اليوم
-    shortDescription: "حملة توعوية عن الأمراض المزمنة وطرق الوقاية منها في المدارس",
-    fullDescription: description,
-    coverImage: "/images/projects/7.jpg",
-    organizationImage: "/images/organizations/7.jpg",
-    projectImages: [
-      "/images/projects/7-1.jpg",
-      "/images/projects/7-2.jpg"
-    ],
-    createdAt: createDateWithoutTime(30).toISOString(),
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    full: false
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
   },
   {
-    id: uuidv4(),
-    title: "حملة توعية صحية",
-    volunteers: 18,
-    startDate: createDateWithoutTime(-5), // بعد 5 أيام من اليوم
-    shortDescription: "برنامج تدريبي مكثف لتأهيل الشباب لسوق العمل في مجال البرمجة",
+    id: 3,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
     fullDescription: description,
-    coverImage: "/images/projects/8.jpg",
-    organizationImage: "/images/organizations/8.jpg",
+    organizationImage: "/images/organizations/1.jpg",
     projectImages: [
-      "/images/projects/8-1.jpg",
-      "/images/projects/8-2.jpg"
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
     ],
-    createdAt: createDateWithoutTime(25).toISOString(),
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
-    category: "صحة",
-    full: true
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
   },
-  // {
-  //   id: uuidv4(),
-  //   title: "حملة توعية صحية",
-  //   volunteers: 18,
-  //   startDate: createDateWithoutTime(-5), // بعد 5 أيام من اليوم
-  //   shortDescription: "برنامج تدريبي مكثف لتأهيل الشباب لسوق العمل في مجال البرمجة",
-  //   fullDescription: description,
-  //   coverImage: "/images/projects/8.jpg",
-  //   organizationImage: "/images/organizations/8.jpg",
-  //   projectImages: [
-  //     "/images/projects/8-1.jpg",
-  //     "/images/projects/8-2.jpg"
-  //   ],
-  //   createdAt: createDateWithoutTime(25).toISOString(),
-  //   status: "active",
-  //   category: "صحة",
-  //   priority: "متوسط"
-  // },
-  // {
-  //   id: uuidv4(),
-  //   title: "حملة توعية صحية",
-  //   volunteers: 18,
-  //   startDate: createDateWithoutTime(-5), // بعد 5 أيام من اليوم
-  //   shortDescription: "برنامج تدريبي مكثف لتأهيل الشباب لسوق العمل في مجال البرمجة",
-  //   fullDescription: description,
-  //   coverImage: "/images/projects/8.jpg",
-  //   organizationImage: "/images/organizations/8.jpg",
-  //   projectImages: [
-  //     "/images/projects/8-1.jpg",
-  //     "/images/projects/8-2.jpg"
-  //   ],
-  //   createdAt: createDateWithoutTime(25).toISOString(),
-  //   status: "active",
-  //   category: "صحة",
-  //   priority: "متوسط"
-  // }
+  {
+    id: 4,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    fullDescription: description,
+    organizationImage: "/images/organizations/1.jpg",
+    projectImages: [
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
+    ],
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
+    status: "active",
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
+  },
+  {
+    id: 5,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    fullDescription: description,
+    organizationImage: "/images/organizations/1.jpg",
+    projectImages: [
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
+    ],
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
+    status: "active",
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
+  },
+  {
+    id: 6,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    fullDescription: description,
+    organizationImage: "/images/organizations/1.jpg",
+    projectImages: [
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
+    ],
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
+    status: "active",
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
+  },
+  {
+    id: 7,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    fullDescription: description,
+    organizationImage: "/images/organizations/1.jpg",
+    projectImages: [
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
+    ],
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
+    status: "active",
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
+  },
+  {
+    id: 8,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    fullDescription: description,
+    organizationImage: "/images/organizations/1.jpg",
+    projectImages: [
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
+    ],
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
+    status: "active",
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
+  },
+  {
+    id: 9,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    fullDescription: description,
+    organizationImage: "/images/organizations/1.jpg",
+    projectImages: [
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
+    ],
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
+    status: "active",
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
+  },
+  {
+    id: 10,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    fullDescription: description,
+    organizationImage: "/images/organizations/1.jpg",
+    projectImages: [
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
+    ],
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
+    status: "active",
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
+  },
+  {
+    id: 11,
+    title: "مشروع تطوير الموقع التعليمي",
+    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
+    currentVolunteers: 4, // أضفنا هذا الحقل
+    startDate: createDateWithoutTime(30),
+    shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
+    fullDescription: description,
+    organizationImage: "/images/organizations/1.jpg",
+    projectImages: [
+      "/images/projects/1-1.jpg",
+      "/images/projects/1-2.jpg"
+    ],
+    createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
+    status: "active",
+    category: "تعليم",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/projects/1.jpg",
+    location: "غزة",
+    contactPerson: "أحمد محمد",
+    contactEmail: "ahmed@example.com",
+    skillsNeeded: ["تطوير ويب", "تعليم", "تصميم"],
+    duration: "3 أشهر"
+  },
 ];
+
+// دالة لتحميل/دمج البيانات مع localStorage
+const getProjectsWithCache = () => {
+  // 1. جلب البيانات المحفوظة من localStorage
+  const savedProjects = localStorage.getItem('volunteer-projects');
+  
+  if (!savedProjects) {
+    // إذا لا يوجد بيانات محفوظة، نستخدم البيانات التجريبية
+    // ونضيف الحقول المطلوبة للنظام
+    const initializedProjects = baseProjects.map(project => ({
+      ...project,
+      currentVolunteers: project.currentVolunteers || 0,
+      volunteersNeeded: project.volunteersNeeded || project.volunteers || 10,
+      isFull: (project.currentVolunteers || 0) >= (project.volunteersNeeded || project.volunteers || 10),
+      volunteersApplied: [], // قائمة المتطوعين المقدمين
+      joinRequests: [] // طلبات الانضمام للمشروع
+    }));
+    
+    // حفظ النسخة المبدئية
+    localStorage.setItem('volunteer-projects', JSON.stringify(initializedProjects));
+    return initializedProjects;
+  }
+  
+  // 2. إذا يوجد بيانات محفوظة، ندمجها مع البيانات التجريبية
+  try {
+    const cachedProjects = JSON.parse(savedProjects);
+    
+    // دمج البيانات: نأخذ البيانات المحفوظة، ونضيف أي مشروع جديد من البيانات التجريبية
+    const mergedProjects = [...cachedProjects];
+    
+    baseProjects.forEach(baseProject => {
+      const exists = cachedProjects.some(cached => cached.id === baseProject.id);
+      
+      if (!exists) {
+        // إضافة مشروع جديد مع الحقول المطلوبة
+        mergedProjects.push({
+          ...baseProject,
+          currentVolunteers: baseProject.currentVolunteers || 0,
+          volunteersNeeded: baseProject.volunteersNeeded || baseProject.volunteers || 10,
+          isFull: (baseProject.currentVolunteers || 0) >= (baseProject.volunteersNeeded || baseProject.volunteers || 10),
+          volunteersApplied: [],
+          joinRequests: []
+        });
+      }
+    });
+    
+    // تحديث localStorage بالبيانات المدمجة
+    localStorage.setItem('volunteer-projects', JSON.stringify(mergedProjects));
+    
+    return mergedProjects;
+    
+  } catch (error) {
+    console.error('خطأ في قراءة البيانات المحفوظة:', error);
+    return baseProjects.map(project => ({
+      ...project,
+      currentVolunteers: 0,
+      volunteersNeeded: project.volunteersNeeded || project.volunteers || 10,
+      isFull: false,
+      volunteersApplied: [],
+      joinRequests: []
+    }));
+  }
+};
+
+// تصدير البيانات بعد المعالجة
+const projects = getProjectsWithCache();
+
+// استدعاء مرة واحدة عند التحميل
+if (typeof window !== 'undefined') {
+  // هذا يضمن أننا في بيئة متصفح
+  const initializeData = () => {
+    const projectsToSave = getProjectsWithCache();
+    console.log(`✅ تم تحميل ${projectsToSave.length} مشروع (${projectsToSave.filter(p => p.isFull).length} مكتمل)`);
+  };
+  
+  // ننتظر قليلاً قبل التهيئة
+  setTimeout(initializeData, 100);
+}
 
 export default projects;

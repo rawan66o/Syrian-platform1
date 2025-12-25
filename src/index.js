@@ -130,7 +130,7 @@ root.render(
               <Route path="volunteer-projects" element={<VolunteerProjects />} />
               <Route path="volunteer-projects/:projectId" element={<Posts />} />
             </Route>
-            <Route path="form" element={<ApplicationForMembership />} />
+            <Route path="project-application/:projectId" element={<ApplicationForMembership />} />
             <Route path="add-project" element={<AddProject />} />
 
 

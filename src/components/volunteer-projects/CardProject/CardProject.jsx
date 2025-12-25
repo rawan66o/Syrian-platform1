@@ -36,8 +36,8 @@ function CardProject({  project }) {
             <Typography variant='h6'>{project.startDate}</Typography>
           </div>
           {/* status */}
-          <button disabled className={`status-badge ${project.full ? 'full' : 'not-full'} `}>
-            <div className='status-badge-text'>{project.full ? "ممتلئ" : "لم يكمتل العدد"}</div>
+          <button disabled className={`status-badge ${project.isFull ? 'full' : 'not-full'} `}>
+            <div className='status-badge-text'>{project.isFull ? "ممتلئ" : "لم يكمتل العدد"}</div>
           </button>
         </div>
 
@@ -48,7 +48,7 @@ function CardProject({  project }) {
             {project.title}
           </Typography>
           <Typography className="project-detail" variant='h6'>
-            {project.shortDescription}
+            {project.shortDes}
           </Typography>
         </div>
 

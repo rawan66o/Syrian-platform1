@@ -23,6 +23,12 @@ const NewPassword = () => {
         } else {
             dispatch({ type: 'RESET_PASSWORD_SUCCESS', payload: { email: state.email, newPassword: firstPassword } });
             showHideToast("تم تغيير كلمة المرور بنجاح", "success");
+
+            setFirstPassword('')
+            setSecondPassword('')
+
+            showHideToast("مرحباً بك في المنصة السورية!");
+
             navigate('/');
         }
     }

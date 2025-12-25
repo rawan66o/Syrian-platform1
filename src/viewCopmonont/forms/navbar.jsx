@@ -55,7 +55,6 @@ const Navbar = () => {
         height:'80px',
         color: 'black',
         boxShadow: '0px 0px 1px rbga(0,0,0,0.4) ',
-        // border: '1px solid #d6d6d6ff',
         direction: 'rtl',
         padding:'5px 100px',
       }}

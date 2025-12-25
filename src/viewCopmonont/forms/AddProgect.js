@@ -1,17 +1,17 @@
 import './Form.css';
 import { useState } from 'react';
-import DatePicker from "react-datepicker"; // Removed the curly braces
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from 'date-fns';
 import { useToast } from '../../context/ToastContext';
-import { useNavigate } from 'react-router-dom'; // Changed import
+import { useNavigate } from 'react-router-dom';
 import { useProjects } from '../../context/volunteer-projects-context';
 import Navbar from './navbar';
 
 function AddProject() {
-  const { showHideToast } = useToast();
-  const {dispatch} = useProjects();
   const navigate = useNavigate();
+  const { addProjectWithCache } = useProjects();
+  const { showHideToast } = useToast();
 
   const context = useProjects();
   console.log('Full context:', context);
@@ -69,13 +69,9 @@ function AddProject() {
     }
   };
 
-  // دالة حذف صورة من معرض المشروع
-  const removeProjectImage = (id) => {
-    setProjectImages(prev => prev.filter(img => img.id !== id));
-  };
-
   // دالة النشر
-  const handlePublish = () => {
+  const handlePublish = (e) => {
+    e.preventDefault();
     // Validation
     if (!formData.title.trim()) {
       showHideToast("الرجاء إدخال عنوان المشروع", "error");
@@ -128,7 +124,7 @@ function AddProject() {
     };
 
     // dispatch for reducer
-    dispatch({type: 'ADD_PROJECT', payload: newProject});
+    addProjectWithCache(newProject);
     
     // Show success message
     showHideToast("تم نشر المشروع بنجاح", "success");

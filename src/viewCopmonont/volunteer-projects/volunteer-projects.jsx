@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 // MUI
 import { ThemeProvider } from '@mui/material/styles';
@@ -8,7 +8,7 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 // THEME
-import appTheme from '../../appTeme'; // ✅ تأكد أن اسم الملف theme.js
+import appTheme from '../../appTeme';
 
 // COMPONENTS
 import Footer from '../../components/footer/footer';
@@ -23,27 +23,47 @@ function VolunteerProjects() {
   const { projects = [] } = state;
   const [activeStep, setActiveStep] = useState(0);
 
-  const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  // إعدادات الباجينيشن
+  const ITEMS_PER_PAGE = 6; // 2 columns × 3 items per column
+  
+  // حساب عدد الصفحات ديناميكياً
+  const totalPages = Math.max(1, Math.ceil(projects.length / ITEMS_PER_PAGE));
+  
+  // إنشاء مصفوفة الصفحات
+  const steps = useMemo(() => 
+    Array.from({ length: totalPages }, (_, i) => i + 1),
+    [totalPages]
+  );
+
+  // حساب المشاريع للصفحة الحالية
+  const currentProjects = useMemo(() => {
+    const startIndex = activeStep * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return projects.slice(startIndex, endIndex);
+  }, [projects, activeStep, ITEMS_PER_PAGE]);
 
   const handleNext = () => {
-    setActiveStep((prevStep) => prevStep + 1);
+    if (activeStep < totalPages - 1) {
+      setActiveStep(prev => prev + 1);
+    }
   };
 
   const handleBack = () => {
-    setActiveStep((prevStep) => prevStep - 1);
+    if (activeStep > 0) {
+      setActiveStep(prev => prev - 1);
+    }
   };
 
   const handleStepClick = (stepIndex) => {
-    setActiveStep(stepIndex);
+    if (stepIndex >= 0 && stepIndex < totalPages) {
+      setActiveStep(stepIndex);
+    }
   };
 
   // دالة لعرض الأرقام مع النقاط للصفحات البعيدة
   const renderStepNumbers = () => {
-    const totalSteps = steps.length;
-    const currentStep = activeStep;
-    
     // إذا كانت الصفحات قليلة، عرض جميعها
-    if (totalSteps <= 7) {
+    if (totalPages <= 7) {
       return steps.map((step, index) => (
         <StepNumber 
           key={index}
@@ -57,16 +77,17 @@ function VolunteerProjects() {
     
     // للصفحات الكثيرة، عرض بعضها مع نقاط
     let numbersToShow = [];
+    const currentStep = activeStep;
     
     if (currentStep <= 3) {
-      // في البداية: 1 2 3 4 5 ... 10
-      numbersToShow = [0, 1, 2,9];
-    } else if (currentStep >= totalSteps - 4) {
-      // في النهاية: 1 ... 6 7 8 9 10
-      numbersToShow = [0, totalSteps - 5, totalSteps - 4, totalSteps - 3, totalSteps - 2, totalSteps - 1];
+      // في البداية: 1 2 3 4 5 ... آخر
+      numbersToShow = [0, 1, 2, 3, 4, totalPages - 1];
+    } else if (currentStep >= totalPages - 4) {
+      // في النهاية: 1 ... n-4 n-3 n-2 n-1 n
+      numbersToShow = [0, totalPages - 5, totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1];
     } else {
-      // في المنتصف: 1 ... 4 5 6 ... 10
-      numbersToShow = [0, currentStep - 1, currentStep, currentStep + 1, totalSteps - 1];
+      // في المنتصف: 1 ... current-1 current current+1 ... آخر
+      numbersToShow = [0, currentStep - 1, currentStep, currentStep + 1, totalPages - 1];
     }
     
     const result = [];
@@ -128,76 +149,104 @@ function VolunteerProjects() {
     <ThemeProvider theme={appTheme}>
       <div style={{ direction: 'rtl' }}>
         <Header />
-        <div style={{padding: '40px 150px', width:'100%' }} >
-          <div style={{ display: 'flex',alignItems:'start',
-             justifyContent:'space-between', gap: '40px' }}>
+        <div style={{ padding: '40px 150px', width: '100%' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'start',
+            justifyContent: 'space-between', 
+            gap: '40px' 
+          }}>
             
-            <div style={{ width: 356, gap:'40px' }}>
+            {/* الشريط الجانبي */}
+            <div style={{ width: 356, gap: '40px' }}>
               <CategoriesProject />
               <LatestProjects />
             </div>
 
+            {/* المحتوى الرئيسي */}
             <div style={{ flex: 1 }}>
-              <div style={{ columnCount: 2, columnGap: '32px' }}>
-                {projects.map((project) => (
-                  <div key={project.id} style={{ marginBottom: '32px', overflow:'hidden' }}>
-                    <CardProject project={project} />
-                  </div>
-                ))}
-              </div>
+              
+              {/* عرض المشاريع */}
+              {currentProjects.length > 0 ? (
+                <div style={{ columnCount: 2, columnGap: '32px' }}>
+                  {currentProjects.map((project) => (
+                    <div key={project.id} style={{ 
+                      marginBottom: '32px', 
+                      overflow: 'hidden',
+                      breakInside: 'avoid' 
+                    }}>
+                      <CardProject project={project} />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <Box sx={{ 
+                  textAlign: 'center', 
+                  py: 8, 
+                  color: '#708387',
+                  fontSize: '18px'
+                }}>
+                  لا توجد مشاريع متاحة حالياً
+                </Box>
+              )}
 
-              {/* Stepper مع 10 صفحات */}
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                gap: '40px',
-                mt: 4,
-                p: 3,
-                flexWrap: 'wrap',
-                padding:'40px'
-              }}>
-                
-                {/* زر السابق */}
-                <IconButton
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                  sx={{  border: '1px solid #D9E4E5', borderRadius:'8px',
-                    color: activeStep === 0 ? '#CCCCCC' : '#6DCDE5',
-                    '&:hover': {
-                      backgroundColor: activeStep === 0 ? 'transparent' : '#F0F9FF',
-                    }
-                  }}
-                >
-                  <KeyboardArrowLeftOutlinedIcon color='#072127'/>
-                </IconButton>
-                
-                {/* أرقام الصفحات */}
+              {/* Pagination - تعرض فقط إذا كان هناك أكثر من صفحة */}
+              {totalPages > 1 && (
                 <Box sx={{ 
                   display: 'flex', 
-                  gap: '40px', 
-                  alignItems: 'center',
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                  gap: '40px',
+                  mt: 4,
+                  p: 3,
                   flexWrap: 'wrap',
-                  justifyContent: 'center'
+                  padding: '40px'
                 }}>
-                  {renderStepNumbers()}
+                  
+                  {/* زر السابق */}
+                  <IconButton
+                    onClick={handleBack}
+                    disabled={activeStep === 0}
+                    sx={{  
+                      border: '1px solid #D9E4E5', 
+                      borderRadius: '8px',
+                      color: activeStep === 0 ? '#CCCCCC' : '#6DCDE5',
+                      '&:hover': {
+                        backgroundColor: activeStep === 0 ? 'transparent' : '#F0F9FF',
+                      }
+                    }}
+                  >
+                    <KeyboardArrowLeftOutlinedIcon color='#072127'/>
+                  </IconButton>
+                  
+                  {/* أرقام الصفحات */}
+                  <Box sx={{ 
+                    display: 'flex', 
+                    gap: '40px', 
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center'
+                  }}>
+                    {renderStepNumbers()}
+                  </Box>
+                  
+                  {/* زر التالي */}
+                  <IconButton
+                    onClick={handleNext}
+                    disabled={activeStep === totalPages - 1}
+                    sx={{ 
+                      border: '1px solid #D9E4E5', 
+                      borderRadius: '8px',
+                      color: activeStep === totalPages - 1 ? '#CCCCCC' : '#6DCDE5',
+                      '&:hover': {
+                        backgroundColor: activeStep === totalPages - 1 ? 'transparent' : '#F0F9FF',
+                      }
+                    }}
+                  >
+                    <KeyboardArrowRightOutlinedIcon color='#072127'/>
+                  </IconButton>
                 </Box>
-                
-                {/* زر التالي */}
-                <IconButton
-                  onClick={handleNext}
-                  disabled={activeStep === steps.length - 1}
-                  sx={{ 
-                    border: '1px solid #D9E4E5', borderRadius:'8px',
-                    color: activeStep === steps.length - 1 ? '#CCCCCC' : '#6DCDE5',
-                    '&:hover': {
-                      backgroundColor: activeStep === steps.length - 1 ? 'transparent' : '#F0F9FF',
-                    }
-                  }}
-                >
-                  <KeyboardArrowRightOutlinedIcon color='#072127'/>
-                </IconButton>
-              </div>
+              )}
             </div>
 
           </div>
