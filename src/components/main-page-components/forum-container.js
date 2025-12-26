@@ -43,7 +43,7 @@ const ForumContainer = () => {
                         <div className="forum_post_date_comments">
                             <div className="forum_post_date">
                                 <img src="/icons/chalender/calendar.svg" alt="" />
-                                <p>{new Date(post.date).toLocaleDateString}</p>
+                                <p>{new Date(post.date).toLocaleDateString()}</p>
                             </div>
                             <p className="forum_post_date_comments_comment">+{post.commentsNum} تعليق</p>
                         </div>

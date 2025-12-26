@@ -1,16 +1,24 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
+<<<<<<< HEAD
 // MUI IMPORTS
 import { ThemeProvider } from '@mui/material/styles';
 import appTheme from '../../appTeme';
+=======
+// MUI
+import { ThemeProvider } from '@mui/material/styles';
+>>>>>>> 0057728b6829541e2d13efced26bb8d0dbc765e4
 import { Container, Box, IconButton } from '@mui/material';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-// COMPONENTS && DATA IMPORTS
-import Navbar from "../../components/volunteer-projects/Navbar";
-import Footer from '../../components/footer/footer'
+// THEME
+import appTheme from '../../appTeme'; // ✅ تأكد أن اسم الملف theme.js
+
+// COMPONENTS
+import Footer from '../../components/footer/footer';
 import Header from '../../components/volunteer-projects/Header';
 import CardProject from '../../components/volunteer-projects/CardProject/CardProject';
 import CategoriesProject from '../../components/volunteer-projects/CategoriesProject';
@@ -18,65 +26,97 @@ import LatestProjects from '../../components/volunteer-projects/LatestProjects';
 
 function VolunteerProjects() {
   const [activeStep, setActiveStep] = useState(0);
-  
-  // مصفوفة المشاريع مع تنوع في الأطوال
-  const generateRandomDescription = () => {
-    const descriptions = [
-      "مشروع بسيط مع وصف قصير.",
-      "مشروع متطور يتضمن أحدث التقنيات. تم تطويره بدقة عالية ليلبي احتياجات المستخدمين.",
-      "هذا المشروع يهدف إلى تحسين تجربة المستخدم من خلال واجهات بديهية وأداء سريع. تم العمل عليه لمدة 6 أشهر.",
-      "مشروع تعاوني بين عدة فرق. يشمل نظام إدارة محتوى متكامل، بوابة دفع إلكترونية، وتقارير تفصيلية.",
-      "تم تطوير هذا المشروع باستخدام أحدث frameworks. يدعم multiple languages ويتوافق مع جميع الأجهزة.",
-      "مشروع ضخم استغرق تطويره أكثر من عام. يتضمن AI integration، real-time analytics، وcustom reporting system.",
-      "وصف متوسط الطول لمشروع تقني متكامل.",
-      "مشروع مبتكر يجمع بين التصميم الجذاب والأداء المتميز. حصل على تقييمات ممتازة من المستخدمين.",
-      "تم إطلاق هذا المشروع بنجاح كبير وحقق أهدافه خلال الأشهر الأولى.",
-      "مشروع تعليمي تفاعلي مع محتوى غني ومتنوع.",
-      "نظام متكامل لإدارة العمليات اليومية بفعالية.",
-      "تطبيق جوال مع تصميم responsive وميزات متقدمة.",
-      "منصة سحابية تقدم حلولاً متكاملة للشركات.",
-      "مشروع بحثي متطور في مجال الذكاء الاصطناعي.",
-      "حلول برمجية مخصصة تلبي احتياجات العملاء."
-    ];
-    return descriptions[Math.floor(Math.random() * descriptions.length)];
-  };
 
-  // دالة لعنوان عشوائي
-  const generateRandomTitle = () => {
-    const titles = [
-      "تصميم واجهات UI/UX",
-      "تطوير تطبيق جوال",
-      "منصة تعليمية",
-      "نظام إدارة محتوى",
-      "موقع تجارة إلكترونية",
-      "تطبيق لياقة بدنية",
-      "منصة عمل حر",
-      "نظام حجز مواعيد",
-      "مشروع ذكاء اصطناعي",
-      "تحليل بيانات",
-      "تطوير ويب متقدم",
-      "تصميم جرافيك",
-      "إدارة مشاريع",
-      "تطوير ألعاب",
-      "أمن سيبراني"
-    ];
-    const prefixes = ["مشروع", "نظام", "تطبيق", "منصة", "موقع"];
-    const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-    const title = titles[Math.floor(Math.random() * titles.length)];
-    return `${prefix} ${title}`;
-  };
-
-  // إنشاء مصفوفة مشاريع عشوائية
-  const generateRandomProjects = (count) => {
-    return Array.from({ length: count }, (_, index) => ({
-      title: generateRandomTitle(),
-      ditail: generateRandomDescription(),
-      number: Math.floor(Math.random() * 30) + 1,
-      full: Math.random() > 0.5
-    }));
-  };
-
-  const projects = generateRandomProjects(8);
+  const projects = [
+    {
+      id: uuidv4(),
+      title: "مشروع تطوير الموقع التعليمي",
+      detail: "مشروع تطوير منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية للمتعلمين",
+      number: 12,
+      full: true,
+      image: "/images/projects/1.jpg",
+      date: "2024/03/15",
+      category: "تعليم",
+      priority: "عالي"
+    },
+    {
+      id: uuidv4(),
+      title: "تطبيق متابعة التبرعات",
+      detail: "نظم متكامل لإدارة سجلات المرضى والمواعيد والمخزون الطبي",
+      number: 8,
+      full: false,
+      image: "/images/projects/2.jpg",
+      date: "2024/03/10",
+      category: "اجتماعي",
+      priority: "متوسط"
+    },
+    {
+      id: uuidv4(),
+      title: "منصة التطوع الإلكتروني",
+      detail: "تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة  تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة",
+      number: 20,
+      full: true,
+      image: "/images/projects/3.jpg",
+      date: "2024/03/05",
+      category: "تطوع",
+      priority: "عالي"
+    },
+    {
+      id: uuidv4(),
+      title: "نظام إدارة المستشفيات",
+      detail: "منصة لربط المتطوعين مع المؤسسات الخيرية وتنظيم الأنشطة التطوعية تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة",
+      number: 6,
+      full: false,
+      image: "/images/projects/4.jpg",
+      date: "2024/02/28",
+      category: "صحة",
+      priority: "عالي"
+    },
+    {
+      id: uuidv4(),
+      title: "مشروع التشجير البلدي",
+      detail: "مبادرة لتشجير الأحياء السكنية وزيادة المساحات الخضراء في المدينة",
+      number: 15,
+      full: false,
+      image: "/images/projects/5.jpg",
+      date: "2024/02/20",
+      category: "بيئة",
+      priority: "منخفض"
+    },
+    {
+      id: uuidv4(),
+      title: "تطوير مكتبة رقمية",
+      detail: "تحويل المكتبة التقليدية إلى مكتبة رقمية مع إمكانية الاستعارة الإلكترونية  تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة",
+      number: 10,
+      full: true,
+      image: "/images/projects/6.jpg",
+      date: "2024/02/15",
+      category: "ثقافة",
+      priority: "متوسط"
+    },
+    {
+      id: uuidv4(),
+      title: "برنامج تدريب الشباب",
+      detail: "حملة توعوية عن الأمراض المزمنة وطرق الوقاية منها في المدارس حملة توعوية عن الأمراض المزمنة وطرق الوقاية منها في المدارس",
+      number: 25,
+      full: false,
+      image: "/images/projects/7.jpg",
+      date: "2024/02/10",
+      category: "تعليم",
+      priority: "عالي"
+    },
+    {
+      id: uuidv4(),
+      title: "حملة توعية صحية",
+      detail: "برنامج تدريبي مكثف لتأهيل الشباب لسوق العمل في مجال البرمجة",
+      number: 18,
+      full: true,
+      image: "/images/projects/8.jpg",
+      date: "2024/02/05",
+      category: "صحة",
+      priority: "متوسط"
+    }
+  ];
 
   const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -153,7 +193,6 @@ function VolunteerProjects() {
     return result;
   };
 
-  // مكون مساعد لعرض رقم الصفحة
   const StepNumber = ({ step, index, activeStep, onClick }) => (
     <Box
       onClick={() => onClick(index)}
@@ -169,6 +208,7 @@ function VolunteerProjects() {
         cursor: 'pointer',
         fontWeight: 600,
         fontSize: '14px',
+        fontFamily: 'Tajawal, sans-serif',
         transition: 'all 0.3s ease',
         '&:hover': {
           backgroundColor: activeStep === index ? '#6DCDE5' : '#F5F5F5',
@@ -179,57 +219,24 @@ function VolunteerProjects() {
     </Box>
   );
 
-  return(
+  return (
     <ThemeProvider theme={appTheme}>
-      <Navbar />
-      <div style={{direction:'rtl'}}>
-        <Header/>
-        <Container maxWidth='lg' sx={{ mt:4 }}>
-          <div style={{ 
-            display: 'flex',
-            gap: '40px',
-            flexDirection: {xs:'column', lg:'row'}
-          }}>
+      <div style={{ direction: 'rtl' }}>
+        <Header />
 
-            {/* قسم التصنيفات */}
-            <div style={{
-              display:'flex',
-              flexDirection:'column',
-              gap:'32px',
-              width: '356px',
-              position: 'sticky',
-              flexShrink: 0
-            }}>
+        <Container maxWidth="lg" sx={{ mt: 4 }}>
+          <div style={{ display: 'flex', gap: '40px' }}>
+            
+            <div style={{ width: 356 }}>
               <CategoriesProject />
               <LatestProjects />
             </div>
-            
-            {/* قسم الكاردات بتخطيط Masonry */}
-            <div style={{ 
-              flex: 1,
-              maxWidth: '812px'
-            }}>
-              <div style={{
-                columnCount:2,
-                columnGap:'32px',
-                breakInside:'avoid'
-              }}>
-                {projects.map((project, index) => (
-                  <div style={{
-                    display: 'inline-block',
-                    width: '100%',
-                    marginBottom: '32px',
-                    breakInside: 'avoid',
-                  }}>
-                  <CardProject 
-                    key={index}
-                    project={project}
-                    projectId={index}
-                    title={project.title}
-                    ditail={project.ditail}
-                    number={project.number}
-                    full={project.full}
-                    />
+
+            <div style={{ flex: 1 }}>
+              <div style={{ columnCount: 2, columnGap: '32px' }}>
+                {projects.map((project) => (
+                  <div key={project.id} style={{ marginBottom: 32 }}>
+                    <CardProject project={project} />
                   </div>
                 ))}
               </div>
@@ -243,8 +250,7 @@ function VolunteerProjects() {
                 mt: 4,
                 p: 3,
                 flexWrap: 'wrap',
-                padding:'40px',
-                direction:'ltr'
+                padding:'40px'
               }}>
                 
                 {/* زر السابق */}
@@ -288,13 +294,14 @@ function VolunteerProjects() {
                 </IconButton>
               </div>
             </div>
-            
+
           </div>
         </Container>
-      </div>  
-      <Footer/>
+      </div>
+
+      <Footer />
     </ThemeProvider>
-  )
+  );
 }
 
 export default VolunteerProjects;
