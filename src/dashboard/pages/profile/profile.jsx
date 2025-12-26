@@ -1,6 +1,9 @@
 import './profile.css';
-import countriesWithFlages from '../../countriesWithFlages';
 import { useState } from 'react';
+import { DatePicker } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from 'date-fns';
+import countriesWithFlages from '../../countriesWithFlages';
 
 function Profile({ status = 'volunteer' }) {
   const [formData, setFormData] = useState({
@@ -19,11 +22,13 @@ function Profile({ status = 'volunteer' }) {
   const [stageFocused, setStageFocused] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  
   const [selectedCountry, setSelectedCountry] = useState({
     prefix: '963',
     name: 'سوريا',
     flag: '/images/icons/syria.png'
   });
+  
   const [selectedResidence, setSelectedResidence] = useState({
     prefix: '963',
     name: 'سوريا',
@@ -203,17 +208,6 @@ function Profile({ status = 'volunteer' }) {
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                   zIndex: 1000
                 }}>
-                  {/* <input
-                    type="text"
-                    placeholder="ابحث عن دولة..."
-                    style={{
-                      width: '100%',
-                      padding: '12px',
-                      border: 'none',
-                      borderBottom: '1px solid #f0f0f0',
-                      boxSizing: 'border-box'
-                    }}
-                  /> */}
                   {countriesWithFlages.map((country) => (
                     <button
                       key={country.prefix}

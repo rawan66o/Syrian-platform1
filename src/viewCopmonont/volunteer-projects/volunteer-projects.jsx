@@ -1,21 +1,13 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-<<<<<<< HEAD
 // MUI IMPORTS
 import { ThemeProvider } from '@mui/material/styles';
 import appTheme from '../../appTeme';
-=======
-// MUI
-import { ThemeProvider } from '@mui/material/styles';
->>>>>>> 0057728b6829541e2d13efced26bb8d0dbc765e4
 import { Container, Box, IconButton } from '@mui/material';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-
-// THEME
-import appTheme from '../../appTeme'; // ✅ تأكد أن اسم الملف theme.js
 
 // COMPONENTS
 import Footer from '../../components/footer/footer';
@@ -155,7 +147,7 @@ function VolunteerProjects() {
     
     if (currentStep <= 3) {
       // في البداية: 1 2 3 4 5 ... 10
-      numbersToShow = [0, 1, 2,9];
+      numbersToShow = [0, 1, 2, 9];
     } else if (currentStep >= totalSteps - 4) {
       // في النهاية: 1 ... 6 7 8 9 10
       numbersToShow = [0, totalSteps - 5, totalSteps - 4, totalSteps - 3, totalSteps - 2, totalSteps - 1];
