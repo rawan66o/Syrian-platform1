@@ -1,5 +1,5 @@
 import './Posts.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import appTheme from '../../appTeme';
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -11,6 +11,7 @@ import LatestProjects from "../../components/volunteer-projects/LatestProjects";
 // IMPORTS MUI
 import { Box, Container, Grid, Typography } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import { useNavigate, useParams } from 'react-router';
 
 
 const progect = `لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .
@@ -25,18 +26,51 @@ const progect = `لقد قمنا بتحسين المحتوى الذي يناسب
 لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .`
 
 function Posts({full}) {
-  const [commentInput, setCommentInput] =useState('')
-   // حالة التحكم
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [commentInput, setCommentInput] = useState('');
+  const [project, setProject] = useState(null);
+  
+  // حالة التحكم
   const [showAll, setShowAll] = useState(false);
   const MAX_ROWS = 2;
   const ITEMS_PER_ROW = 3;
   const MAX_ITEMS = MAX_ROWS * ITEMS_PER_ROW; // 6 عناصر
   
+  // تأكد من أن volunteers معرف بشكل صحيح
   const displayedVolunteers = showAll 
     ? volunteers 
     : volunteers.slice(0, MAX_ITEMS);
   
   const hiddenCount = volunteers.length - displayedVolunteers.length;
+
+  useEffect(() => {
+    // جلب البيانات من localStorage
+    const projects = JSON.parse(localStorage.getItem('volunteer-project')) || [];
+    const foundProject = projects.find(proj => proj.id.toString() === id);
+    
+    if (foundProject) {
+      setProject(foundProject); // <-- تحديث حالة project
+      console.log('✅ بيانات المشروع:', foundProject);
+    } else {
+      console.log('❌ المشروع غير موجود في localStorage');
+      // يمكنك إضافة redirect هنا إذا المشروع غير موجود
+      // navigate('/not-found');
+    }
+  }, [id]); // <-- إضافة id كـ dependency
+
+  function handleProjectApplicationTo() {
+    if (!project) {
+      alert('المشروع غير محمل بعد. الرجاء الانتظار...');
+      return;
+    }
+    navigate(`/project-application/${project.id}`);  
+  }
+
+  // التحقق من وجود المشروع قبل التصيير
+  if (!project) {
+    return <div>جاري تحميل بيانات المشروع...</div>;
+  }
 
   return(
     <ThemeProvider theme={appTheme}>
@@ -60,7 +94,8 @@ function Posts({full}) {
                   <img src='/images/icons/shere.png' alt='' style={{width:'13px', height:'16px'}} />
                   </button>
               </div>
-              <button style={{ width:'372px', height:'52px',fontSize:'18px' }}>طلب الدخول كمتطوع</button>
+              <button type='submit' onClick={handleProjectApplicationTo}
+               style={{ width:'372px', height:'52px',fontSize:'18px' }}>طلب الدخول كمتطوع</button>
             </div>
             
             <img src='/images/5.jpg' alt='' style={{width:'100%', height:'441.57px'}} />

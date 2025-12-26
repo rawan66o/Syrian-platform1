@@ -22,6 +22,16 @@
   padding-bottom: 16px;
 }
 
+.categories-header h6{
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: right;
+  color: #000;
+}
+
 .categories-title {
   font-size: 18px !important;
   font-weight: 600 !important;

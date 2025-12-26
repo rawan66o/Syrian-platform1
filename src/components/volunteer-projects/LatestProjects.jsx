@@ -33,7 +33,7 @@ function LatestProjects() {
         {posts.map((p,index)=>{
             return <div key={index}>
                 <Cardd  post={p.post} imag={p.imag}/>
-                <div className='latest-projects-divider'/>
+                {/* <div className='latest-projects-divider'/> */}
             </div>
         })}
       

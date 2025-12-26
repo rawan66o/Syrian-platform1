@@ -56,16 +56,18 @@ const Login = () => {
                 );
                 if (foundUser) {
                     const token = `local_token_${Date.now()}`;
-                    dispatch({ type: 'LOGIN_SUCCESS', payload: { ...foundUser, token: `local_token_${token}`} });
-
+                    
                     localStorage.setItem('auth_token', `local_token_${token}`);
                     localStorage.setItem('currentUser', JSON.stringify(foundUser));
-
+                    dispatch({ type: 'LOGIN_SUCCESS', payload: { ...foundUser, token: `local_token_${token}`} });
+                    
                     dispatch({ type: 'RELOAD_USERS' });
 
                     showHideToast(` مرحباً ${formData.fullName}! تم تسجيل الدخول الى حسابك`, "success");
                     
                     setFormData({ email: '', password: '' });
+
+                    showHideToast("مرحباً بك في المنصة السورية!");
                     
                     navigate('/');
                 } else {
@@ -124,7 +126,7 @@ const Login = () => {
                                     <p className={classes.validation_p}>6 أحرف على الأقل من فضلك يجب أن تحتوي على رموز أيضًا</p>
                                 </div>
                                 <div className={classes.input_with_icon}>
-                                    <input className={classes.form_input} type='password' placeholder='ادخل كلمة المرور' 
+                                    <input className={classes.form_input} type={showPassword ? 'text' : 'password'} placeholder='ادخل كلمة المرور' 
                                      value={formData.password} onChange={(e)=> setFormData({...formData, password: e.target.value})} />
                                     <img className={classes.show_and_hide_icon} src={`${showPassword ? '/icons/on_click_hide_password/eye-slash.svg' : '/icons/on_click_show_password/show.png'}`}
                                         alt=''

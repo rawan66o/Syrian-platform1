@@ -54,6 +54,8 @@ import Certificates from "./dashboard/pages/certificates/certificates";
 import MycoursesDashboard from "./dashboard/pages/mycourses-dashboard/mycourses-dashboard";
 import MyProgectes from "./dashboard/pages/my-volunteer-progect/my-volunteer-progect";
 import { ToastProvider } from "./context/ToastContext";
+import { ProjectsProvider } from "./context/volunteer-projects-context";
+import LoginLayout from "./layout/login-layout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -61,86 +63,88 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ToastProvider>
-        <Routes>  
-          <Route index element={<App />} />
-          {/* ================== Website Layout ================== */}
-          <Route element={<Layout />}>
-
-
+        <ProjectsProvider>
+          <Routes>  
+            <Route index element={<App />} />
             {/* Auth */}
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="new-password" element={<NewPassword />} />
+            <Route element={<LoginLayout />}>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="new-password" element={<NewPassword />} />
+            </Route>
+            {/* ================== Website Layout ================== */}
+            <Route element={<Layout />}>
 
-            {/* Courses */}
-            <Route path="courses" element={<Courses />} />
-            <Route path="courses/:courseId" element={<CourseDetails />} />
-            <Route
-              path="courses/:courseId/course-lesson"
-              element={<CourseLessons />}
-            />
-            <Route
-              path="courses/:courseId/course-test"
-              element={<CourseTest />}
-            />
-            <Route
-              path="courses/:courseId/test-result"
-              element={<TestResultsPage />}
-            />
-            <Route
-              path="courses/:courseId/course-marks"
-              element={<CourseMarks />}
-            />
-            <Route
-              path="courses/:courseId/certificate-requirements"
-              element={<CourseCertificateRequirements />}
-            />
-            <Route
-              path="courses/:courseId/course-finished"
-              element={<CourseFinished />}
-            />
-            <Route
-              path="courses/:courseId/rate-course-and-trainer"
-              element={<RateCourseAndTrainer />}
-            />
+              {/* Courses */}
+              <Route path="courses" element={<Courses />} />
+              <Route path="courses/:courseId" element={<CourseDetails />} />
+              <Route
+                path="courses/:courseId/course-lesson"
+                element={<CourseLessons />}
+              />
+              <Route
+                path="courses/:courseId/course-test"
+                element={<CourseTest />}
+              />
+              <Route
+                path="courses/:courseId/test-result"
+                element={<TestResultsPage />}
+              />
+              <Route
+                path="courses/:courseId/course-marks"
+                element={<CourseMarks />}
+              />
+              <Route
+                path="courses/:courseId/certificate-requirements"
+                element={<CourseCertificateRequirements />}
+              />
+              <Route
+                path="courses/:courseId/course-finished"
+                element={<CourseFinished />}
+              />
+              <Route
+                path="courses/:courseId/rate-course-and-trainer"
+                element={<RateCourseAndTrainer />}
+              />
 
-            <Route path="add-course" element={<AddCourse />} />
-            <Route path="add-post" element={<AddPost />} />
+              <Route path="add-course" element={<AddCourse />} />
+              <Route path="add-post" element={<AddPost />} />
 
-            {/* Guides */}
-            <Route
-              path="student-guide"
-              element={<Guide data={StudentGuide} title="دليل الحياة الجامعية" />}
-            />
-            <Route
-              path="coach-guide"
-              element={<Guide data={CoachGuide} title="دليل المدرب" />}
-            />
-            <Route
-              path="volunteer-guide"
-              element={<Guide data={VolunteerGuide} title="دليل المتطوع" />}
-            />
+              {/* Guides */}
+              <Route
+                path="student-guide"
+                element={<Guide data={StudentGuide} title="دليل الحياة الجامعية" />}
+              />
+              <Route
+                path="coach-guide"
+                element={<Guide data={CoachGuide} title="دليل المدرب" />}
+              />
+              <Route
+                path="volunteer-guide"
+                element={<Guide data={VolunteerGuide} title="دليل المتطوع" />}
+              />
 
-            {/* Other Pages */}
-            <Route path="partners" element={<Partners />} />
+              {/* Other Pages */}
+              <Route path="partners" element={<Partners />} />
+              <Route path="volunteer-projects" element={<VolunteerProjects />} />
+              <Route path="volunteer-projects/:projectId" element={<Posts />} />
+            </Route>
+            <Route path="project-application/:projectId" element={<ApplicationForMembership />} />
             <Route path="add-project" element={<AddProject />} />
-            <Route path="volunteer-projects" element={<VolunteerProjects />} />
-            <Route path="volunteer-projects/:projectId" element={<Posts />} />
-            <Route path="form" element={<ApplicationForMembership />} />
-          </Route>
 
 
 
-          {/* ================== Dashboard ================== */}
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<ContentDashboard />} />
-            <Route path="profile" element={<Profile status="volunteer" />} />
-            <Route path="certificates" element={<Certificates />} />
-            <Route path="my-courses" element={<MycoursesDashboard />} />
-            <Route path="my-progects" element={<MyProgectes />} />
-          </Route>
-        </Routes>
+            {/* ================== Dashboard ================== */}
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<ContentDashboard />} />
+              <Route path="profile" element={<Profile status="volunteer" />} />
+              <Route path="certificates" element={<Certificates />} />
+              <Route path="my-courses" element={<MycoursesDashboard />} />
+              <Route path="my-progects" element={<MyProgectes />} />
+            </Route>
+          </Routes>
+        </ProjectsProvider>
       </ToastProvider>
     </BrowserRouter>
   </React.StrictMode>

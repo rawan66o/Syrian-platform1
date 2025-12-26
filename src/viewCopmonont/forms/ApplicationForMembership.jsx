@@ -1,12 +1,27 @@
 import './Form.css';
-import { useState } from 'react';
+import Navbar from './navbar';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router';
+import { useToast } from '../../context/ToastContext';
+import { initialAuthState } from '../../Reducers/auth-reducer';
 import countriesWithFlages from '../../dashboard/countriesWithFlages';
+import { useProjects } from '../../context/volunteer-projects-context';
 
 function ApplicationForMembership() {
-  // ====== STATES SECTION ========
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const {dispatch} = useProjects();
+  const { showHideToast } = useToast();
+  
+  const project = null;
+  // ====== STATES ======
+
   const [formData, setFormData] = useState({
-    fullName: '',
+    user: initialAuthState.currentUser,
+    project:'',
+    name: '',
     phone: '',
+    prefix:'',
     AvailableTime: '',
     possibilities: ''
   });
@@ -18,7 +33,17 @@ function ApplicationForMembership() {
     flag: '/images/icons/syria.png'
   });
 
-  // ====== FUNCTIONS SECTION ========
+  // ====== FUNCTIONS ======
+
+  useEffect(()=>{
+    const projects = JSON.parse(localStorage.getItem('volunteer-project')) || [];
+    project = projects.find(proj => proj.id.toString() === id);
+    if (project) {
+      // يمكنك استخدام بيانات المشروع هنا إذا لزم الأمر
+      console.log('بيانات المشروع:', project);
+    }
+  },[])
+
   const handleFieldChange = (fieldName) => (e) => {
     setFormData(prev => ({ ...prev, [fieldName]: e.target.value }));
   };
@@ -32,65 +57,110 @@ function ApplicationForMembership() {
     setIsDropdownOpen(false);
   };
 
+  const handlePrevious = () => {
+    navigate(-1); // Go back one page
+  };
+
+  function handleProjectApplication(e) {
+    e.preventDefault();
+    
+    setFormData({...formData, user:initialAuthState.currentUser, prefix:selectedCountry.prefix,project:project}) 
+
+    if (!formData.name.trim()) {
+      showHideToast('الرجاء قم بادخال الاسم','error')
+      return;
+    }
+
+    if (!formData.phone.trim()) {
+      showHideToast('الرجاء قم بادخال رقم الهاتف يشكل صحيح','error')
+      return;
+    }
+
+    if (!formData.AvailableTime.trim()) {
+      showHideToast('الرجاء قم بادخال الوقت المتاح','error')
+      return;
+    }
+
+    if (!formData.possibilities.trim()) {
+      showHideToast('الرجاء قم بادخال ما يمكنك تقديمه للمشروع','error')
+      return;
+    }
+
+    try {
+      dispatch({ type:'ADD_JOIN_REQUEST', payload: formData})
+      showHideToast('تم طلب الانتساب بنجاح', "success")
+      setFormData({
+        user:null,
+        name:'',
+        phone:'',
+        AvailableTime:'',
+        possibilities:''
+      })
+      // navigate('/dashboard')
+    } catch (error) {
+      showHideToast('هناك خطا يرجى التحقق', "error")
+    }
+
+  }
+
   return (
-    <div style={{ padding: '10px' }}>
-      <div className="app-a">
-        <div className="request">
-          <h6 style={{ fontSize: '24px', lineHeight: '100%', color: '#232323' }}>
-            اضافة معلوماتك للانتساب للمشروع :
-          </h6>
+    <div>
+      <Navbar />
+      <div style={{padding:'10px'}}>
+        <div className="app-a">
+          <div className="request">
+            <h6 style={{ fontSize: '24px', lineHeight: '100%', color: '#232323' }}>
+              اضافة معلوماتك للانتساب للمشروع :
+            </h6>
 
-          <div className="form-request">
-            {/* الاسم الكامل */}
-            <label>الاسم الكامل</label>
-            <div className='input-texthelp'> من فضلك يجب أن يكون الاسم معبرا ولا يتجاوز 30 حرف .</div>
-            <input
-              type="text"
-              placeholder='الاسم الكامل'
-              value={formData.fullName}
-              onChange={handleFieldChange('fullName')}
-            />
+            <div className="form-request">
 
-            {/* رقم الهاتف */}
-            <label>رقم الهاتف</label>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-              position: 'relative'
-            }}>
-              {/* حقل إدخال الرقم */}
+              {/* الاسم الكامل */}
+              <label>الاسم الكامل</label>
+              <div className="input-texthelp">
+                من فضلك يجب أن يكون الاسم معبراً ولا يتجاوز 30 حرف.
+              </div>
               <input
-                type="tel"
-                placeholder="5XX XXX XXX"
-                value={formData.phone}
-                onChange={handleFieldChange('phone')}
-                style={{
-                  flex: 1,
-                  height: '56px',
-                  border: '1px solid #70838766',
-                  borderLeft: 'none',
-                  borderRadius: '0px 8px 8px 0px',
-                  padding: '0 16px',
-                  fontSize: '16px'
-                }}
+                type="text"
+                placeholder="الاسم الكامل"
+                value={formData.name}
+                onChange={handleFieldChange('name')}
               />
 
-              {/* زر اختيار الدولة */}
-              {!isDropdownOpen ? (
-                <button
+              {/* رقم الهاتف مع اختيار الدولة */}
+              <label>رقم الهاتف</label>
+              <div className="phone-container" style={{ display: 'flex', width:'660px' }}>
+
+                <input
+                  type="tel"
+                  placeholder="5XX XXX XXX"
+                  value={formData.phone}
+                  onChange={handleFieldChange('phone')}
+                  style={{
+                    flex: 1,
+                    borderRadius: '0px 8px 8px 0px',
+                    border: '1px solid #70838766',
+                    borderLeft: 'none',
+                    textAlign:'right',
+                    padding: '0 12px',
+                    fontSize: '16px',
+                  }}
+                />
+
+               {!isDropdownOpen ? (<button
                   type="button"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   style={{
+                    width:'auto',
                     height: '56px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     gap: '10px',
-                    padding: '0 16px',
+                    padding: '0 12px',
+                    borderRadius: '8px 0 0 8px',
                     border: '1px solid #70838766',
                     borderRight: 'none',
-                    borderRadius: '8px 0 0 8px',
                     backgroundColor: 'white',
                     cursor: 'pointer'
                   }}
@@ -113,49 +183,46 @@ function ApplicationForMembership() {
                       style={{ width: '20px', height: '15px', borderRadius: '3px' }}
                     />
                   </div>
-                </button>
-              ) : (
-                <button
-                  style={{
+                </button>) : (
+                  <button style={{
+                    width:'auto',
                     height: '56px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     gap: '10px',
-                    padding: '0 16px',
+                    padding: '0 12px',
                     border: '1px solid #70838766',
                     borderRight: 'none',
                     borderRadius: '8px 0 0 8px',
                     backgroundColor: 'white',
                     cursor: 'pointer'
-                  }}
-                >
-                  <img
-                    src={selectedCountry.flag}
-                    alt={selectedCountry.name}
-                    style={{ width: '20px', height: '15px', borderRadius: '3px' }}
-                  />
-                  <span style={{ fontWeight: 500, color: '#000' }}>{selectedCountry.name}</span>
-                  <img
-                    src="/images/icons/ChevronRight.png"
-                    alt=""
-                    style={{
-                      width: '12px',
-                      height: '11px',
-                      rotate: '90deg',
-                      transition: 'transform 0.3s'
-                    }}
-                  />
-                </button>
-              )}
+                  }}>
+                    <img
+                      src={selectedCountry.flag}
+                      alt={selectedCountry.name}
+                      style={{ width: '20px', height: '15px', borderRadius: '3px' }}
+                    />
+                    <span style={{ fontWeight: 500, color: '#000' }}>{selectedCountry.name}</span>
+                    <img
+                      src="/images/icons/ChevronRight.png"
+                      alt=""
+                      style={{
+                        width: '12px',
+                        height: '11px',
+                        rotate: '90deg',
+                        transition: 'transform 0.3s'
+                      }}
+                    />
+                  </button>
+                )}
 
-              {/* القائمة المنسدلة للدول */}
-              {isDropdownOpen && (
-                <div
-                  style={{
+                {/* القائمة المنسدلة */}
+                {isDropdownOpen && (
+                  <div style={{
                     position: 'absolute',
                     top: '60px',
-                    right: '430px',
+                    right: '450px',
                     width: '220px',
                     maxHeight: '300px',
                     overflowY: 'auto',
@@ -164,88 +231,84 @@ function ApplicationForMembership() {
                     borderRadius: '8px',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                     zIndex: 1000
-                  }}
-                >
-                  {countriesWithFlages.map((country) => (
-                    <button
-                      key={country.prefix}
-                      type="button"
-                      onClick={() => handleCountrySelect(country)}
-                      style={{
-                        width: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '12px',
-                        padding: '12px',
-                        border: 'none',
-                        borderBottom: '1px solid #D9E4E5',
-                        borderRadius: '0px',
-                        backgroundColor: selectedCountry.prefix === country.prefix ? '#6DCDE5' : '#D9E4E5',
-                        cursor: 'pointer',
-                        textAlign: 'right'
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
-                        <span style={{ fontSize: '14px', color: 'black' }}>+{country.prefix}</span>
-                        <span style={{ fontWeight: 500, color: 'black' }}>{country.name}</span>
-                      </div>
-                      <img
-                        src={country.flag}
-                        alt={country.name}
-                        style={{ width: '20px', height: '15px', borderRadius: '3px' }}
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
+                  }}>
+                    {countriesWithFlages.map((country) => (
+                      <button
+                        key={country.prefix}
+                        type="button"
+                        onClick={() => {
+                          handleCountrySelect(country)
+                          setIsDropdownOpen(!isDropdownOpen)
+                        }}
+                        style={{
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '12px',
+                          padding: '12px',
+                          border: 'none',
+                          borderBottom: '1px solid #D9E4E5',
+                          borderRadius: '0px',
+                          backgroundColor: selectedCountry.prefix === country.prefix ? '#6DCDE5' : '#D9E4E5',
+                          cursor: 'pointer',
+                          textAlign: 'right'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
+                          <span style={{ fontSize: '14px', color: 'black' }}>+{country.prefix}</span>
+                          <span style={{ fontWeight: 500, color: 'black' }}>{country.name}</span>
+                        </div>
+                        <img
+                          src={country.flag}
+                          alt={country.name}
+                          style={{ width: '20px', height: '15px', borderRadius: '3px' }}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              
+              {/* الحقول الأخرى */}
+              <label>اكتب لنا الايام المتاح بها والساعات المتاحة</label>
+              <textarea
+                placeholder="مثال: الأحد - الخميس من 4 إلى 7 مساءً"
+                value={formData.AvailableTime}
+                onChange={handleFieldChange('AvailableTime')}
+              />
+
+              {/* الإمكانيات */}
+              <label>ماذا يمكن أن تقدم لهذا المشروع؟</label>
+              <textarea
+                placeholder="اكتب هنا..."
+                value={formData.possibilities}
+                onChange={handleFieldChange('possibilities')}
+              />
             </div>
-
-            {/* الحقول الأخرى */}
-            <label>اكتب لنا الايام المتاح بها والساعات المتاحة</label>
-            <textarea
-              placeholder="مثال: الأحد - الخميس من 4 إلى 7 مساءً"
-              value={formData.AvailableTime}
-              onChange={handleFieldChange('AvailableTime')}
-            />
-
-            {/* الإمكانيات */}
-            <label>ماذا يمكن أن تقدم لهذا المشروع؟</label>
-            <textarea
-              placeholder="اكتب هنا..."
-              value={formData.possibilities}
-              onChange={handleFieldChange('possibilities')}
-            />
           </div>
         </div>
-      </div>
 
-      {/* أزرار الإرسال */}
-      <div className="button-request" style={{ display: 'flex', gap: '16px', marginTop: '24px' }}>
-        <button
-          style={{
+        {/* أزرار الإرسال */}
+        <div className="button-request">
+          <button type='submit' onClick={handlePrevious}
+           style={{
             width: '146px',
             border: '1px solid #D9E4E5',
             fontWeight: 500,
             background: '#fff',
             color: '#072127'
-          }}
-        >
-          السابق
-        </button>
+          }}>
+            السابق
+          </button>
 
-        <button
-          style={{
-            width: '396px',
-            backgroundColor: '#6DCDE5',
-            color: 'white',
-            fontWeight: 500,
-            border: 'none',
-            borderRadius: '8px'
-          }}
-        >
-          طلب الدخول كمتطوع
-        </button>
+          <button
+            style={{ width: '396px', backgroundColor: '#6DCDE5', color: 'white'}}
+            onClick={handleProjectApplication}
+            >
+            طلب الدخول كمتطوع
+          </button>
+        </div>
       </div>
     </div>
   );

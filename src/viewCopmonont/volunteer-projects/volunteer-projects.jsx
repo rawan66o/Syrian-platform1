@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useState, useMemo } from 'react';
 
 // MUI IMPORTS
 import { ThemeProvider } from '@mui/material/styles';
@@ -13,124 +12,56 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/volunteer-projects/Header';
 import CardProject from '../../components/volunteer-projects/CardProject/CardProject';
-import CategoriesProject from '../../components/volunteer-projects/CategoriesProject';
+import CategoriesProject from '../../components/volunteer-projects/categories-project/CategoriesProject';
 import LatestProjects from '../../components/volunteer-projects/LatestProjects';
+import { useProjects } from '../../context/volunteer-projects-context';
 
 function VolunteerProjects() {
+  const { state } = useProjects();
+  const { projects = [] } = state;
   const [activeStep, setActiveStep] = useState(0);
 
-  const projects = [
-    {
-      id: uuidv4(),
-      title: "مشروع تطوير الموقع التعليمي",
-      detail: "مشروع تطوير منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية للمتعلمين",
-      number: 12,
-      full: true,
-      image: "/images/projects/1.jpg",
-      date: "2024/03/15",
-      category: "تعليم",
-      priority: "عالي"
-    },
-    {
-      id: uuidv4(),
-      title: "تطبيق متابعة التبرعات",
-      detail: "نظم متكامل لإدارة سجلات المرضى والمواعيد والمخزون الطبي",
-      number: 8,
-      full: false,
-      image: "/images/projects/2.jpg",
-      date: "2024/03/10",
-      category: "اجتماعي",
-      priority: "متوسط"
-    },
-    {
-      id: uuidv4(),
-      title: "منصة التطوع الإلكتروني",
-      detail: "تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة  تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة",
-      number: 20,
-      full: true,
-      image: "/images/projects/3.jpg",
-      date: "2024/03/05",
-      category: "تطوع",
-      priority: "عالي"
-    },
-    {
-      id: uuidv4(),
-      title: "نظام إدارة المستشفيات",
-      detail: "منصة لربط المتطوعين مع المؤسسات الخيرية وتنظيم الأنشطة التطوعية تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة",
-      number: 6,
-      full: false,
-      image: "/images/projects/4.jpg",
-      date: "2024/02/28",
-      category: "صحة",
-      priority: "عالي"
-    },
-    {
-      id: uuidv4(),
-      title: "مشروع التشجير البلدي",
-      detail: "مبادرة لتشجير الأحياء السكنية وزيادة المساحات الخضراء في المدينة",
-      number: 15,
-      full: false,
-      image: "/images/projects/5.jpg",
-      date: "2024/02/20",
-      category: "بيئة",
-      priority: "منخفض"
-    },
-    {
-      id: uuidv4(),
-      title: "تطوير مكتبة رقمية",
-      detail: "تحويل المكتبة التقليدية إلى مكتبة رقمية مع إمكانية الاستعارة الإلكترونية  تطبيق جوال لمتابعة التبرعات وتوزيع المساعدات في المناطق المتضررة",
-      number: 10,
-      full: true,
-      image: "/images/projects/6.jpg",
-      date: "2024/02/15",
-      category: "ثقافة",
-      priority: "متوسط"
-    },
-    {
-      id: uuidv4(),
-      title: "برنامج تدريب الشباب",
-      detail: "حملة توعوية عن الأمراض المزمنة وطرق الوقاية منها في المدارس حملة توعوية عن الأمراض المزمنة وطرق الوقاية منها في المدارس",
-      number: 25,
-      full: false,
-      image: "/images/projects/7.jpg",
-      date: "2024/02/10",
-      category: "تعليم",
-      priority: "عالي"
-    },
-    {
-      id: uuidv4(),
-      title: "حملة توعية صحية",
-      detail: "برنامج تدريبي مكثف لتأهيل الشباب لسوق العمل في مجال البرمجة",
-      number: 18,
-      full: true,
-      image: "/images/projects/8.jpg",
-      date: "2024/02/05",
-      category: "صحة",
-      priority: "متوسط"
-    }
-  ];
+  // إعدادات الباجينيشن
+  const ITEMS_PER_PAGE = 6; // 2 columns × 3 items per column
+  
+  // حساب عدد الصفحات ديناميكياً
+  const totalPages = Math.max(1, Math.ceil(projects.length / ITEMS_PER_PAGE));
+  
+  // إنشاء مصفوفة الصفحات
+  const steps = useMemo(() => 
+    Array.from({ length: totalPages }, (_, i) => i + 1),
+    [totalPages]
+  );
 
-  const steps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  // حساب المشاريع للصفحة الحالية
+  const currentProjects = useMemo(() => {
+    const startIndex = activeStep * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    return projects.slice(startIndex, endIndex);
+  }, [projects, activeStep, ITEMS_PER_PAGE]);
 
   const handleNext = () => {
-    setActiveStep((prevStep) => prevStep + 1);
+    if (activeStep < totalPages - 1) {
+      setActiveStep(prev => prev + 1);
+    }
   };
 
   const handleBack = () => {
-    setActiveStep((prevStep) => prevStep - 1);
+    if (activeStep > 0) {
+      setActiveStep(prev => prev - 1);
+    }
   };
 
   const handleStepClick = (stepIndex) => {
-    setActiveStep(stepIndex);
+    if (stepIndex >= 0 && stepIndex < totalPages) {
+      setActiveStep(stepIndex);
+    }
   };
 
   // دالة لعرض الأرقام مع النقاط للصفحات البعيدة
   const renderStepNumbers = () => {
-    const totalSteps = steps.length;
-    const currentStep = activeStep;
-    
     // إذا كانت الصفحات قليلة، عرض جميعها
-    if (totalSteps <= 7) {
+    if (totalPages <= 7) {
       return steps.map((step, index) => (
         <StepNumber 
           key={index}
@@ -144,6 +75,7 @@ function VolunteerProjects() {
     
     // للصفحات الكثيرة، عرض بعضها مع نقاط
     let numbersToShow = [];
+    const currentStep = activeStep;
     
     if (currentStep <= 3) {
       // في البداية: 1 2 3 4 5 ... 10
@@ -152,8 +84,8 @@ function VolunteerProjects() {
       // في النهاية: 1 ... 6 7 8 9 10
       numbersToShow = [0, totalSteps - 5, totalSteps - 4, totalSteps - 3, totalSteps - 2, totalSteps - 1];
     } else {
-      // في المنتصف: 1 ... 4 5 6 ... 10
-      numbersToShow = [0, currentStep - 1, currentStep, currentStep + 1, totalSteps - 1];
+      // في المنتصف: 1 ... current-1 current current+1 ... آخر
+      numbersToShow = [0, currentStep - 1, currentStep, currentStep + 1, totalPages - 1];
     }
     
     const result = [];
@@ -215,80 +147,108 @@ function VolunteerProjects() {
     <ThemeProvider theme={appTheme}>
       <div style={{ direction: 'rtl' }}>
         <Header />
-
-        <Container maxWidth="lg" sx={{ mt: 4 }}>
-          <div style={{ display: 'flex', gap: '40px' }}>
+        <div style={{ padding: '40px 150px', width: '100%' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'start',
+            justifyContent: 'space-between', 
+            gap: '40px' 
+          }}>
             
-            <div style={{ width: 356 }}>
+            {/* الشريط الجانبي */}
+            <div style={{ width: 356, gap: '40px' }}>
               <CategoriesProject />
               <LatestProjects />
             </div>
 
+            {/* المحتوى الرئيسي */}
             <div style={{ flex: 1 }}>
-              <div style={{ columnCount: 2, columnGap: '32px' }}>
-                {projects.map((project) => (
-                  <div key={project.id} style={{ marginBottom: 32 }}>
-                    <CardProject project={project} />
-                  </div>
-                ))}
-              </div>
+              
+              {/* عرض المشاريع */}
+              {currentProjects.length > 0 ? (
+                <div style={{ columnCount: 2, columnGap: '32px' }}>
+                  {currentProjects.map((project) => (
+                    <div key={project.id} style={{ 
+                      marginBottom: '32px', 
+                      overflow: 'hidden',
+                      breakInside: 'avoid' 
+                    }}>
+                      <CardProject project={project} />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <Box sx={{ 
+                  textAlign: 'center', 
+                  py: 8, 
+                  color: '#708387',
+                  fontSize: '18px'
+                }}>
+                  لا توجد مشاريع متاحة حالياً
+                </Box>
+              )}
 
-              {/* Stepper مع 10 صفحات */}
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                gap: '40px',
-                mt: 4,
-                p: 3,
-                flexWrap: 'wrap',
-                padding:'40px'
-              }}>
-                
-                {/* زر السابق */}
-                <IconButton
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                  sx={{  border: '1px solid #D9E4E5', borderRadius:'8px',
-                    color: activeStep === 0 ? '#CCCCCC' : '#6DCDE5',
-                    '&:hover': {
-                      backgroundColor: activeStep === 0 ? 'transparent' : '#F0F9FF',
-                    }
-                  }}
-                >
-                  <KeyboardArrowLeftOutlinedIcon color='#072127'/>
-                </IconButton>
-                
-                {/* أرقام الصفحات */}
+              {/* Pagination - تعرض فقط إذا كان هناك أكثر من صفحة */}
+              {totalPages > 1 && (
                 <Box sx={{ 
                   display: 'flex', 
-                  gap: '40px', 
-                  alignItems: 'center',
+                  justifyContent: 'center', 
+                  alignItems: 'center', 
+                  gap: '40px',
+                  mt: 4,
+                  p: 3,
                   flexWrap: 'wrap',
-                  justifyContent: 'center'
+                  padding: '40px'
                 }}>
-                  {renderStepNumbers()}
+                  
+                  {/* زر السابق */}
+                  <IconButton
+                    onClick={handleBack}
+                    disabled={activeStep === 0}
+                    sx={{  
+                      border: '1px solid #D9E4E5', 
+                      borderRadius: '8px',
+                      color: activeStep === 0 ? '#CCCCCC' : '#6DCDE5',
+                      '&:hover': {
+                        backgroundColor: activeStep === 0 ? 'transparent' : '#F0F9FF',
+                      }
+                    }}
+                  >
+                    <KeyboardArrowLeftOutlinedIcon color='#072127'/>
+                  </IconButton>
+                  
+                  {/* أرقام الصفحات */}
+                  <Box sx={{ 
+                    display: 'flex', 
+                    gap: '40px', 
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center'
+                  }}>
+                    {renderStepNumbers()}
+                  </Box>
+                  
+                  {/* زر التالي */}
+                  <IconButton
+                    onClick={handleNext}
+                    disabled={activeStep === totalPages - 1}
+                    sx={{ 
+                      border: '1px solid #D9E4E5', 
+                      borderRadius: '8px',
+                      color: activeStep === totalPages - 1 ? '#CCCCCC' : '#6DCDE5',
+                      '&:hover': {
+                        backgroundColor: activeStep === totalPages - 1 ? 'transparent' : '#F0F9FF',
+                      }
+                    }}
+                  >
+                    <KeyboardArrowRightOutlinedIcon color='#072127'/>
+                  </IconButton>
                 </Box>
-                
-                {/* زر التالي */}
-                <IconButton
-                  onClick={handleNext}
-                  disabled={activeStep === steps.length - 1}
-                  sx={{ 
-                    border: '1px solid #D9E4E5', borderRadius:'8px',
-                    color: activeStep === steps.length - 1 ? '#CCCCCC' : '#6DCDE5',
-                    '&:hover': {
-                      backgroundColor: activeStep === steps.length - 1 ? 'transparent' : '#F0F9FF',
-                    }
-                  }}
-                >
-                  <KeyboardArrowRightOutlinedIcon color='#072127'/>
-                </IconButton>
-              </div>
+              )}
             </div>
 
           </div>
-        </Container>
+        </div>
       </div>
 
       <Footer />

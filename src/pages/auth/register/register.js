@@ -13,7 +13,7 @@ const Register = () => {
 
     // ======= STATES ========    
     const [formData, setFormData] = useState({
-        fullName: '',
+        name: '',
         email: '',
         password: '',
         isChecked: false
@@ -46,7 +46,7 @@ const Register = () => {
         return '';
     };
 
-    const validateFullName = (name) => {
+    const validatename = (name) => {
         if (!name.trim()) return 'مطلوب';
         if (name.trim().length < 2) return 'الاسم قصير جداً';
         return '';
@@ -63,13 +63,13 @@ const Register = () => {
         // التحقق من كل الحقول
         const emailError = validateEmail(formData.email);
         const passwordError = validatePassword(formData.password);
-        const nameError = validateFullName(formData.fullName);
+        const nameError = validatename(formData.name);
         const checkboxError = validateCheckbox(formData.isChecked);
         
         const newErrors = {
             email: emailError,
             password: passwordError,
-            fullName: nameError,
+            name: nameError,
             isChecked: checkboxError
         };
         
@@ -93,7 +93,7 @@ const Register = () => {
 
             const userToAdd = {
                 id: Date.now(), 
-                fullName: formData.fullName,
+                name: formData.name,
                 password: formData.password,
                 email: formData.email,
                 createdAt: new Date().toISOString(),
@@ -104,9 +104,11 @@ const Register = () => {
             dispatch({ type: 'REGISTER_SUCCESS', payload: userToAdd });
             // await fetch('/api/register', { ... });
         }
-        showHideToast(`🎉 مرحباً ${formData.fullName}! تم إنشاء حسابك`, "success");
+        showHideToast(`🎉 مرحباً ${formData.name}! تم إنشاء حسابك`, "success");
 
-        setFormData({ fullName: '', email: '', password: '', isChecked: false });
+        setFormData({ name: '', email: '', password: '', isChecked: false });
+
+        showHideToast("مرحباً بك في المنصة السورية!");
 
         navigate('/');
     };
@@ -146,13 +148,13 @@ const Register = () => {
                             <div className={classes.input_container}>
                                 <label className={classes.input_label}>الاسم</label>
                                 <input 
-                                    className={`${classes.form_input} ${errors.fullName ? classes.error_border : ''}`}
+                                    className={`${classes.form_input} ${errors.name ? classes.error_border : ''}`}
                                     type='text' 
                                     placeholder='ادخل اسمك الكامل' 
-                                    value={formData.fullName} 
-                                    onChange={handleFieldChange('fullName')}
+                                    value={formData.name} 
+                                    onChange={handleFieldChange('name')}
                                 />
-                                {errors.fullName && <p className={classes.error_text}>{errors.fullName}</p>}
+                                {errors.name && <p className={classes.error_text}>{errors.name}</p>}
                             </div>
                             
                             {/* حقل البريد الإلكتروني */}

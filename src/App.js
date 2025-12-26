@@ -10,14 +10,14 @@ import PlatformIntroduction from "./components/main-page-components/platform-int
 import VolunteerProjectsContainer from "./components/main-page-components/volunteer-projects-container";
 import WhyUs from "./components/main-page-components/why-us";
 import Navbar from "./components/volunteer-projects/Navbar";
-import { useToast } from "./context/ToastContext";
+// import { useToast } from "./context/ToastContext";
 
 function App() {
-  const { showHideToast } = useToast();
+  // const { showHideToast } = useToast();
 
-  useEffect(() => {
-    showHideToast("مرحباً بك في المنصة السورية!");
-  }, [showHideToast]);
+  // useEffect(() => {
+  //   showHideToast("مرحباً بك في المنصة السورية!");
+  // }, [showHideToast]);
 
   return (
     <div className="App">
