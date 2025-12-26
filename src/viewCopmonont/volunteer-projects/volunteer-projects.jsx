@@ -79,10 +79,10 @@ function VolunteerProjects() {
     
     if (currentStep <= 3) {
       // في البداية: 1 2 3 4 5 ... 10
-      numbersToShow = [0, 1, 2, 9];
-    } else if (currentStep >= totalSteps - 4) {
+      numbersToShow = [0, 1, 2, totalPages - 1];
+    } else if (currentStep >= totalPages - 4) {
       // في النهاية: 1 ... 6 7 8 9 10
-      numbersToShow = [0, totalSteps - 5, totalSteps - 4, totalSteps - 3, totalSteps - 2, totalSteps - 1];
+      numbersToShow = [0, totalPages - 5, totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1];
     } else {
       // في المنتصف: 1 ... current-1 current current+1 ... آخر
       numbersToShow = [0, currentStep - 1, currentStep, currentStep + 1, totalPages - 1];
