@@ -1,4 +1,4 @@
-import '../../styles/MobileNav.css'
+import './MobileNav.css'
 
 const MobileNav = ({ onClose }) => {
   const menuItems = ['الرئيسية', 'الكورسات', 'المنتدى', 'المشاريع', 'اتصل بنا']

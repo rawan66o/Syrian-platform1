@@ -33,7 +33,7 @@ import AddCourse from "./pages/courses/add-course/add-course";
 import AddPost from "./pages/posts/add-post/add-post";
 
 /* Guides */
-import Guide from "./viewCopmonont/Guide";
+import Guide from "./viewCopmonont/guide/Guide";
 import {
   StudentGuide,
   VolunteerGuide,
@@ -41,7 +41,7 @@ import {
 } from "./viewCopmonont/GuideData";
 
 /* Misc */
-import Partners from "./viewCopmonont/PartnersPage";
+import Partners from "./viewCopmonont/guide/PartnersPage";
 import VolunteerProjects from "./viewCopmonont/volunteer-projects/volunteer-projects";
 import Posts from "./viewCopmonont/posts/Posts";
 import AddProject from "./viewCopmonont/forms/AddProgect";

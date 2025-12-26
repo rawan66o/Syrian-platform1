@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import "./layout.css";
-import Navbar from "../components/volunteer-projects/Navbar";
+import Navbar from "../components/volunteer-projects/navbar/Navbar";
 
 const Layout = () => {
 

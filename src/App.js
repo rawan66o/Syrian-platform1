@@ -9,7 +9,7 @@ import PlatformComments from "./components/main-page-components/platform-comment
 import PlatformIntroduction from "./components/main-page-components/platform-introduction";
 import VolunteerProjectsContainer from "./components/main-page-components/volunteer-projects-container";
 import WhyUs from "./components/main-page-components/why-us";
-import Navbar from "./components/volunteer-projects/Navbar";
+import Navbar from "./components/volunteer-projects/navbar/Navbar";
 // import { useToast } from "./context/ToastContext";
 
 function App() {
