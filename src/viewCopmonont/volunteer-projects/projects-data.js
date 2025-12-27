@@ -1,5 +1,4 @@
-import { format, formatDate } from 'date-fns';
-import { useEffect } from 'react';
+import { format } from 'date-fns';
 
 // Function to create date in the correct format
 const createDateWithoutTime = (daysAgo) => {
@@ -38,7 +37,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -62,7 +61,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -86,7 +85,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -110,7 +109,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -134,7 +133,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -158,7 +157,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -182,7 +181,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -206,7 +205,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -230,7 +229,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -254,7 +253,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -278,7 +277,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",

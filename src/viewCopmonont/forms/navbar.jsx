@@ -18,7 +18,7 @@ import {
   Notifications as NotificationsIcon,
   Language as LanguageIcon
 } from '@mui/icons-material'
-import MobileNav from '../../components/volunteer-projects/MobileNav'
+import MobileNav from '../../components/volunteer-projects/navbar/MobileNav'
 import { Link } from 'react-router'
 
 const Navbar = () => {

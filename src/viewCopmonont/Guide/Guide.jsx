@@ -1,5 +1,5 @@
-import '../styles/Guide.css'
-import Footer from "../components/footer/footer";
+import './Guide.css'
+import Footer from "../../components/footer/footer";
 
 function Guide({data,title}) {
    function FormattedText({ text, className = "" }) {

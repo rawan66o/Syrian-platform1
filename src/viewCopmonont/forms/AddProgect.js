@@ -10,7 +10,7 @@ import Navbar from './navbar';
 
 function AddProject() {
   const navigate = useNavigate();
-  const { addProjectWithCache } = useProjects();
+  const { dispatch  } = useProjects();
   const { showHideToast } = useToast();
 
   const context = useProjects();
@@ -113,7 +113,7 @@ function AddProject() {
       id: Date.now().toString(),
       title: formData.title,
       volunteers: parseInt(formData.volunteers),
-      startDate: formData.startDate.toISOString(),
+      startDate: format(formData.startDate.toISOString(),'yyyy/MM/dd'),
       shortDescription: formData.shortDescription,
       fullDescription: formData.fullDescription,
       coverImage: coverImagePreview,
@@ -124,7 +124,7 @@ function AddProject() {
     };
 
     // dispatch for reducer
-    addProjectWithCache(newProject);
+    dispatch({ type: 'ADD_PROJECT', payload: newProject });
     
     // Show success message
     showHideToast("تم نشر المشروع بنجاح", "success");

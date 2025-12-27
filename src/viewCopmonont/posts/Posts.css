@@ -70,6 +70,7 @@ button {
   direction: rtl;
   display: flex;
   align-items: start;
+  justify-content: center;
   gap: 32px;
   padding-top: 30px;
   padding-bottom: 600px;
@@ -171,7 +172,6 @@ button {
 
 .card-time p {
   font-weight: 500;
-  font-style: Medium;
   font-size: 14px;
   line-height: 12px;
   letter-spacing: 0%;
@@ -179,10 +179,23 @@ button {
   color : #708387;
 }
 
+.card-time h6 {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #072127;
+}
+
 .date-info {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+}
+
+.date-info img {
+  width: 20px;
+  height: 20px;
 }
 
 .divider {

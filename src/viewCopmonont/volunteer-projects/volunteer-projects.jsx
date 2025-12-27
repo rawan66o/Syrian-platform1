@@ -1,73 +1,68 @@
-import { useState, useMemo } from 'react';
-
-// MUI
+import { useState, useMemo, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import { Container, Box, IconButton } from '@mui/material';
+import {  Box, IconButton } from '@mui/material';
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-// THEME
 import appTheme from '../../appTeme';
-
-// COMPONENTS
 import Footer from '../../components/footer/footer';
-import Header from '../../components/volunteer-projects/Header';
+import Header from '../../components/volunteer-projects/header/Header';
 import CardProject from '../../components/volunteer-projects/CardProject/CardProject';
 import CategoriesProject from '../../components/volunteer-projects/categories-project/CategoriesProject';
-import LatestProjects from '../../components/volunteer-projects/LatestProjects';
+import LatestProjects from '../../components/volunteer-projects/LatestProjects/LatestProjects';
 import { useProjects } from '../../context/volunteer-projects-context';
 
 function VolunteerProjects() {
   const { state } = useProjects();
   const { projects = [] } = state;
   const [activeStep, setActiveStep] = useState(0);
-
-  // إعدادات الباجينيشن
-  const ITEMS_PER_PAGE = 6; // 2 columns × 3 items per column
   
-  // حساب عدد الصفحات ديناميكياً
+  // إعدادات الباجينيشن
+  const ITEMS_PER_PAGE = 8;
   const totalPages = Math.max(1, Math.ceil(projects.length / ITEMS_PER_PAGE));
   
-  // إنشاء مصفوفة الصفحات
-  const steps = useMemo(() => 
-    Array.from({ length: totalPages }, (_, i) => i + 1),
-    [totalPages]
-  );
-
-  // حساب المشاريع للصفحة الحالية
+  // مشاريع الصفحة الحالية
   const currentProjects = useMemo(() => {
     const startIndex = activeStep * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     return projects.slice(startIndex, endIndex);
   }, [projects, activeStep, ITEMS_PER_PAGE]);
-
+  
+  // التأكد من وجود بيانات
+  useEffect(() => {
+    const saved = localStorage.getItem('volunteer-projects');
+    if (!saved || saved === '[]') {
+      console.log('⚠️ تحميل البيانات الافتراضية...');
+      // هنا يمكنك إضافة dispatch لتحميل البيانات الافتراضية
+    }
+  }, []);
+  
   const handleNext = () => {
     if (activeStep < totalPages - 1) {
       setActiveStep(prev => prev + 1);
     }
   };
-
+  
   const handleBack = () => {
     if (activeStep > 0) {
       setActiveStep(prev => prev - 1);
     }
   };
-
+  
   const handleStepClick = (stepIndex) => {
     if (stepIndex >= 0 && stepIndex < totalPages) {
       setActiveStep(stepIndex);
     }
   };
-
-  // دالة لعرض الأرقام مع النقاط للصفحات البعيدة
+  
+  // عرض أرقام الصفحات
   const renderStepNumbers = () => {
-    // إذا كانت الصفحات قليلة، عرض جميعها
     if (totalPages <= 7) {
-      return steps.map((step, index) => (
+      return Array.from({ length: totalPages }, (_, i) => i).map(index => (
         <StepNumber 
           key={index}
-          step={step}
+          step={index + 1}
           index={index}
           activeStep={activeStep}
           onClick={handleStepClick}
@@ -75,18 +70,14 @@ function VolunteerProjects() {
       ));
     }
     
-    // للصفحات الكثيرة، عرض بعضها مع نقاط
     let numbersToShow = [];
     const currentStep = activeStep;
     
     if (currentStep <= 3) {
-      // في البداية: 1 2 3 4 5 ... آخر
       numbersToShow = [0, 1, 2, 3, 4, totalPages - 1];
     } else if (currentStep >= totalPages - 4) {
-      // في النهاية: 1 ... n-4 n-3 n-2 n-1 n
       numbersToShow = [0, totalPages - 5, totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1];
     } else {
-      // في المنتصف: 1 ... current-1 current current+1 ... آخر
       numbersToShow = [0, currentStep - 1, currentStep, currentStep + 1, totalPages - 1];
     }
     
@@ -94,7 +85,6 @@ function VolunteerProjects() {
     let lastIndex = -1;
     
     numbersToShow.forEach((index, i) => {
-      // إضافة النقاط إذا كانت هناك فجوة
       if (index - lastIndex > 1) {
         result.push(
           <Box key={`dots-${i}`} sx={{ display: 'flex', alignItems: 'center', color: '#708387' }}>
@@ -106,7 +96,7 @@ function VolunteerProjects() {
       result.push(
         <StepNumber 
           key={index}
-          step={steps[index]}
+          step={index + 1}
           index={index}
           activeStep={activeStep}
           onClick={handleStepClick}
@@ -150,6 +140,24 @@ function VolunteerProjects() {
       <div style={{ direction: 'rtl' }}>
         <Header />
         <div style={{ padding: '40px 150px', width: '100%' }}>
+          
+          {/* معلومات الصفحة */}
+          <Box sx={{ 
+            mb: 3, 
+            color: '#072127', 
+            fontSize: '16px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <div>
+              <strong>عرض {currentProjects.length} من أصل {projects.length} مشروع</strong>
+              <div style={{ fontSize: '14px', color: '#708387' }}>
+                الصفحة {activeStep + 1} من {totalPages}
+              </div>
+            </div>
+          </Box>
+          
           <div style={{ 
             display: 'flex', 
             alignItems: 'start',
@@ -160,7 +168,9 @@ function VolunteerProjects() {
             {/* الشريط الجانبي */}
             <div style={{ width: 356, gap: '40px' }}>
               <CategoriesProject />
+              <div style={{marginTop:'40px'}}>
               <LatestProjects />
+              </div>
             </div>
 
             {/* المحتوى الرئيسي */}
@@ -168,12 +178,15 @@ function VolunteerProjects() {
               
               {/* عرض المشاريع */}
               {currentProjects.length > 0 ? (
-                <div style={{ columnCount: 2, columnGap: '32px' }}>
+                <div style={{ 
+                  columnCount: 2, 
+                  columnGap: '32px',
+                }}>
                   {currentProjects.map((project) => (
                     <div key={project.id} style={{ 
                       marginBottom: '32px', 
                       overflow: 'hidden',
-                      breakInside: 'avoid' 
+                      breakInside: 'avoid'
                     }}>
                       <CardProject project={project} />
                     </div>
@@ -190,7 +203,7 @@ function VolunteerProjects() {
                 </Box>
               )}
 
-              {/* Pagination - تعرض فقط إذا كان هناك أكثر من صفحة */}
+              {/* Pagination */}
               {totalPages > 1 && (
                 <Box sx={{ 
                   display: 'flex', 
@@ -248,11 +261,9 @@ function VolunteerProjects() {
                 </Box>
               )}
             </div>
-
           </div>
         </div>
       </div>
-
       <Footer />
     </ThemeProvider>
   );

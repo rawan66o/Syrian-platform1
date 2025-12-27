@@ -33,12 +33,12 @@ import AddCourse from "./pages/courses/add-course/add-course";
 import AddPost from "./pages/posts/add-post/add-post";
 
 /* Guides */
-import Guide from "./viewCopmonont/Guide";
+import Guide from "./viewCopmonont/Guide/Guide";
 import {
   StudentGuide,
   VolunteerGuide,
   CoachGuide,
-} from "./viewCopmonont/GuideData";
+} from "./viewCopmonont/Guide/GuideData";
 
 /* Misc */
 import Partners from "./viewCopmonont/PartnersPage";
