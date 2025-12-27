@@ -41,7 +41,7 @@ import {
 } from "./viewCopmonont/Guide/GuideData";
 
 /* Misc */
-import Partners from "./viewCopmonont/PartnersPage";
+import Partners from "./viewCopmonont/guide/PartnersPage";
 import VolunteerProjects from "./viewCopmonont/volunteer-projects/volunteer-projects";
 import Posts from "./viewCopmonont/posts/Posts";
 import AddProject from "./viewCopmonont/forms/AddProgect";

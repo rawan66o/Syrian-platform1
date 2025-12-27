@@ -117,7 +117,7 @@ function Posts() {
   
   function handleProjectApplicationTo() {
     if (!project) {
-      alert('المشروع غير محمل بعد. الرجاء الانتظار...');
+      alert("المشروع غير محمل بعد. الرجاء الانتظار...");
       return;
     }
     navigate(`/project-application/${project.id}`, {
@@ -197,8 +197,8 @@ function Posts() {
   return(
     <ThemeProvider theme={appTheme}>
       <Container maxWidth="lg">
-        <div className='layout-l'>
-          <div className='layout-post'>
+        <div className="layout-l">
+          <div className="layout-post">
             {/* TITLE SECTION */}
             <div className='layout-title'>
               <ArrowForwardOutlinedIcon fontSize='medium'/>
@@ -320,7 +320,10 @@ function Posts() {
             </div>
             
             <div>
-              <Grid container spacing={2.5} sx={{ width:'100%', justifyContent:'center'}}>
+              <Grid
+                container
+                spacing={2.5}
+                sx={{ width: "100%", justifyContent: "center" }}>
                 {displayedVolunteers.map((vol) => (
                   <Grid item xs={12} md={4} sm={6} key={vol.id}
                     sx={{ display:'flex', justifyContent:'center', padding:'8px'}}
@@ -396,7 +399,7 @@ function Posts() {
           </div>
         </div>
       </Container>
-      <Footer/>
+      <Footer />
     </ThemeProvider>
   );
 }
