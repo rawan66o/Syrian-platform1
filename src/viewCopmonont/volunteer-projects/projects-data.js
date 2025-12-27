@@ -37,7 +37,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -61,7 +61,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -85,7 +85,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -109,7 +109,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -133,7 +133,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -157,7 +157,7 @@ const baseProjects = [
     status: "active",
     category: "تعليم",
     isFull: false, // أضفنا هذا الحقل
-    coverImage: "/images/projects/1.jpg",
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -180,8 +180,8 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, 
-    coverImage: "/images/projects/1.jpg",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -204,8 +204,8 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, 
-    coverImage: "/images/projects/1.jpg",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -228,8 +228,8 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, 
-    coverImage: "/images/projects/1.jpg",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -252,8 +252,8 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, 
-    coverImage: "/images/projects/1.jpg",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",
@@ -276,8 +276,8 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false,
-    coverImage: "/images/projects/1.jpg",
+    isFull: false, // أضفنا هذا الحقل
+    coverImage: "/images/5.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
     contactEmail: "ahmed@example.com",

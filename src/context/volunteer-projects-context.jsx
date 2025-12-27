@@ -1,45 +1,71 @@
-// context/volunteer-projects-context.js
-import { createContext, useCallback, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useReducer, useCallback } from "react";
 import projectReducer, { initialProjectsState } from "../Reducers/project-reducer";
 
 const ProjectsContext = createContext(null);
 
-// في Context.js
 export function ProjectsProvider({ children }) {
-  const [state, dispatch] = useReducer(projectReducer, initialProjectsState );
+  const [state, dispatch] = useReducer(projectReducer, initialProjectsState);
   
-  // دالة خاصة للإضافة تحفظ أولاً في localStorage
-  const addProjectWithCache = useCallback((newProject) => {
-    // 1. أولاً: نجيب اللي موجود في localStorage
-    const existingProjects = JSON.parse(
-      localStorage.getItem('projects') || '[]'
-    );
+  // دالة مساعدة للبحث عن مشروع
+  const getProjectById = useCallback((id) => {
+    if (!state.projects || !id) return null;
     
-    // 2. نضيف المشروع الجديد
-    const updatedCache = [...existingProjects, {
-      ...newProject,
-      cachedAt: new Date().toISOString(), // وقت الحفظ
-      cacheId: `cache_${Date.now()}`      // معرّف خاص بالكاش
-    }];
-    
-    // 3. نحفظ في localStorage
-    localStorage.setItem('volunteer-projects', JSON.stringify(updatedCache));
-    
-    console.log('✅ تم حفظ المشروع في الكاش أولاً:', newProject.title);
-
+    // البحث بطرق متعددة
+    return state.projects.find(proj => {
+      if (!proj || !proj.id) return false;
+      
+      // 1. String match
+      if (String(proj.id) === String(id)) return true;
+      
+      // 2. Number match
+      if (Number(proj.id) === Number(id)) return true;
+      
+      // 3. Loose equality
+      return proj.id == id;
+    });
+  }, [state.projects]);
+  
+  // دالة مساعدة لإضافة مشروع
+  const addProject = useCallback((projectData) => {
+    dispatch({ 
+      type: 'ADD_PROJECT', 
+      payload: projectData 
+    });
   }, [dispatch]);
-   
+  
+  // دالة مساعدة للتقديم على مشروع
+  const applyToProject = useCallback((projectId, userData) => {
+    dispatch({
+      type: 'ADD_JOIN_REQUEST',
+      payload: {
+        projectId,
+        userId: userData.id,
+        userName: userData.name,
+        userEmail: userData.email,
+        message: userData.message || ''
+      }
+    });
+  }, [dispatch]);
+  
+  const value = {
+    state,
+    dispatch,
+    getProjectById,
+    addProject,
+    applyToProject
+  };
+  
   return (
-    <ProjectsContext.Provider value={{ state, dispatch, addProjectWithCache }}>
+    <ProjectsContext.Provider value={value}>
       {children}
     </ProjectsContext.Provider>
   );
 }
 
 export const useProjects = () => {
-    const context = useContext(ProjectsContext);
-    if (!context) {
-        throw new Error("useProjects must be used within a ProjectsProvider");
-    } 
-    return context; // Should return { state, dispatch }
+  const context = useContext(ProjectsContext);
+  if (!context) {
+    throw new Error("useProjects must be used within a ProjectsProvider");
+  } 
+  return context;
 };

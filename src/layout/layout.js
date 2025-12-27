@@ -7,9 +7,9 @@ const Layout = () => {
     return <div>
 
         <Navbar />
-    <div className="pages_styles">
-        <Outlet />
-    </div>
+        <div className="pages_styles">
+            <Outlet />
+        </div>
     </div>
 }
 export default Layout;

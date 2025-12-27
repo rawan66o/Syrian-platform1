@@ -1,5 +1,36 @@
-// استيراد دالة الحصول على البيانات الأولية
-import { getInitialProjectsData } from "../viewCopmonont/volunteer-projects/projects-data";
+import projects from "../viewCopmonont/volunteer-projects/projects-data";
+
+// دالة لتحميل البيانات الأولية
+const getInitialProjects = () => {
+  try {
+    const saved = localStorage.getItem('volunteer-projects');
+    
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      console.log('📂 مشاريع من localStorage:', parsed.length);
+      return parsed;
+    }
+    
+    // إذا لا يوجد، استخدم البيانات التجريبية مع تهيئة
+    console.log('🔄 استخدام البيانات التجريبية');
+    const initialized = projects.map(proj => ({
+      ...proj,
+      currentVolunteers: proj.currentVolunteers || 0,
+      volunteersNeeded: proj.volunteersNeeded || proj.volunteers || 10,
+      isFull: false,
+      volunteersApplied: [],
+      joinRequests: []
+    }));
+    
+    // احفظها للمرة القادمة
+    localStorage.setItem('volunteer-projects', JSON.stringify(initialized));
+    return initialized;
+    
+  } catch (error) {
+    console.error('❌ خطأ في تحميل المشاريع:', error);
+    return projects;
+  }
+};
 
 // الحالة الأولية
 export const initialProjectsState = {
@@ -23,24 +54,34 @@ const saveToLocalStorage = (key, data) => {
 
 // الـ Reducer
 function projectReducer(state, action) {
-  console.log('🔁 Reducer Action:', action.type, action.payload);
+  console.log('Reducer Action:', action.type);
+  
+  // دالة حفظ مركزية
+  const saveToStorage = (projectsData, requestsData = null) => {
+    if (projectsData !== null) {
+      localStorage.setItem('volunteer-projects', JSON.stringify(projectsData));
+    }
+    if (requestsData !== null) {
+      localStorage.setItem('join-requests', JSON.stringify(requestsData));
+    }
+  };
   
   switch (action.type) {
     
     case 'ADD_PROJECT': {
       const newProject = {
         ...action.payload,
-        id: action.payload.id || `project_${Date.now()}`,
+        id: action.payload.id || `proj_${Date.now()}`,
         createdAt: new Date().toISOString(),
-        currentVolunteers: 0,
+        currentVolunteers: action.payload.currentVolunteers || 0,
+        volunteersNeeded: action.payload.volunteersNeeded || action.payload.volunteers || 10,
         isFull: false,
         volunteersApplied: [],
         joinRequests: []
       };
       
       const updatedProjects = [...state.projects, newProject];
-      
-      saveToLocalStorage('volunteer-projects', updatedProjects);
+      saveToStorage(updatedProjects);
       
       return {
         ...state,
@@ -52,37 +93,12 @@ function projectReducer(state, action) {
       const { id, updates } = action.payload;
       
       const updatedProjects = state.projects.map(project => 
-        project.id === id
-          ? { 
-              ...project, 
-              ...updates,
-              // تحديث حالة isFull بناءً على المتطوعين
-              isFull: (updates.currentVolunteers || project.currentVolunteers) >= 
-                      (updates.volunteersNeeded || project.volunteersNeeded),
-              updatedAt: new Date().toISOString() 
-            }
+        String(project.id) === String(id)
+          ? { ...project, ...updates, updatedAt: new Date().toISOString() }
           : project
       );
       
-      saveToLocalStorage('volunteer-projects', updatedProjects);
-      
-      const updatedSelectedProject = state.selectedProject?.id === id 
-        ? { ...state.selectedProject, ...updates }
-        : state.selectedProject;
-      
-      return {
-        ...state,
-        projects: updatedProjects,
-        selectedProject: updatedSelectedProject
-      };
-    }
-    
-    case 'DELETE_PROJECT': {
-      const { id } = action.payload;
-      
-      const updatedProjects = state.projects.filter(project => project.id !== id);
-      
-      saveToLocalStorage('volunteer-projects', updatedProjects);
+      saveToStorage(updatedProjects);
       
       return {
         ...state,
@@ -103,8 +119,7 @@ function projectReducer(state, action) {
       };
       
       const updatedRequests = [...state.joinRequests, newRequest];
-      
-      saveToLocalStorage('join-requests', updatedRequests);
+      saveToStorage(null, updatedRequests);
       
       return {
         ...state,
@@ -112,63 +127,49 @@ function projectReducer(state, action) {
       };
     }
     
-    case 'UPDATE_JOIN_REQUEST': {
-      const { requestId, status } = action.payload;
+    case 'APPROVE_REQUEST': {
+      const { requestId } = action.payload;
       
-      const updatedRequests = state.joinRequests.map(request =>
-        request.id === requestId
-          ? { ...request, status, updatedAt: new Date().toISOString() }
-          : request
+      const request = state.joinRequests.find(r => r.id === requestId);
+      if (!request) return state;
+      
+      // تحديث حالة الطلب
+      const updatedRequests = state.joinRequests.map(req => 
+        req.id === requestId 
+          ? { ...req, status: 'approved', approvedAt: new Date().toISOString() }
+          : req
       );
       
-      // حفظ في localStorage
-      saveToLocalStorage('join-requests', updatedRequests);
+      // زيادة عدد المتطوعين في المشروع
+      const updatedProjects = state.projects.map(project => {
+        if (String(project.id) === String(request.projectId)) {
+          const newCount = (project.currentVolunteers || 0) + 1;
+          return {
+            ...project,
+            currentVolunteers: newCount,
+            isFull: newCount >= (project.volunteersNeeded || 10)
+          };
+        }
+        return project;
+      });
+      
+      saveToStorage(updatedProjects, updatedRequests);
       
       return {
         ...state,
+        projects: updatedProjects,
         joinRequests: updatedRequests
       };
     }
     
-    case 'SELECT_PROJECT': {
-      return {
-        ...state,
-        selectedProject: action.payload
-      };
-    }
+    case 'SET_LOADING':
+      return { ...state, isLoading: action.payload };
     
-    case 'CLEAR_SELECTED_PROJECT': {
-      return {
-        ...state,
-        selectedProject: null
-      };
-    }
+    case 'SET_ERROR':
+      return { ...state, error: action.payload };
     
-    case 'SET_LOADING': {
-      return {
-        ...state,
-        isLoading: action.payload
-      };
-    }
-    
-    case 'SET_ERROR': {
-      return {
-        ...state,
-        error: action.payload
-      };
-    }
-    
-    case 'RESET_PROJECTS': {
-
-      const resetProjects = getInitialProjectsData();
-      
-      saveToLocalStorage('volunteer-projects', resetProjects);
-      
-      return {
-        ...initialProjectsState,
-        projects: resetProjects
-      };
-    }
+    case 'CLEAR_ERROR':
+      return { ...state, error: null };
     
     default:
       return state;

@@ -18,7 +18,7 @@ function CardProject({  project }) {
 
 
   function handleClick() {
-    navigate(`/volunteer-projects/${ project.id || 1 }`);
+    navigate(`/volunteer-projects/${ project.id }`);
   }
   return (
     <div className='volunteer-card-project'>

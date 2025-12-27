@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 
 // MUI
 import { ThemeProvider } from "@mui/material/styles";
-import { Container, Box, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -12,7 +12,7 @@ import appTheme from "../../appTeme";
 
 // COMPONENTS
 import Footer from "../../components/footer/footer";
-import Header from "../../components/volunteer-projects/Header";
+import Header from "../../components/volunteer-projects/header/Header";
 import CardProject from "../../components/volunteer-projects/CardProject/CardProject";
 import CategoriesProject from "../../components/volunteer-projects/categories-project/CategoriesProject";
 import LatestProjects from "../../components/volunteer-projects/latest-projects/LatestProjects";
