@@ -33,12 +33,12 @@ import AddCourse from "./pages/courses/add-course/add-course";
 import AddPost from "./pages/posts/add-post/add-post";
 
 /* Guides */
-import Guide from "./viewCopmonont/Guide/Guide";
+import Guide from "./viewCopmonont/guide/Guide";
 import {
   StudentGuide,
   VolunteerGuide,
   CoachGuide,
-} from "./viewCopmonont/Guide/GuideData";
+} from "./viewCopmonont/guide/GuideData";
 
 /* Misc */
 import Partners from "./viewCopmonont/guide/PartnersPage";
@@ -56,6 +56,7 @@ import MyProgectes from "./dashboard/pages/my-volunteer-progect/my-volunteer-pro
 import { ToastProvider } from "./context/ToastContext";
 import { ProjectsProvider } from "./context/volunteer-projects-context";
 import LoginLayout from "./layout/login-layout";
+import VolunteerLayout from "./layout/volunteer-layout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -126,6 +127,9 @@ root.render(
               />
 
               {/* Other Pages */}
+              
+            </Route>
+            <Route element={<VolunteerLayout/>}>
               <Route path="partners" element={<Partners />} />
               <Route path="volunteer-projects" element={<VolunteerProjects />} />
               <Route path="volunteer-projects/:projectId" element={<Posts />} />

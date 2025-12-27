@@ -404,30 +404,6 @@ function Posts() {
   );
 }
 
-// دالة مساعدة لتنسيق التاريخ
-function formatDate(dateString, formatType = 'full') {
-  if (!dateString) return 'غير محدد';
-  
-  try {
-    const date = new Date(dateString);
-    
-    if (formatType === 'date') {
-      return date.toLocaleDateString('ar-SA');
-    }
-    
-    const options = { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    };
-    return date.toLocaleDateString('ar-SA', options);
-    
-  } catch (error) {
-    return dateString;
-  }
-}
-
 // CSS للـ spinner
 const spinnerStyles = `
 @keyframes spin {
