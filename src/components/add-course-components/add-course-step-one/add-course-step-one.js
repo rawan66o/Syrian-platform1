@@ -23,14 +23,14 @@ const AddCourseStepOne = () => {
 
     const initialState = {
         values: {
-            courseName: "",
-            courseDescription: "",
+            title: "",
+            description: "",
             courseImage: null,
-            courseCategory: ""
+            type: ""
         },
         errors: {
-            courseName: false,
-            courseDescription: false,
+            title: false,
+            description: false,
             courseImage: false,
         },
         loading: false,
@@ -85,8 +85,8 @@ const AddCourseStepOne = () => {
             label="اسم الدورة"
             validation=" من فضلك يجب أن يكون الاسم معبرا ولا يتجاوز 30 حرف ."
             placeholder="دورة لغة انكليزية"
-            value={state.values.courseName}
-            field="courseName"
+            value={state.values.title}
+            field="title"
             state={state}
             dispatch={dispatch}
             step="1"
@@ -95,8 +95,8 @@ const AddCourseStepOne = () => {
             type="textarea"
             label="وصف الدورة"
             placeholder="وصف الدورة كامل ومعبر"
-            value={state.values.courseDescription}
-            field="courseDescription"
+            value={state.values.description}
+            field="description"
             state={state}
             dispatch={dispatch}
             step="1"
@@ -115,7 +115,7 @@ const AddCourseStepOne = () => {
             label="تصنيف الكورس"
             placeholder="تصنيف الكورس"
             options={categories}
-            field="courseCategory"
+            field="type"
             state={state}
             dispatch={dispatch}
             step="1"
