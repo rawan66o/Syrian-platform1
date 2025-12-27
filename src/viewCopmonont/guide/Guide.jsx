@@ -1,4 +1,4 @@
-import '.Guide.css'
+import './Guide.css'
 import Footer from "../../components/footer/footer";
 
 function Guide({data,title}) {

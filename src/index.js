@@ -38,7 +38,7 @@ import {
   StudentGuide,
   VolunteerGuide,
   CoachGuide,
-} from "./viewCopmonont/GuideData";
+} from "./viewCopmonont/guide/GuideData";
 
 /* Misc */
 import Partners from "./viewCopmonont/guide/PartnersPage";

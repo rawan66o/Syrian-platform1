@@ -1,5 +1,4 @@
-import { format, formatDate } from 'date-fns';
-import { useEffect } from 'react';
+import { format } from 'date-fns';
 
 // Function to create date in the correct format
 const createDateWithoutTime = (daysAgo) => {
@@ -181,7 +180,7 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, // أضفنا هذا الحقل
+    isFull: false, 
     coverImage: "/images/projects/1.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
@@ -192,8 +191,8 @@ const baseProjects = [
   {
     id: 8,
     title: "مشروع تطوير الموقع التعليمي",
-    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
-    currentVolunteers: 4, // أضفنا هذا الحقل
+    volunteersNeeded: 12, 
+    currentVolunteers: 4, 
     startDate: createDateWithoutTime(30),
     shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
     fullDescription: description,
@@ -205,7 +204,7 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, // أضفنا هذا الحقل
+    isFull: false, 
     coverImage: "/images/projects/1.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
@@ -216,8 +215,8 @@ const baseProjects = [
   {
     id: 9,
     title: "مشروع تطوير الموقع التعليمي",
-    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
-    currentVolunteers: 4, // أضفنا هذا الحقل
+    volunteersNeeded: 12, 
+    currentVolunteers: 4, 
     startDate: createDateWithoutTime(30),
     shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
     fullDescription: description,
@@ -229,7 +228,7 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, // أضفنا هذا الحقل
+    isFull: false, 
     coverImage: "/images/projects/1.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
@@ -240,8 +239,8 @@ const baseProjects = [
   {
     id: 10,
     title: "مشروع تطوير الموقع التعليمي",
-    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
-    currentVolunteers: 4, // أضفنا هذا الحقل
+    volunteersNeeded: 12, 
+    currentVolunteers: 4, 
     startDate: createDateWithoutTime(30),
     shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
     fullDescription: description,
@@ -253,7 +252,7 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, // أضفنا هذا الحقل
+    isFull: false, 
     coverImage: "/images/projects/1.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
@@ -264,8 +263,8 @@ const baseProjects = [
   {
     id: 11,
     title: "مشروع تطوير الموقع التعليمي",
-    volunteersNeeded: 12, // عدل من volunteers لـ volunteersNeeded
-    currentVolunteers: 4, // أضفنا هذا الحقل
+    volunteersNeeded: 12, 
+    currentVolunteers: 4,
     startDate: createDateWithoutTime(30),
     shortDes: "منصة تعليمية متكاملة تشمل دورات تفاعلية وتقييمات آلية",
     fullDescription: description,
@@ -277,7 +276,7 @@ const baseProjects = [
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
     category: "تعليم",
-    isFull: false, // أضفنا هذا الحقل
+    isFull: false,
     coverImage: "/images/projects/1.jpg",
     location: "غزة",
     contactPerson: "أحمد محمد",
@@ -288,81 +287,54 @@ const baseProjects = [
 ];
 
 // دالة لتحميل/دمج البيانات مع localStorage
-const getProjectsWithCache = () => {
-  // 1. جلب البيانات المحفوظة من localStorage
-  const savedProjects = localStorage.getItem('volunteer-projects');
+export const initializeProjectsData = () => {
+  if (typeof window === 'undefined') return baseProjects;
   
-  if (!savedProjects) {
-    // إذا لا يوجد بيانات محفوظة، نستخدم البيانات التجريبية
-    // ونضيف الحقول المطلوبة للنظام
-    const initializedProjects = baseProjects.map(project => ({
-      ...project,
-      currentVolunteers: project.currentVolunteers || 0,
-      volunteersNeeded: project.volunteersNeeded || project.volunteers || 10,
-      isFull: (project.currentVolunteers || 0) >= (project.volunteersNeeded || project.volunteers || 10),
-      volunteersApplied: [], // قائمة المتطوعين المقدمين
-      joinRequests: [] // طلبات الانضمام للمشروع
-    }));
-    
-    // حفظ النسخة المبدئية
-    localStorage.setItem('volunteer-projects', JSON.stringify(initializedProjects));
-    return initializedProjects;
-  }
-  
-  // 2. إذا يوجد بيانات محفوظة، ندمجها مع البيانات التجريبية
   try {
-    const cachedProjects = JSON.parse(savedProjects);
+    const savedProjects = localStorage.getItem('volunteer-projects');
     
-    // دمج البيانات: نأخذ البيانات المحفوظة، ونضيف أي مشروع جديد من البيانات التجريبية
-    const mergedProjects = [...cachedProjects];
-    
-    baseProjects.forEach(baseProject => {
-      const exists = cachedProjects.some(cached => cached.id === baseProject.id);
+    if (!savedProjects) {
+      // إذا لا يوجد بيانات محفوظة، نستخدم البيانات الأساسية مع تهيئة الحقول
+      const initializedProjects = baseProjects.map(project => ({
+        ...project,
+        currentVolunteers: project.currentVolunteers || 0,
+        volunteersNeeded: project.volunteersNeeded || 10,
+        isFull: (project.currentVolunteers || 0) >= (project.volunteersNeeded || 10),
+        volunteersApplied: project.volunteersApplied || [],
+        joinRequests: project.joinRequests || []
+      }));
       
-      if (!exists) {
-        // إضافة مشروع جديد مع الحقول المطلوبة
-        mergedProjects.push({
-          ...baseProject,
-          currentVolunteers: baseProject.currentVolunteers || 0,
-          volunteersNeeded: baseProject.volunteersNeeded || baseProject.volunteers || 10,
-          isFull: (baseProject.currentVolunteers || 0) >= (baseProject.volunteersNeeded || baseProject.volunteers || 10),
-          volunteersApplied: [],
-          joinRequests: []
-        });
-      }
-    });
+      localStorage.setItem('volunteer-projects', JSON.stringify(initializedProjects));
+      console.log('تم تهيئة البيانات في localStorage');
+      return initializedProjects;
+    }
     
-    // تحديث localStorage بالبيانات المدمجة
-    localStorage.setItem('volunteer-projects', JSON.stringify(mergedProjects));
-    
-    return mergedProjects;
+    return JSON.parse(savedProjects);
     
   } catch (error) {
-    console.error('خطأ في قراءة البيانات المحفوظة:', error);
-    return baseProjects.map(project => ({
-      ...project,
-      currentVolunteers: 0,
-      volunteersNeeded: project.volunteersNeeded || project.volunteers || 10,
-      isFull: false,
-      volunteersApplied: [],
-      joinRequests: []
-    }));
+    console.error('خطأ في تهيئة البيانات:', error);
+    return baseProjects;
   }
 };
 
-// تصدير البيانات بعد المعالجة
-const projects = getProjectsWithCache();
-
-// استدعاء مرة واحدة عند التحميل
-if (typeof window !== 'undefined') {
-  // هذا يضمن أننا في بيئة متصفح
-  const initializeData = () => {
-    const projectsToSave = getProjectsWithCache();
-    console.log(`✅ تم تحميل ${projectsToSave.length} مشروع (${projectsToSave.filter(p => p.isFull).length} مكتمل)`);
-  };
+// دالة الحصول على البيانات (تستخدم في الـ reducer)
+export const getInitialProjectsData = () => {
+  if (typeof window === 'undefined') return baseProjects;
   
-  // ننتظر قليلاً قبل التهيئة
-  setTimeout(initializeData, 100);
-}
+  try {
+    const savedProjects = localStorage.getItem('volunteer-projects');
+    
+    if (savedProjects) {
+      return JSON.parse(savedProjects);
+    }
+    
+    return baseProjects;
+    
+  } catch (error) {
+    console.error('❌ خطأ في تحميل البيانات:', error);
+    return baseProjects;
+  }
+};
 
-export default projects;
+export { baseProjects };
+export default baseProjects;

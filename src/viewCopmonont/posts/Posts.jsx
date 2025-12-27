@@ -25,7 +25,7 @@ const progect = `لقد قمنا بتحسين المحتوى الذي يناسب
 لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .`;
 
 function Posts({ full }) {
-  const { id } = useParams();
+  const { projectId:id } = useParams();
   const navigate = useNavigate();
   const [commentInput, setCommentInput] = useState("");
   const [project, setProject] = useState(null);
@@ -45,19 +45,18 @@ function Posts({ full }) {
 
   useEffect(() => {
     // جلب البيانات من localStorage
-    const projects =
-      JSON.parse(localStorage.getItem("volunteer-project")) || [];
-    const foundProject = projects.find((proj) => proj.id.toString() === id);
+    const projects = JSON.parse(localStorage.getItem("volunteer-project")) || [];
 
+    const foundProject = projects.find((proj) => proj.id.toString() === id);
+    
     if (foundProject) {
       setProject(foundProject); // <-- تحديث حالة project
       console.log("✅ بيانات المشروع:", foundProject);
     } else {
       console.log("❌ المشروع غير موجود في localStorage");
-      // يمكنك إضافة redirect هنا إذا المشروع غير موجود
-      // navigate('/not-found');
+      
     }
-  }, [id]); // <-- إضافة id كـ dependency
+  }, [id]);
 
   function handleProjectApplicationTo() {
     if (!project) {

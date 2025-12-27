@@ -23,33 +23,12 @@ export function ProjectsProvider({ children }) {
     }];
     
     // 3. نحفظ في localStorage
-    localStorage.setItem('projects', JSON.stringify(updatedCache));
+    localStorage.setItem('volunteer-projects', JSON.stringify(updatedCache));
     
     console.log('✅ تم حفظ المشروع في الكاش أولاً:', newProject.title);
-    
-    // 4. الآن نمرر للـ Reducer
-    dispatch({ 
-      type: 'ADD_PROJECT_FROM_CACHE', 
-      payload: newProject 
-    });
+
   }, [dispatch]);
-  
-  // عند تحميل Context، نحمل من الكاش
-  useEffect(() => {
-    const cachedProjects = JSON.parse(
-      localStorage.getItem('projects-cache') || '[]'
-    );
-    
-    if (cachedProjects.length > 0) {
-      // نحول من كاش إلى state
-      dispatch({ 
-        type: 'LOAD_FROM_CACHE', 
-        payload: cachedProjects 
-      });
-      console.log('📂 تم تحميل', cachedProjects.length, 'مشروع من الكاش');
-    }
-  }, []);
-  
+   
   return (
     <ProjectsContext.Provider value={{ state, dispatch, addProjectWithCache }}>
       {children}
