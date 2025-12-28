@@ -34,11 +34,22 @@ const getInitialProjects = () => {
 
 // الحالة الأولية
 export const initialProjectsState = {
-  projects: getInitialProjects(),
+  projects: getInitialProjectsData(),
   joinRequests: JSON.parse(localStorage.getItem('join-requests')) || [],
   selectedProject: null,
   isLoading: false,
   error: null
+};
+
+// دالة مساعدة للحفظ في localStorage
+const saveToLocalStorage = (key, data) => {
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch (error) {
+      console.error(`❌ خطأ في حفظ ${key} في localStorage:`, error);
+    }
+  }
 };
 
 // الـ Reducer
@@ -92,22 +103,17 @@ function projectReducer(state, action) {
       return {
         ...state,
         projects: updatedProjects,
-        selectedProject: state.selectedProject?.id === id 
-          ? { ...state.selectedProject, ...updates }
-          : state.selectedProject
+        selectedProject: state.selectedProject?.id === id ? null : state.selectedProject
       };
     }
     
     case 'ADD_JOIN_REQUEST': {
-      const { projectId, userId, userName, userEmail, message = '' } = action.payload;
+      const { projectId, userId } = action.payload;
       
       const newRequest = {
-        id: Date.now().toString(),
+        id: `request_${Date.now()}`,
         projectId,
         userId,
-        userName,
-        userEmail,
-        message,
         status: 'pending',
         requestedAt: new Date().toISOString()
       };
