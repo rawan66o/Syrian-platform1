@@ -79,12 +79,10 @@
   align-items: flex-start;
   width: 228.59px;
   height: 17px;
-  opacity: 1;
   color: #708387;
   font-weight: 500;
   font-size: 14px;
   line-height: 100%;
-  letter-spacing: 0%;
   text-align: right;
 }
 
@@ -102,7 +100,7 @@
   width: 100%;
   height: 19px;
   opacity: 1;
-  color: #072127;
+  color: #000000;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
@@ -148,16 +146,16 @@
 /* أزرار التنقل */
 .button-request {
   display: flex;
+  position: relative; 
   align-items: center;
   justify-content: flex-end;
   width: 100%;
   height: 89px;
   padding: 20px 100px;
   gap: 20px;
-  margin-top: 40px; /* مسافة من الأعلى */
+  /* padding-top: 40px; */
   background: #FFFFFF;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
-  position: relative; /* لا تستخدم top كبير */
+  box-shadow: 0px -2px 37.4px 0px #0000001A;
 }
 
 .button-request button{
@@ -169,6 +167,57 @@
   line-height: 150%;
   letter-spacing: -2%;
   text-align: center;
+}
+
+.date-input-container {
+  position: relative;
+  width: 100%;
+  height: 56px;
+  border: 0px solid #70838766;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.date-real-input {
+  /* position: absolute; */
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+  border: 0px;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.date-display {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.date-text {
+  flex: 1;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.date-arrow img {
+  width: 12px;
+  height: 11px;
+  transform: rotate(90deg);
 }
  
 /* تحسين حاوية رفع الصور */
@@ -209,13 +258,19 @@
   background: #6DCDE533;
 }
 
+.input-image image{
+  width: 67px;
+  height: 67px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* معاينة الصورة داخل الزر */
 .input-image-button img[src*="base64"],
 .input-image-button img[src*="blob"] {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
 /* تصغير نص المساعدة عند وجود صورة */

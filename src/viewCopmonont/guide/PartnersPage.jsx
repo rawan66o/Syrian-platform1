@@ -1,5 +1,5 @@
-import './Guide/Guide.css'
-import Footer from "../components/footer/footer"
+import './Guide.css'
+import Footer from "../../components/footer/footer"
 import { useEffect, useState } from 'react';
 
 function Partners() {

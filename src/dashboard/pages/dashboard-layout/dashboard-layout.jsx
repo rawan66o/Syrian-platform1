@@ -1,5 +1,5 @@
 import './dashboard-layout.css'
-import Navbar from "../../../components/volunteer-projects/Navbar"
+import Navbar from "../../../components/volunteer-projects/navbar/Navbar"
 import SidebarDashboard from '../../components/sidebar-dashboard/sidebar-dashboard'
 import Footer from '../../../components/footer/footer'
 import { Outlet } from 'react-router-dom'

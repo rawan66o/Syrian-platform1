@@ -1,38 +1,192 @@
 import './Posts.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { volunteers, commentsData } from '../Data';
+import { initialAuthState } from '../../Reducers/auth-reducer'
+import { useProjects } from '../../context/volunteer-projects-context'; 
+
 import appTheme from '../../appTeme';
 import { ThemeProvider } from '@mui/material/styles';
-
-import { volunteers, commentsData } from '../Data'
 import Footer from '../../components/footer/footer'
-import Navbar from '../../components/volunteer-projects/Navbar';
 import Comment from '../../components/volunteer-projects/Comment';
 import Volunteer from '../../components/volunteer-projects/Volunteer';
-import LatestProjects from "../../components/volunteer-projects/LatestProjects";
+import LatestProjects from "../../components/volunteer-projects/LatestProjects/LatestProjects";
+
 // IMPORTS MUI
 import { Box, Container, Grid, Typography } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import { useNavigate, useParams } from 'react-router';
 
-
-const progect = `لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .
-
-لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .
-لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين 
-
-لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .
-
-لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .سب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .
-
-لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار لقد قمنا بتحسين المحتوى الذي يناسب جمهورك، لقد قمنا بتجميع قائمة من الاخبار .`
-
-function Posts({full}) {
-  const [commentInput, setCommentInput] =useState('')
-   // حالة التحكم
+function Posts() {
+  const { projectId : id } = useParams();
+  const navigate = useNavigate();
+  const { state } = useProjects();
+  
+  const [commentInput, setCommentInput] = useState('');
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  // حالة التحكم
   const [showAll, setShowAll] = useState(false);
   const MAX_ROWS = 2;
   const ITEMS_PER_ROW = 3;
-  const MAX_ITEMS = MAX_ROWS * ITEMS_PER_ROW; // 6 عناصر
+  const MAX_ITEMS = MAX_ROWS * ITEMS_PER_ROW;
   
+  // تحميل المشروع
+  useEffect(() => {
+    const loadProject = async () => {
+      try {
+        setLoading(true);
+
+        let foundProject = localStorage.getItem(`project_${id}`); // 🚨 مشكلة 1
+        if (foundProject) {
+          setProject(JSON.parse(foundProject));
+        }
+
+        // 🚨 مشكلة 2: foundProject هنا سيكون string أو null
+        if (!foundProject) {
+          const saved = localStorage.getItem('volunteer-projects');
+          if (saved) {
+            const projects = JSON.parse(saved);
+            foundProject = projects.find(p => // 🚨 لا يمكن إعادة تعيين const
+              p && p.id && String(p.id) === String(id)
+            );
+          }
+        }
+
+        // هذا الكود لن ينفذ أبداً بسبب الأخطاء أعلاه
+        if (foundProject) {
+          setProject(foundProject);
+        } else {
+          setError('المشروع غير موجود');
+        }
+
+      } catch (error) {
+        console.error('خطأ:', error);
+        setError('حدث خطأ في تحميل المشروع');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProject();
+  }, [id, state.projects]); 
+
+  // دالة لتنسيق التاريخ بالعربي
+  const formatArabicDate = (dateString, formatType = 'full') => {
+    if (!dateString) return 'غير محدد';
+
+    try {
+      const date = new Date(dateString);
+
+      // أيام الأسبوع بالعربي
+      const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+
+      // الأشهر بالعربي
+      const months = [
+        'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+        'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+      ];
+
+      const dayName = days[date.getDay()];
+      const day = date.getDate();
+      const month = months[date.getMonth()];
+      const year = date.getFullYear();
+
+      if (formatType === 'day-only') {
+        return dayName; // "الثلاثاء"
+      }
+
+      if (formatType === 'date-only') {
+        return `${day} ${month} ${year}`; // "18 مارس 2024"
+      }
+
+      if (formatType === 'short') {
+        return `${dayName}، ${day}/${date.getMonth() + 1}/${year}`; // "الثلاثاء، 18/3/2024"
+      }
+
+      // full format
+      return `${dayName}، ${day} ${month} ${year}`; // "الثلاثاء، 18 مارس 2024"
+
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return dateString;
+    }
+  };
+  
+  function handleProjectApplicationTo() {
+    if (!project) {
+      alert("المشروع غير محمل بعد. الرجاء الانتظار...");
+      return;
+    }
+    navigate(`/project-application/${project.id}`, {
+      // state: {
+      //   project: project,          // بيانات المشروع كاملة
+      //   userId: user.id,           // ID المستخدم
+      //   userName: user.name,       // اسم المستخدم
+      //   userEmail: user.email      // إيميل المستخدم
+      // }
+    }); 
+  }
+
+  // حالة التحميل
+  if (loading) {
+    return (
+      <ThemeProvider theme={appTheme}>
+        <Container maxWidth="lg">
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            height: '50vh' 
+          }}>
+            <div style={{
+              width: '50px',
+              height: '50px',
+              border: '5px solid #f3f3f3',
+              borderTop: '5px solid #6DCDE5',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite'
+            }}></div>
+          </div>
+        </Container>
+      </ThemeProvider>
+    );
+  }
+
+  // حالة الخطأ
+  if (error || !project) {
+    return (
+      <ThemeProvider theme={appTheme}>
+        <Container maxWidth="lg">
+          <div style={{ textAlign: 'center', padding: '100px 0' }}>
+            <Typography variant="h5" color="error">
+              {error || 'المشروع غير موجود'}
+            </Typography>
+            <Typography variant="body1" sx={{ mt: 2, mb: 4 }}>
+              المشروع بالرقم {id} غير موجود.
+            </Typography>
+            <button 
+              onClick={() => navigate('/volunteer-projects')}
+              style={{
+                padding: '12px 24px',
+                background: '#6DCDE5',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '16px'
+              }}
+            >
+              العودة إلى المشاريع
+            </button>
+          </div>
+        </Container>
+      </ThemeProvider>
+    );
+  }
+
+  // استخدام بيانات المشروع الفعلية
   const displayedVolunteers = showAll 
     ? volunteers 
     : volunteers.slice(0, MAX_ITEMS);
@@ -41,90 +195,157 @@ function Posts({full}) {
 
   return(
     <ThemeProvider theme={appTheme}>
-      <Navbar/>
       <Container maxWidth="lg">
-        <div className='layout-l'>
-          <div className='layout-post'>
+        <div className="layout-l">
+          <div className="layout-post">
             {/* TITLE SECTION */}
             <div className='layout-title'>
               <ArrowForwardOutlinedIcon fontSize='medium'/>
-              <div className='title-text' >منشور تصميم  Ui UX للتطبيقات و المواقع الالكترونية.</div>
-            </div>
-            {/* HEADER SECTION */}
-            <div style={{gap:'20px', display:'flex', flexDirection:'column',
-              borderBottom: '1px solid #D9E4E5',paddingBottom:'24px'
-            }}>
-              <div className="post-header">
-                <div disabled className={`status-badge ${full ? 'full' : 'not-full'} `}>
-                  <div className='status-badge-text'>{full ? "ممتلئ" : "لم يكمتل العدد"}</div>
-                </div>
-                <button className='button-shere'>مشاركة 
-                  <img src='/images/icons/shere.png' alt='' style={{width:'13px', height:'16px'}} />
-                  </button>
-              </div>
-              <button style={{ width:'372px', height:'52px',fontSize:'18px' }}>طلب الدخول كمتطوع</button>
+              <div className='title-text'>{project.title}</div>
             </div>
             
-            <img src='/images/5.jpg' alt='' style={{width:'100%', height:'441.57px'}} />
-            {/* START TIME SECTION &&  Implementing entity */}
-            <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-              {/* START TIME SECTION */}
+            {/* HEADER SECTION */}
+            <div style={{
+              gap:'20px', 
+              display:'flex', 
+              flexDirection:'column',
+              borderBottom: '1px solid #D9E4E5',
+              paddingBottom:'24px'
+            }}>
+              <div className="post-header">
+                <div className={`status-badge ${project.isFull ? 'full' : 'not-full'}`}>
+                  <div className='status-badge-text'>
+                    {project.isFull ? "ممتلئ" : "لم يكتمل العدد"}
+                  </div>
+                </div>
+                <button className='button-shere'>
+                  مشاركة 
+                  <img 
+                    src='/images/icons/shere.png' 
+                    alt='مشاركة' 
+                    style={{width:'13px', height:'16px'}} 
+                  />
+                </button>
+              </div>
+              <button 
+                type='button' 
+                onClick={handleProjectApplicationTo}
+                style={{ width:'372px', height:'52px',fontSize:'18px' }}
+                disabled={project.isFull}
+              >
+                {project.isFull ? 'المشروع ممتلئ' : 'طلب الدخول كمتطوع'}
+              </button>
+            </div>
+            
+            {/* صورة المشروع */}
+            <img 
+              src={ '/images/5.jpg'} 
+              alt={project.title}
+              style={{width:'100%', height:'441.57px', objectFit: 'cover'}} 
+            />
+            
+            {/* START TIME SECTION */}
+            <div style={{
+              display:'flex',
+              alignItems:'center',
+              justifyContent:'space-between',
+              marginTop: '24px'
+            }}>
               <div className='card-time'>
                 <p>موعد البدأ</p>
-                <div style={{display:'flex', justifyContent:'space-between'}}>
-                  <Typography variant='h6' >الاحد</Typography>
-                   <div className="date-info">
-                    <img src='/images/icons/dashboard/calendar.svg' alt='' sx={{ fontSize: '20px' }} />
-                    <Typography variant='h6'>2025 / 8 / 18</Typography>
-                    </div> 
+                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', width:'100%', gap:'5px'}}>
+                  <h6>
+                    {formatArabicDate(project.startDate, 'day-only')}
+                  </h6>
+                  <div className="date-info">
+                    <img src='/images/icons/dashboard/calendar.svg' alt='تقويم' />
+                    <h6>
+                      {formatArabicDate(project.startDate, 'date-only')}
+                    </h6>
+                  </div> 
                 </div>       
               </div>
-              {/* SECTION OF Implementing entity */}
-              <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'12px'}}>
-                <Typography variant='h2' fontSize='16px' >الجهة المنفذة:</Typography>
-                <div style={{display:'flex', justifyContent:'space-around',alignItems:'center',gap:'12px'}}>
-                 <img src='/images/icons/icon2.png' alt='' 
-                   style={{width:'147px',height:'28px'}} />
-                 <img src='/images/icons/icon.png' alt='' 
-                   style={{width:'56px',height:'42px'}} />
+              
+              {/* الجهة المنفذة */}
+              <div style={{
+                display:'flex',
+                flexDirection:'column',
+                alignItems:'center',
+                gap:'12px'
+              }}>
+                <Typography variant='h2' fontSize='16px'>الجهة المنفذة:</Typography>
+                <div style={{
+                  display:'flex', 
+                  justifyContent:'space-around',
+                  alignItems:'center',
+                  gap:'12px'
+                }}>
+                  <img 
+                    src={ '/images/icons/icon2.png'} 
+                    alt='الجهة المنفذة'
+                    style={{width:'147px',height:'28px', objectFit: 'contain'}} 
+                  />
+                  <img 
+                    src='/images/icons/icon.png' 
+                    alt='شعار'
+                    style={{width:'56px',height:'42px'}} 
+                  />
                 </div>
               </div>
             </div>
+            
             <div className='divider'/>
-
-            {/* SECTION OF PROJECT DETAILES */}
-            <Typography variant='h2' fontSize='20px'  >وصف المشروع:</Typography>  
-            <Typography variant='body1' fontSize='16px' color='#708387' >{progect}</Typography>  
+            
+            {/* وصف المشروع */}
+            <Typography variant='h2' fontSize='20px'>وصف المشروع:</Typography>  
+            <Typography variant='body1' fontSize='16px' color='#708387'>
+              {project.fullDescription || project.description || 'لا يوجد وصف للمشروع'}
+            </Typography>  
             <div className='divider'/>
-
-            {/* Volunteers && BUTTON SHOWALL SECTION */}           
+            
+            {/* المتطوعين */}
             <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
-              <div style={{display:'flex',alignItems:'center'}}>
-                <Typography variant='h4' sx={{ color: '#072127', fontSize: '16px' }} >المتطوعين الحاليين:</Typography>
-                <Typography variant='h4' sx={{ color: '#708387', fontSize: '16px' }} >({volunteers.length}متطوع)</Typography>
+              <div style={{display:'flex', alignItems:'center'}}>
+                <Typography variant='h4' sx={{ color: '#072127', fontSize: '16px' }}>
+                  المتطوعين الحاليين:
+                </Typography>
+                <Typography variant='h4' sx={{ color: '#708387', fontSize: '16px' }}>
+                  ({project.currentVolunteers || 0} متطوع)
+                </Typography>
               </div>
-              <div className='number-of-vol'>العدد المطلوب:  {volunteers.length}</div>
+              <div className='number-of-vol'>
+                العدد المطلوب: {project.volunteersNeeded || project.volunteers}
+              </div>
             </div>
+            
             <div>
-              <Grid container spacing={2.5} sx={{ width:'100%', justifyContent:'center'}}>
+              <Grid
+                container
+                spacing={2.5}
+                sx={{ width: "100%", justifyContent: "center" }}>
                 {displayedVolunteers.map((vol) => (
                   <Grid item xs={12} md={4} sm={6} key={vol.id}
-                  sx={{ display:'flex', justifyContent:'center', padding:'8px'}}>
+                    sx={{ display:'flex', justifyContent:'center', padding:'8px'}}
+                  >
                     <Volunteer {...vol} />
                   </Grid>
                 ))}
               </Grid>
+              
               {!showAll && hiddenCount > 0 && (
                 <Box sx={{ textAlign: 'center', mt: 3 }}>
                   <button  
-                  className='button-hidden'
-                  onClick={() => setShowAll(true)}
-                  >عرض الكل</button>
+                    className='button-hidden'
+                    onClick={() => setShowAll(true)}
+                  >
+                    عرض {hiddenCount} متطوع إضافي
+                  </button>
                 </Box>
               )}
+              
               {showAll && (
                 <Box sx={{ textAlign: 'center', mt: 3 }}>
-                  <button  className='button-hidden'
+                  <button className='button-hidden'
                     onClick={() => setShowAll(false)}
                   >
                     إخفاء المتطوعين الإضافيين
@@ -132,45 +353,69 @@ function Posts({full}) {
                 </Box>
               )}
             </div> 
-            {/* Volunteers && BUTTON SHOWALL SECTION */}
+            
             <div className='divider'/>
-
-            {/* Comment SECTION */}
-
-            {/* TITLEComment SECTION */}
+            
+            {/* التعليقات */}
             <div style={{display:'flex',alignItems:'center', gap:'6px'}}>
-              <Typography variant='h4' 
-              sx={{ color: '#072127', fontSize: '16px' }} 
-              >التعليقات : </Typography>
-              <Typography variant='h4' 
-              sx={{ color: '#708387', fontSize: '16px' }}
-              >(122 تعليق)</Typography>
+              <Typography variant='h4' sx={{ color: '#072127', fontSize: '16px' }}>
+                التعليقات : 
+              </Typography>
+              <Typography variant='h4' sx={{ color: '#708387', fontSize: '16px' }}>
+                ({commentsData.length} تعليق)
+              </Typography>
             </div>
+            
             <div style={{ gap:'16px' }}>
               {commentsData.map((comment) => (
                 <Comment key={comment.id} {...comment} />
               ))}
             </div>
-            {/* Comment SECTION */}
+            
             <div className='divider'/>
-            {/* ADD COMMENT SECTION */}
-            <form>
+            
+            {/* إضافة تعليق */}
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              setCommentInput('');
+            }}>
               <div className='comment-publish'>
-                <input placeholder='اضف تعليق هنا' value={commentInput}
-                 onChange={(e)=>setCommentInput(e.target.value)}/>
-                <button style={{ width:'111px', height:'52px',fontSize:'18px' }}>نشر</button>
+                <input 
+                  placeholder='أضف تعليق هنا' 
+                  value={commentInput}
+                  onChange={(e) => setCommentInput(e.target.value)}
+                  required
+                />
+                <button type="submit" style={{ width:'111px', height:'52px',fontSize:'18px' }}>
+                  نشر
+                </button>
               </div>
             </form>
-            {/* ADD COMMENT SECTION */}
           </div>
+          
           <div style={{ width:'25%'}}>
             <LatestProjects />
           </div>
         </div>
       </Container>
-      <Footer/>
+      <Footer />
     </ThemeProvider>
-  )
+  );
+}
+
+// CSS للـ spinner
+const spinnerStyles = `
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+`;
+
+// إضافة الـ styles إذا لم تكن موجودة
+if (typeof document !== 'undefined') {
+  const style = document.createElement('style');
+  style.textContent = spinnerStyles;
+  document.head.appendChild(style);
 }
 
 export default Posts;

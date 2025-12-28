@@ -8,12 +8,10 @@
   border-radius: 24px;
   padding-bottom: 30px;
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
 }
 
 .volunteer-card-project:hover {
-  /* transform: translateY(-4px); */
+  transform: translateY(-4px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
