@@ -23,7 +23,7 @@ const NewPassword = () => {
         else if (firstPassword !== secondPassword) {
             showHideToast("كلمتا المرور غير متطابقتان", "error");
         } else {
-            dispatch({ type: 'RESET_PASSWORD_SUCCESS', payload: { email: state.email, newPassword: firstPassword } });
+            dispatch({ type: 'RESET_PASSWORD_SUCCESS', payload: { email: authState.email, newPassword: firstPassword } });
             showHideToast("تم تغيير كلمة المرور بنجاح", "success");
 
             setFirstPassword('')

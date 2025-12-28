@@ -26,7 +26,7 @@ const ForgotPassword = () => {
         } else {
 
             showHideToast("البريد الإلكتروني غير مسجل", "error");
-            dispatch({ ...state, error: 'البريد الإلكتروني غير مسجل' });
+            dispatch({ ...authState, error: 'البريد الإلكتروني غير مسجل' });
         }
     };
 
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
                             <label className={classes.input_label}>البريد الالكتروني</label>
                             <input className={classes.form_input} type='text' placeholder='ادخل البريد الالكتروني' 
                              value={email} onChange={(e)=> setEmail(e.target.value)} />
-                             {state.error && <p className={classes.error_message}>{state.error}</p> }
+                             {authState.error && <p className={classes.error_message}>{authState.error}</p> }
                         </div>
                     </div>
                     <div className={classes.button_wrapper}>

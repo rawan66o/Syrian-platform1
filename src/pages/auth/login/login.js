@@ -7,9 +7,9 @@ import { useAuth } from '../../../context/auth-context';
 const Login = () => {
     const { showHideToast } = useToast(); 
 
-    const { dispatch } = useAuth();
+    const { dispatch, authState } = useAuth();
     // const { isLoading, error } = authState
-    
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -93,9 +93,9 @@ const Login = () => {
         <div className={classes.header}>
             <h1>تسجيل الدخول</h1>
             <p className={classes.header_p}>ليس لديك حساب بالمنصة السورية؟ <Link to='/register' className={classes.link}>انشاء حساب</Link></p>
-            {state.error && (
+            {authState.error && (
                 <div className={classes.error_message}>
-                    ⚠️ {state.error}
+                    ⚠️ {authState.error}
                 </div>
             )}
         </div>
@@ -142,7 +142,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className={classes.button_wrapper}>
-                        <button className={classes.submit_button} type='submit' onClick={handleLogin} disabled={state.isLoading}  >تسجيل الدخول</button>
+                        <button className={classes.submit_button} type='submit' onClick={handleLogin} disabled={authState.isLoading}  >تسجيل الدخول</button>
                     </div>
                 </form>
             </div>

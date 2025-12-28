@@ -1,6 +1,6 @@
 import classes from '../auth.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import {  useState } from 'react';
 import { useToast } from '../../../context/ToastContext';
 import { useAuth } from '../../../context/auth-context';
 
@@ -124,8 +124,8 @@ const Register = () => {
                 </p>
                 
                 {/* ✅ عرض حالة التحميل والخطأ */}
-                {state.isLoading && <p className={classes.header_p}>جاري التسجيل...</p>}
-                {state.error && <p style={{color: 'red'}}>{state.error}</p>}
+                {authState.isLoading && <p className={classes.header_p}>جاري التسجيل...</p>}
+                {authState.error && <p style={{color: 'red'}}>{authState.error}</p>}
 
             </div>
             <div className={classes.auth_body}>
@@ -213,8 +213,8 @@ const Register = () => {
                         {/* زر الإرسال */}
                         <div className={classes.button_wrapper}>
                             <button className={classes.submit_button} 
-                                type='submit' disabled={state.isLoading} >
-                                {state.isLoading ? 'جاري التسجيل...' : 'انشاء الحساب'}
+                                type='submit' disabled={authState.isLoading} >
+                                {authState.isLoading ? 'جاري التسجيل...' : 'انشاء الحساب'}
                             </button>
                         </div>
                     </form>
