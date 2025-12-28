@@ -1,4 +1,5 @@
-import projects  from "../viewCopmonont/volunteer-projects/projects-data";
+// 📁 src/Reducers/project-reducer.js
+import projects from "../viewCopmonont/volunteer-projects/projects-data";
 
 // دالة لتحميل البيانات الأولية
 const getInitialProjects = () => {
@@ -34,7 +35,7 @@ const getInitialProjects = () => {
 
 // الحالة الأولية
 export const initialProjectsState = {
-  projects: getInitialProjectsData(),
+  projects: getInitialProjects(), // ✅ صححت هنا من getInitialProjectsData إلى getInitialProjects
   joinRequests: JSON.parse(localStorage.getItem('join-requests')) || [],
   selectedProject: null,
   isLoading: false,
@@ -53,7 +54,7 @@ const saveToLocalStorage = (key, data) => {
 };
 
 // الـ Reducer
-function projectReducer(state, action) {
+function projectReducer(state = initialProjectsState, action) { // ✅ أضفت القيمة الافتراضية
   console.log('Reducer Action:', action.type);
   
   // دالة حفظ مركزية
