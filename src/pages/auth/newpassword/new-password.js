@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router';
 import { useToast } from '../../../context/ToastContext';
-import authReducer, { initialAuthState } from '../../../Reducers/auth-reducer';
 import classes from '../auth.module.css';
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
+import { useAuth } from '../../../context/auth-context';
+
 const NewPassword = () => {
     const { showHideToast } = useToast(); 
-    const [state, dispatch] = useReducer(authReducer, initialAuthState);
+    const { dispatch, authState } = useAuth();
+    const { isLoading, error } = authState
 
     const [firstPassword, setFirstPassword] = useState('');
     const [secondPassword, setSecondPassword] = useState('');

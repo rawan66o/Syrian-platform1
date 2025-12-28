@@ -1,15 +1,16 @@
 import classes from '../auth.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useReducer, useState } from 'react';
-import authReducer, { initialAuthState } from '../../../Reducers/auth-reducer';
+import { useState } from 'react';
 import { useToast } from '../../../context/ToastContext';
+import { useAuth } from '../../../context/auth-context';
 
 const Register = () => {
     const navigate = useNavigate();
 
     const { showHideToast } = useToast();   
 
-    const [state, dispatch] = useReducer(authReducer, initialAuthState); 
+    const { dispatch, authState } = useAuth();
+    const { isLoading, error } = authState 
 
     // ======= STATES ========    
     const [formData, setFormData] = useState({

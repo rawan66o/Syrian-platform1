@@ -1,13 +1,15 @@
 import './Posts.css'
 import { useEffect, useState } from 'react';
+import { volunteers, commentsData } from '../Data';
+import { initialAuthState } from '../../Reducers/auth-reducer'
+import { useProjects } from '../../context/volunteer-projects-context'; 
+
 import appTheme from '../../appTeme';
 import { ThemeProvider } from '@mui/material/styles';
-import { volunteers, commentsData } from '../Data'
 import Footer from '../../components/footer/footer'
 import Comment from '../../components/volunteer-projects/Comment';
 import Volunteer from '../../components/volunteer-projects/Volunteer';
 import LatestProjects from "../../components/volunteer-projects/LatestProjects/LatestProjects";
-import { useProjects } from '../../context/volunteer-projects-context'; 
 
 // IMPORTS MUI
 import { Box, Container, Grid, Typography } from '@mui/material';
@@ -36,27 +38,23 @@ function Posts() {
       try {
         setLoading(true);
 
-        // 1. ابحث مباشرة في state.projects
-        let foundProject = null;
-
-        if (state.projects && state.projects.length > 0) {
-          foundProject = state.projects.find(p => 
-            p && p.id && String(p.id) === String(id)
-          );
+        let foundProject = localStorage.getItem(`project_${id}`); // 🚨 مشكلة 1
+        if (foundProject) {
+          setProject(JSON.parse(foundProject));
         }
 
-        // 2. إذا لم يوجد، ابحث في localStorage
+        // 🚨 مشكلة 2: foundProject هنا سيكون string أو null
         if (!foundProject) {
           const saved = localStorage.getItem('volunteer-projects');
           if (saved) {
             const projects = JSON.parse(saved);
-            foundProject = projects.find(p => 
+            foundProject = projects.find(p => // 🚨 لا يمكن إعادة تعيين const
               p && p.id && String(p.id) === String(id)
             );
           }
         }
 
-        // 3. تعيين النتيجة
+        // هذا الكود لن ينفذ أبداً بسبب الأخطاء أعلاه
         if (foundProject) {
           setProject(foundProject);
         } else {
@@ -72,7 +70,8 @@ function Posts() {
     };
 
     loadProject();
-  }, [id, state.projects]); // ⬅️ dependencies واضحة ومستقرة
+  }, [id, state.projects]); 
+
   // دالة لتنسيق التاريخ بالعربي
   const formatArabicDate = (dateString, formatType = 'full') => {
     if (!dateString) return 'غير محدد';

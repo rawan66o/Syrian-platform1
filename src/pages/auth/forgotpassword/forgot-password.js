@@ -2,13 +2,15 @@ import { useState } from 'react';
 import classes from '../auth.module.css';
 import { useNavigate } from 'react-router';
 import { useToast } from '../../../context/ToastContext';
-import authReducer, { initialAuthState } from '../../../Reducers/auth-reducer';
+import { useAuth } from '../../../context/auth-context';
 
 const ForgotPassword = () => {
     const { showHideToast } = useToast();
 
     const [email, setEmail] = useState('');
-    const [state, dispatch] = useState(authReducer, initialAuthState);   
+    const { dispatch, authState } = useAuth();
+    const { isLoading, error } = authState  
+
     const navigate = useNavigate();
     
     const handleValidateEmail = (e) => {

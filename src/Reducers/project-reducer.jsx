@@ -1,4 +1,4 @@
-import projects from "../viewCopmonont/volunteer-projects/projects-data";
+import projects  from "../viewCopmonont/volunteer-projects/projects-data";
 
 // دالة لتحميل البيانات الأولية
 const getInitialProjects = () => {
