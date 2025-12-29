@@ -120,6 +120,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.add_course_add_file_style:hover {
+  transform: translate(-50%, -50%) scale(1.2);
 }
 .add_course_add_file_style::before {
   content: "";
