@@ -114,6 +114,10 @@ root.render(
                 <Route path="add-course" element={<AddCourse />} />
                 <Route path="add-post" element={<AddPost />} />
 
+              </Route>
+                
+              {/* Other Pages */}
+              <Route element={<VolunteerLayout/>}>
                 {/* Guides */}
                 <Route
                   path="student-guide"
@@ -127,9 +131,6 @@ root.render(
                   path="volunteer-guide"
                   element={<Guide data={VolunteerGuide} title="دليل المتطوع" />}
                 />
-              </Route>
-              {/* Other Pages */}
-              <Route element={<VolunteerLayout/>}>
                 <Route path="partners" element={<Partners />} />
                 <Route path="volunteer-projects" element={<VolunteerProjects />} />
                 <Route path="volunteer-projects/:projectId" element={<Posts />} />

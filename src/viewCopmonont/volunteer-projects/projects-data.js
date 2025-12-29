@@ -246,8 +246,8 @@ const baseProjects = [
     fullDescription: description,
     organizationImage: "/images/organizations/1.jpg",
     projectImages: [
-      "/images/projects/1-1.jpg",
-      "/images/projects/1-2.jpg"
+      "/images/1-1.jpg",
+      "/images/1-2.jpg"
     ],
     createdAt: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(),
     status: "active",
@@ -317,12 +317,12 @@ export const initializeProjectsData = () => {
   }
 };
 
-// دالة الحصول على البيانات (تستخدم في الـ reducer)
 export const getInitialProjectsData = () => {
   if (typeof window === 'undefined') return baseProjects;
   
   try {
     const savedProjects = localStorage.getItem('volunteer-projects');
+    savedProjects.sort((a, b) => new Date(b) - new Date(a))
     
     if (savedProjects) {
       return JSON.parse(savedProjects);
