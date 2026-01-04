@@ -286,7 +286,6 @@ const baseProjects = [
   },
 ];
 
-// دالة لتحميل/دمج البيانات مع localStorage
 export const initializeProjectsData = () => {
   if (typeof window === 'undefined') return baseProjects;
   
@@ -304,12 +303,18 @@ export const initializeProjectsData = () => {
         joinRequests: project.joinRequests || []
       }));
       
-      localStorage.setItem('volunteer-projects', JSON.stringify(initializedProjects));
+      // ترتيب حسب التاريخ
+      const sortedProjects = initializedProjects.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      
+      localStorage.setItem('volunteer-projects', JSON.stringify(sortedProjects));
       console.log('تم تهيئة البيانات في localStorage');
-      return initializedProjects;
+      return sortedProjects;
     }
     
-    return JSON.parse(savedProjects);
+    const projects = JSON.parse(savedProjects);
+    return projects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     
   } catch (error) {
     console.error('خطأ في تهيئة البيانات:', error);
@@ -322,13 +327,14 @@ export const getInitialProjectsData = () => {
   
   try {
     const savedProjects = localStorage.getItem('volunteer-projects');
-    savedProjects.sort((a, b) => new Date(b) - new Date(a))
     
     if (savedProjects) {
-      return JSON.parse(savedProjects);
+      const projects = JSON.parse(savedProjects);
+      // ترتيب حسب التاريخ من الأحدث إلى الأقدم
+      return projects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
     
-    return baseProjects;
+    return baseProjects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     
   } catch (error) {
     console.error('❌ خطأ في تحميل البيانات:', error);

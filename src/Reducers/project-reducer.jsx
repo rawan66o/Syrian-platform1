@@ -1,7 +1,7 @@
 import { getInitialProjectsData } from "../viewCopmonont/volunteer-projects/projects-data";
 
 export const initialProjectsState = {
-  projects: getInitialProjectsData(), // ✅ استخدمنا الدالة الصحيحة
+  projects: getInitialProjectsData(), 
   joinRequests: JSON.parse(localStorage.getItem('join-requests')) || [],
   selectedProject: null,
   isLoading: false,
@@ -13,7 +13,11 @@ function projectReducer(state = initialProjectsState, action) {
   
   const saveToStorage = (projectsData, requestsData = null) => {
     if (projectsData !== null) {
-      localStorage.setItem('volunteer-projects', JSON.stringify(projectsData));
+      // ترتيب المشاريع قبل الحفظ
+      const sortedProjects = projectsData.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      localStorage.setItem('volunteer-projects', JSON.stringify(sortedProjects));
     }
     if (requestsData !== null) {
       localStorage.setItem('join-requests', JSON.stringify(requestsData));
@@ -35,12 +39,11 @@ function projectReducer(state = initialProjectsState, action) {
       };
       
       const updatedProjects = [...state.projects, newProject];
-      updatedProjects.sort((a, b) => new Date(b) - new Date(a))
       saveToStorage(updatedProjects);
       
       return {
         ...state,
-        projects: updatedProjects
+        projects: updatedProjects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       };
     }
     
@@ -57,7 +60,7 @@ function projectReducer(state = initialProjectsState, action) {
       
       return {
         ...state,
-        projects: updatedProjects,
+        projects: updatedProjects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
         selectedProject: state.selectedProject?.id === id ? null : state.selectedProject
       };
     }
@@ -94,7 +97,7 @@ function projectReducer(state = initialProjectsState, action) {
       
       return {
         ...state,
-        projects: updatedProjects,
+        projects: updatedProjects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
         joinRequests: updatedRequests
       };
     }
@@ -132,7 +135,7 @@ function projectReducer(state = initialProjectsState, action) {
       
       return {
         ...state,
-        projects: updatedProjects,
+        projects: updatedProjects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
         joinRequests: updatedRequests
       };
     }
@@ -148,7 +151,7 @@ function projectReducer(state = initialProjectsState, action) {
       
       return {
         ...state,
-        projects: updatedProjects,
+        projects: updatedProjects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
         selectedProject: state.selectedProject?.id === id ? null : state.selectedProject
       };
     }
@@ -176,7 +179,9 @@ function projectReducer(state = initialProjectsState, action) {
     
     case 'RELOAD_PROJECTS': {
       const savedProjects = localStorage.getItem('volunteer-projects');
-      const projects = savedProjects ? JSON.parse(savedProjects) : getInitialProjectsData();
+      const projects = savedProjects 
+        ? JSON.parse(savedProjects).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        : getInitialProjectsData();
       
       return {
         ...state,

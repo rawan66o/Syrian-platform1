@@ -1,12 +1,12 @@
 import { useState, useMemo, useEffect } from "react";
-import styles from "./volunteer-projects.module.css";
+import styles from "./Forum.module.css";
+import { useProjects } from "../../context/volunteer-projects-context";
 import Header from "../../components/volunteer-projects/header/Header";
-import CardProject from "../../components/volunteer-projects/CardProject/CardProject";
 import CategoriesProject from "../../components/volunteer-projects/categories-project/CategoriesProject";
 import LatestProjects from "../../components/volunteer-projects/latest-projects/LatestProjects";
-import { useProjects } from "../../context/volunteer-projects-context";
+import CardPosts from "../../components/volunteer-projects/card-posts/card-posts";
 
-function VolunteerProjects() {
+function Forum() {
   const { state } = useProjects();
   const { projects = [] } = state;
   const [activeStep, setActiveStep] = useState(0);
@@ -35,7 +35,7 @@ function VolunteerProjects() {
   
   // تحديد عدد العناصر لكل صفحة حسب حجم الشاشة
   const getItemsPerPage = () => {
-    if (screenSize === 'mobile') return 4;
+    if (screenSize === 'mobile') return 2;
     if (screenSize === 'tablet') return 4;
     return 6; // desktop
   };
@@ -51,7 +51,7 @@ function VolunteerProjects() {
   
   const COLUMN_COUNT = getColumnCount();
   
-  // حساب عدد الصفحات ديناميكياً
+  // حساب عدد الصفحات
   const totalPages = Math.max(1, Math.ceil(projects.length / ITEMS_PER_PAGE));
   
   // إنشاء مصفوفة الصفحات
@@ -87,7 +87,7 @@ function VolunteerProjects() {
 
   // دالة لعرض الأرقام مع النقاط للصفحات البعيدة
   const renderStepNumbers = () => {
-    const maxVisibleSteps = screenSize === 'mobile' ? 5 : 7;
+    const maxVisibleSteps = screenSize === 'mobile' ? 3 : screenSize === 'tablet' ? 5 : 7;
     
     if (totalPages <= maxVisibleSteps) {
       return steps.map((step, index) => (
@@ -103,31 +103,18 @@ function VolunteerProjects() {
 
     let numbersToShow = [];
     const currentStep = activeStep;
-
-    if (currentStep <= 3) {
-      numbersToShow = [0, 1, 2, 3, 4, totalPages - 1];
-    } else if (currentStep >= totalPages - 4) {
-      numbersToShow = [
-        0,
-        totalPages - 5,
-        totalPages - 4,
-        totalPages - 3,
-        totalPages - 2,
-        totalPages - 1,
-      ];
+    
+    if (currentStep <= 2) {
+      numbersToShow = [0, 1, 2, totalPages - 1];
+    } else if (currentStep >= totalPages - 3) {
+      numbersToShow = [0, totalPages - 3, totalPages - 2, totalPages - 1];
     } else {
-      numbersToShow = [
-        0,
-        currentStep - 1,
-        currentStep,
-        currentStep + 1,
-        totalPages - 1,
-      ];
+      numbersToShow = [0, currentStep - 1, currentStep, currentStep + 1, totalPages - 1];
     }
-
+    
     const result = [];
     let lastIndex = -1;
-
+    
     numbersToShow.forEach((index, i) => {
       if (index - lastIndex > 1) {
         result.push(
@@ -136,7 +123,7 @@ function VolunteerProjects() {
           </div>
         );
       }
-
+      
       result.push(
         <div
           key={index}
@@ -146,81 +133,77 @@ function VolunteerProjects() {
           {steps[index]}
         </div>
       );
-
       lastIndex = index;
     });
-
+    
     return result;
   };
-
+  
   // تحديد class للكونتينر حسب حجم الشاشة
   const getContainerClass = () => {
-    return `${styles.container} ${styles[screenSize]}`;
+    return `${styles.forumContainer} ${styles[screenSize]}`;
   };
 
   return (
-    <div className={styles.volunteerProjects}>
-      <Header title={'مشاريع تطوعية'} />
+    <div className={styles.forumPage}>
+      <Header title={'المنتدى'} />
       <div className={getContainerClass()}>
-        <div className={styles.contentWrapper}>
-          {/* الشريط الجانبي */}
-          <div className={styles.sidebar}>
-            <CategoriesProject />
-            <LatestProjects />
-          </div>
-
-          {/* المحتوى الرئيسي */}
-          <div className={styles.mainContent}>
-            {/* عرض المشاريع */}
-            {currentProjects.length > 0 ? (
-              <div 
-                className={styles.projectsGrid}
-                style={{ gridTemplateColumns: `repeat(${COLUMN_COUNT}, 1fr)` }}
-              >
-                {currentProjects.map((project) => (
-                  <div key={project.id} className={styles.projectItem}>
-                    <CardProject project={project} />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className={styles.noProjects}>
-                لا توجد مشاريع متاحة حالياً
-              </div>
-            )}
-
-            {/* Pagination - تعرض فقط إذا كان هناك أكثر من صفحة */}
-            {totalPages > 1 && (
-              <div className={styles.pagination}>
-                {/* زر السابق */}
-                <button
-                  className={`${styles.paginationBtn} ${styles.prevBtn} ${activeStep === 0 ? styles.disabled : ''}`}
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                >
-                  <span className={styles.arrowIcon}>←</span>
-                </button>
-
-                {/* أرقام الصفحات */}
-                <div className={styles.stepNumbersContainer}>
-                  {renderStepNumbers()}
+        {/* الشريط الجانبي */}
+        <div className={styles.forumSidebar}>
+          <CategoriesProject />
+          <LatestProjects />
+        </div>
+        
+        {/* المحتوى الرئيسي */}
+        <div className={styles.forumContent}>
+          {currentProjects.length > 0 ? (
+            <div 
+              className={styles.projectsGrid}
+              style={{ gridTemplateColumns: `repeat(${COLUMN_COUNT}, 1fr)` }}
+            >
+              {currentProjects.map((project) => (
+                <div key={project.id} className={styles.projectItem}>
+                  <CardPosts project={project} />
                 </div>
-
-                {/* زر التالي */}
-                <button
-                  className={`${styles.paginationBtn} ${styles.nextBtn} ${activeStep === totalPages - 1 ? styles.disabled : ''}`}
-                  onClick={handleNext}
-                  disabled={activeStep === totalPages - 1}
-                >
-                  <span className={styles.arrowIcon}>→</span>
-                </button>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.noProjects}>
+              لا توجد مشاريع متاحة حالياً
+            </div>
+          )}
+          
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className={styles.paginationContainer}>
+              {/* زر السابق */}
+              <button
+                className={`${styles.paginationBtn} ${styles.prevBtn} ${activeStep === 0 ? styles.disabled : ''}`}
+                onClick={handleBack}
+                disabled={activeStep === 0}
+              >
+                <span className={styles.arrow}>←</span>
+              </button>
+              
+              {/* أرقام الصفحات */}
+              <div className={styles.stepNumbers}>
+                {renderStepNumbers()}
               </div>
-            )}
-          </div>
+              
+              {/* زر التالي */}
+              <button
+                className={`${styles.paginationBtn} ${styles.nextBtn} ${activeStep === totalPages - 1 ? styles.disabled : ''}`}
+                onClick={handleNext}
+                disabled={activeStep === totalPages - 1}
+              >
+                <span className={styles.arrow}>→</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-export default VolunteerProjects;
+export default Forum;

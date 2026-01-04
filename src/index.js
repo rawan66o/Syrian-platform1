@@ -56,8 +56,11 @@ import MyProgectes from "./dashboard/pages/my-volunteer-progect/my-volunteer-pro
 import { ToastProvider } from "./context/ToastContext";
 import { ProjectsProvider } from "./context/volunteer-projects-context";
 import LoginLayout from "./layout/login-layout";
+import FormLayout from "./layout/form-layout";
 import VolunteerLayout from "./layout/volunteer-layout";
 import { AuthProvider } from "./context/auth-context";
+import Forum from "./viewCopmonont/forum/Forum";
+import PostPost from "./viewCopmonont/posts/postpost";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -134,9 +137,13 @@ root.render(
                 <Route path="partners" element={<Partners />} />
                 <Route path="volunteer-projects" element={<VolunteerProjects />} />
                 <Route path="volunteer-projects/:projectId" element={<Posts />} />
+                <Route path="forum/:projectId" element={<PostPost />} />
               </Route>
-              <Route path="project-application/:projectId" element={<ApplicationForMembership />} />
-              <Route path="add-project" element={<AddProject />} />
+              <Route element={<FormLayout />}>
+                <Route path="forum" element={<Forum />} />
+                <Route path="project-application/:projectId" element={<ApplicationForMembership />} />
+                <Route path="add-project" element={<AddProject />} />
+              </Route>
 
               {/* ================== Dashboard ================== */}
               <Route path="/dashboard" element={<DashboardLayout />}>

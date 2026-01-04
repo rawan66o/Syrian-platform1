@@ -3,7 +3,6 @@ import "./layout.css";
 
 import NavBar from "../components/navbar/navbar";
 import CourseDetailsNavBar from "../components/course-details-components/course-details-navbar/course-details-navbar";
-import Navbar from "../components/volunteer-projects/navbar/Navbar";
 
 const Layout = () => {
   const location = useLocation();

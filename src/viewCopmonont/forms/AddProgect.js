@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import { useToast } from '../../context/ToastContext';
 import { useNavigate } from 'react-router-dom';
 import { useProjects } from '../../context/volunteer-projects-context';
-import Navbar from './navbar';
 
 function AddProject() {
   const navigate = useNavigate();
@@ -154,7 +153,6 @@ function AddProject() {
 
   return (
     <div>
-      <Navbar />
       <div style={{padding:'10px'}}>
         <div className='app-a'>
           <div className='request'>

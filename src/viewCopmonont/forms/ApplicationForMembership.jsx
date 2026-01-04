@@ -1,5 +1,5 @@
 import './Form.css';
-import Navbar from './navbar';
+// import Navbar from './navbar';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { useToast } from '../../context/ToastContext';
@@ -109,7 +109,7 @@ function ApplicationForMembership() {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div style={{ padding: '10px' }}>
         <div className="app-a">
           <div className="request">

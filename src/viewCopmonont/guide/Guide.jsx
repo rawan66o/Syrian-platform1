@@ -1,5 +1,4 @@
 import './Guide.css'
-import Footer from "../../components/footer/footer";
 
 function Guide({data,title}) {
    function FormattedText({ text, className = "" }) {
@@ -51,7 +50,6 @@ function Guide({data,title}) {
            </div>
         )}
       </div>
-      <Footer/>
     </div>
   )   
 }

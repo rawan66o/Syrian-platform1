@@ -15,7 +15,7 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { useNavigate, useParams } from 'react-router';
 
-function Posts() {
+function PostPost() {
   const { projectId : id } = useParams();
   const navigate = useNavigate();
   const { state } = useProjects();
@@ -166,7 +166,7 @@ function Posts() {
               المشروع بالرقم {id} غير موجود.
             </Typography>
             <button 
-              onClick={() => navigate('/volunteer-projects')}
+              onClick={() => navigate('/forum')}
               style={{
                 padding: '12px 24px',
                 background: '#6DCDE5',
@@ -416,4 +416,4 @@ if (typeof document !== 'undefined') {
   document.head.appendChild(style);
 }
 
-export default Posts;
+export default PostPost;
