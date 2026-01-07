@@ -103,8 +103,8 @@ function Profile({ status = 'volunteer' }) {
                 popperPlacement="bottom-end"
                 customInput={
                   <div className='date-input-container'>
-                    <input readOnly />
-                    <div className='date-display'>
+                    <input readOnly style={{border:"0px"}} />
+                    <div className='date-display' style={{height:'48px'}}>
                       <div className='date-real-input'>
                         <img src='/icons/chalender/calendar.svg' alt='' />
                         <div className='date-text' style={{color: formData ? '#072127':'#708387' }}>

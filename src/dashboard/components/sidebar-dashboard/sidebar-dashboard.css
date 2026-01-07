@@ -26,11 +26,32 @@
     gap: 10px;
 }
 
+.content-sidebar-flex:hover {
+    background-color: #f5f5f5;
+}
+
+.content-sidebar-flex.active {
+    background-color: #6DCDE5;
+    color: white;
+}
+
 .content-sidebar-flex h5 {
     font-weight: 500;
     font-size: 16px;
     line-height: 100%;
     color: #072127;
+}
+
+.content-sidebar img {
+    width: 20px;
+    height: 20px;
+}
+
+.content-sidebar-flex.active h5 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    color: white;
 }
 
 .footer {
@@ -60,3 +81,7 @@
     width: 100%;
     gap: 10px
 }
+
+/* .footer-content.active {
+    color: white;
+} */

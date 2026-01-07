@@ -1,8 +1,7 @@
 import './Posts.css'
 import { useEffect, useState } from 'react';
-import { volunteers, commentsData } from '../Data';
-// import { initialAuthState } from '../../Reducers/auth-reducer'
-import { useProjects } from '../../context/volunteer-projects-context'; 
+import { volunteers } from '../Data';
+import { useComments, useProjects } from '../../context/volunteer-projects-context'; 
 
 import appTheme from '../../appTeme';
 import { ThemeProvider } from '@mui/material/styles';
@@ -16,11 +15,13 @@ import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { useNavigate, useParams } from 'react-router';
 
 function Posts() {
-  const { projectId : id } = useParams();
+  const { projectId: id } = useParams();
   const navigate = useNavigate();
   const { state } = useProjects();
+  const { commentsState, commentsDispatch } = useComments();
   
   const [commentInput, setCommentInput] = useState('');
+  const [replyToId, setReplyToId] = useState(null);
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,26 +37,31 @@ function Posts() {
     const loadProject = async () => {
       try {
         setLoading(true);
+        setError(null);
 
-        let foundProject = localStorage.getItem(`project_${id}`); // 🚨 مشكلة 1
-        if (foundProject) {
-          setProject(JSON.parse(foundProject));
+        let foundProject = null;
+
+        // البحث في state.projects أولاً
+        if (state.projects && state.projects.length > 0) {
+          foundProject = state.projects.find(p => 
+            p && p.id && String(p.id) === String(id)
+          );
         }
 
-        // 🚨 مشكلة 2: foundProject هنا سيكون string أو null
+        // إذا لم يجده في state، ابحث في localStorage
         if (!foundProject) {
           const saved = localStorage.getItem('volunteer-projects');
           if (saved) {
             const projects = JSON.parse(saved);
-            foundProject = projects.find(p => // 🚨 لا يمكن إعادة تعيين const
+            foundProject = projects.find(p => 
               p && p.id && String(p.id) === String(id)
             );
           }
         }
 
-        // هذا الكود لن ينفذ أبداً بسبب الأخطاء أعلاه
         if (foundProject) {
           setProject(foundProject);
+          localStorage.setItem(`project_${id}`, JSON.stringify(foundProject));
         } else {
           setError('المشروع غير موجود');
         }
@@ -127,6 +133,38 @@ function Posts() {
       // }
     }); 
   }
+
+  function handleAddComment(e) {
+    e.preventDefault();
+    
+    if (!commentInput.trim()) {
+      alert('الرجاء كتابة تعليق');
+      return;
+    }
+
+    commentsDispatch({ 
+      type: 'ADD_COMMENT', 
+      payload: {
+        projectId: id,
+        comment: {
+          content: commentInput,
+          author: "مستخدم",
+          parentId: replyToId
+        }
+      }
+    });
+    setCommentInput('');
+    setReplyToId(null);
+  }
+
+  const handleReplyToComment = (commentId) => {
+    setReplyToId(commentId);
+    setCommentInput(''); // تفريغ الحقل للبدء بالرد
+  };
+
+  // جلب تعليقات هذا المشروع
+  const projectComments = commentsState?.commentsByProject?.[id] || [];
+
 
   // حالة التحميل
   if (loading) {
@@ -355,29 +393,30 @@ function Posts() {
             
             <div className='divider'/>
             
-            {/* التعليقات */}
+            {/* COMMENTS SECTION */}
             <div style={{display:'flex',alignItems:'center', gap:'6px'}}>
               <Typography variant='h4' sx={{ color: '#072127', fontSize: '16px' }}>
                 التعليقات : 
               </Typography>
               <Typography variant='h4' sx={{ color: '#708387', fontSize: '16px' }}>
-                ({commentsData.length} تعليق)
+                ({projectComments.length} تعليق)
               </Typography>
             </div>
             
             <div style={{ gap:'16px' }}>
-              {commentsData.map((comment) => (
-                <Comment key={comment.id} {...comment} />
+              {projectComments.map((comment) => (
+                <Comment 
+                  key={comment.id} 
+                  {...comment} 
+                  onReply={() => handleReplyToComment(comment.id)}
+                />
               ))}
             </div>
             
             <div className='divider'/>
             
             {/* إضافة تعليق */}
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              setCommentInput('');
-            }}>
+            <form onSubmit={handleAddComment}>
               <div className='comment-publish'>
                 <input 
                   placeholder='أضف تعليق هنا' 

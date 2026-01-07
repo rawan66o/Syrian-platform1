@@ -2,6 +2,7 @@ import { getInitialProjectsData } from "../viewCopmonont/volunteer-projects/proj
 
 export const initialProjectsState = {
   projects: getInitialProjectsData(), 
+  currentProject: null,
   joinRequests: JSON.parse(localStorage.getItem('join-requests')) || [],
   selectedProject: null,
   isLoading: false,
@@ -25,6 +26,12 @@ function projectReducer(state = initialProjectsState, action) {
   };
   
   switch (action.type) {
+    case 'SET_PROJECT': {
+      return{
+        ...state,
+        currentProject: action.payload
+      }
+    }
     
     case 'ADD_PROJECT': {
       const newProject = {
